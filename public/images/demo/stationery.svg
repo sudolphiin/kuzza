@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="100%" height="100%" fill="#fff8e1"/>
+  <rect x="60" y="60" width="280" height="180" fill="#fff3e0" rx="10"/>
+  <line x1="80" y1="110" x2="320" y2="110" stroke="#fb8c00" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="140" cy="170" r="18" fill="#fb8c00"/>
+  <text x="200" y="230" font-family="Arial" font-size="18" fill="#8a4b00" text-anchor="middle">Writing Kit</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="100%" height="100%" fill="#f1f8f6"/>
+  <rect x="60" y="60" width="280" height="160" fill="#e8f5e9" rx="10"/>
+  <path d="M120 140 C140 100, 200 100, 220 140" fill="#ffcc80" stroke="#43a047" stroke-width="4"/>
+  <circle cx="160" cy="180" r="10" fill="#ff7043"/>
+  <text x="200" y="240" font-family="Arial" font-size="18" fill="#2e7d32" text-anchor="middle">Art & Craft</text>
+</svg>

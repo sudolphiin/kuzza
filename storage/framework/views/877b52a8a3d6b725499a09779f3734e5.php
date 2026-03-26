@@ -1,0 +1,8 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+    <h1>You are currently not connected to any networks.</h1>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /media/supreme/627ADCCA7ADC9BDB/Users/Ayiik/Documents/Code/MyBidhaa/School Management/resources/views/vendor/laravelpwa/offline.blade.php ENDPATH**/ ?>
