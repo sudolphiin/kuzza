@@ -1790,6 +1790,8 @@ class SmParentPanelController extends Controller
                 'recommended_item_id' => $item_id,
                 'parent_id' => $parent->id,
                 'student_id' => $student->id,
+                'assigned_quantity' => 1,
+                'assignment_type' => 'recommended',
                 'status' => 'pending'
             ]);
 
@@ -1824,7 +1826,8 @@ class SmParentPanelController extends Controller
                 ->with('recommendedItem')
                 ->get()
                 ->sum(function($item) {
-                    return $item->recommendedItem ? $item->recommendedItem->price : 0;
+                    $qty = (int) ($item->assigned_quantity ?: 1);
+                    return $item->recommendedItem ? ((float) $item->recommendedItem->price * $qty) : 0;
                 });
 
             return view('backEnd.parentPanel.recommended_items_cart', compact('cart_items', 'currency', 'total_amount'));

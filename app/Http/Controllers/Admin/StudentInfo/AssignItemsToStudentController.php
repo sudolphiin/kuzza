@@ -144,6 +144,8 @@ class AssignItemsToStudentController extends Controller
             'products.*.price' => 'nullable|numeric',
             'products.*.description' => 'nullable|string',
             'products.*.image_url' => 'nullable|string',
+            'products.*.quantity' => 'nullable|integer|min:1|max:999',
+            'products.*.assignment_type' => 'nullable|in:recommended,required',
             'deadline' => 'nullable|date',
         ]);
         $schoolId = auth()->user()->school_id;
@@ -208,6 +210,10 @@ class AssignItemsToStudentController extends Controller
             $price = isset($p['price']) ? (float) $p['price'] : null;
             $imageUrl = $p['image_url'] ?? null;
             $productUrl = $p['product_url'] ?? null;
+            $quantity = max(1, (int) ($p['quantity'] ?? 1));
+            $assignmentType = in_array(($p['assignment_type'] ?? 'recommended'), ['recommended', 'required'], true)
+                ? $p['assignment_type']
+                : 'recommended';
 
             $schoolItem = SchoolRecommendedItem::firstOrCreate(
                 [
@@ -231,20 +237,28 @@ class AssignItemsToStudentController extends Controller
                     continue;
                 }
 
-                $exists = ParentRecommendedItem::where('recommended_item_id', $schoolItem->id)
+                $existingAssignment = ParentRecommendedItem::where('recommended_item_id', $schoolItem->id)
                     ->where('parent_id', $parentUserId)
                     ->where('student_id', $student->user_id)
-                    ->exists();
+                    ->first();
 
-                if (! $exists) {
+                if (! $existingAssignment) {
                     ParentRecommendedItem::create([
                         'recommended_item_id' => $schoolItem->id,
                         'parent_id' => $parentUserId,
                         'student_id' => $student->user_id,
                         'assignment_batch_id' => $batch->id,
+                        'assigned_quantity' => $quantity,
+                        'assignment_type' => $assignmentType,
                         'status' => 'pending',
                     ]);
                     $assigned++;
+                } else {
+                    $existingAssignment->assigned_quantity = (int) ($existingAssignment->assigned_quantity ?: 1) + $quantity;
+                    $existingAssignment->assignment_type = $assignmentType;
+                    $existingAssignment->assignment_batch_id = $batch->id;
+                    $existingAssignment->status = 'pending';
+                    $existingAssignment->save();
                 }
             }
         }

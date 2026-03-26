@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title'); ?>
     <?php echo e(@Auth::user()->roles->name); ?> <?php echo app('translator')->get('common.dashboard'); ?>
 <?php $__env->stopSection(); ?>

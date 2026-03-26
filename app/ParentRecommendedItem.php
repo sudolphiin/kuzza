@@ -16,6 +16,8 @@ class ParentRecommendedItem extends Model
         'parent_id',
         'student_id',
         'assignment_batch_id',
+        'assigned_quantity',
+        'assignment_type',
         'status',
         'payment_amount',
         'payment_date',
@@ -24,6 +26,7 @@ class ParentRecommendedItem extends Model
     ];
 
     protected $casts = [
+        'assigned_quantity' => 'integer',
         'payment_amount' => 'decimal:2',
         'payment_date' => 'datetime',
         'delivered_date' => 'datetime',

@@ -34,6 +34,7 @@
                                 <th>Item Name</th>
                                 <th>Type</th>
                                 <th>Student</th>
+                                <th>Qty</th>
                                 <th>Price</th>
                                 <th>Deadline</th>
                                 <th>Status</th>
@@ -56,11 +57,19 @@
                                     </td>
                                     <td>{{ $item->student->full_name }}</td>
                                     <td>
+                                        <strong>{{ (int) ($item->assigned_quantity ?: 1) }}</strong>
+                                    </td>
+                                    <td>
+                                        @php
+                                            $lineQty = (int) ($item->assigned_quantity ?: 1);
+                                            $linePrice = (float) optional($item->recommendedItem)->price;
+                                            $lineTotal = $linePrice * $lineQty;
+                                        @endphp
                                         <strong>
                                             @if(isset($currency))
-                                                {{ $currency->currency_symbol }}{{ number_format($item->recommendedItem->price, 2) }}
+                                                {{ $currency->currency_symbol }}{{ number_format($lineTotal, 2) }}
                                             @else
-                                                {{ number_format($item->recommendedItem->price, 2) }}
+                                                {{ number_format($lineTotal, 2) }}
                                             @endif
                                         </strong>
                                     </td>
