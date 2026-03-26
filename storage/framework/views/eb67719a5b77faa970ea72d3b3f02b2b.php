@@ -336,19 +336,19 @@
                     </div>
                 </div>
 
-                <!-- Recommended by School Section -->
+                <!-- Items assigned by school -->
                 <div class="white-box mt-40">
                     <div class="row align-items-center justify-content-between mb-20">
                         <div class="col-auto">
                             <div class="main-title mb-0">
-                                <h3 class="mb-0">Recommended by School</h3>
+                                <h3 class="mb-0">Items assigned by school</h3>
                             </div>
                         </div>
                         <div class="col-auto d-flex flex-wrap align-items-center gap-2 justify-content-end">
                             <a href="<?php echo e(route('parent-recommended-items')); ?>" class="primary-btn fix-gr-bg">
                                 <span class="ti-shopping-cart mr-2"></span> VIEW ALL ITEMS
                             </a>
-                            <?php if(isset($recommended_items) && $recommended_items->count() > 0): ?>
+                            <?php if((isset($recommended_items) && $recommended_items->count() > 0) || (isset($required_items) && $required_items->count() > 0)): ?>
                                 <a href="<?php echo e(route('parent-recommended-items')); ?>" class="secondary-btn fix-gr-bg">
                                     See all assigned items <i class="ti-arrow-right ml-2"></i>
                                 </a>
@@ -357,36 +357,86 @@
                         </div>
                     </div>
 
-                    <?php if(isset($recommended_items) && $recommended_items->count() > 0): ?>
-                    <div class="row row-gap-24 mt-20">
+                    <?php if((isset($recommended_items) && $recommended_items->count() > 0) || (isset($required_items) && $required_items->count() > 0)): ?>
                         <?php
                             $categoryBadges = ['Books' => ['bg' => '#e3f2fd', 'color' => '#1976d2'], 'Uniform' => ['bg' => '#fce4ec', 'color' => '#d81b60'], 'Stationery' => ['bg' => '#fff3e0', 'color' => '#fb8c00'], 'default' => ['bg' => '#e8f5e9', 'color' => '#43a047']];
                         ?>
-                        <?php $__currentLoopData = $recommended_items->take(8); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php
-                                $schoolItem = $assigned->recommendedItem;
-                                $cat = $schoolItem->item_type ?? 'Stationery';
-                                $style = $categoryBadges[$cat] ?? $categoryBadges['default'];
-                                $img = $schoolItem && $schoolItem->image_url ? asset($schoolItem->image_url) : (str_contains(strtolower($cat), 'book') ? asset('public/images/demo/book.svg') : (str_contains(strtolower($cat), 'uniform') ? asset('public/images/demo/uniform.svg') : asset('public/images/demo/stationery.svg')));
-                            ?>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="white-box single-item-card" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;">
-                                    <div style="height:160px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;">
-                                        <img src="<?php echo e($img); ?>" alt="<?php echo e($schoolItem->item_name ?? 'Item'); ?>" style="max-width:80%;max-height:80%;object-fit:contain;" onerror="this.style.display='none'"/>
-                                    </div>
-                                    <div style="padding:16px;">
-                                        <h5 style="margin-bottom:6px;font-weight:600;color:#333;"><?php echo e($schoolItem->item_name ?? 'Item'); ?></h5>
-                                        <div style="margin-bottom:8px;"><span class="badge" style="background:<?php echo e($style['bg']); ?>;color:<?php echo e($style['color']); ?>;padding:5px 10px;border-radius:20px;font-size:12px;"><?php echo e($cat); ?></span></div>
-                                        <p style="font-size:13px;color:#666;margin-bottom:10px;"><?php echo e(\Illuminate\Support\Str::limit($schoolItem->description ?? '', 60)); ?></p>
-                                        <div style="margin-bottom:10px;"><h4 style="color:var(--base_color);font-weight:700;"><?php echo e($currency->currency_symbol ?? 'KSh'); ?> <?php echo e(number_format($schoolItem->price ?? 0, 2)); ?></h4></div>
-                                        <a href="<?php echo e(route('parent-recommended-items-cart')); ?>" class="btn btn-sm btn-primary" style="width:100%;">Go to checkout</a>
-                                    </div>
+
+                        <div class="mt-10">
+                            <h4 class="mb-15">Required items</h4>
+                            <?php if(isset($required_items) && $required_items->count() > 0): ?>
+                                <div class="row row-gap-24">
+                                    <?php $__currentLoopData = $required_items->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php
+                                            $schoolItem = $assigned->recommendedItem;
+                                            $cat = $schoolItem->item_type ?? 'Stationery';
+                                            $style = $categoryBadges[$cat] ?? $categoryBadges['default'];
+                                            $img = $schoolItem && $schoolItem->image_url ? asset($schoolItem->image_url) : (str_contains(strtolower($cat), 'book') ? asset('public/images/demo/book.svg') : (str_contains(strtolower($cat), 'uniform') ? asset('public/images/demo/uniform.svg') : asset('public/images/demo/stationery.svg')));
+                                            $qty = (int) ($assigned->assigned_quantity ?: 1);
+                                        ?>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="white-box single-item-card" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;">
+                                                <div style="height:160px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;">
+                                                    <img src="<?php echo e($img); ?>" alt="<?php echo e($schoolItem->item_name ?? 'Item'); ?>" style="max-width:80%;max-height:80%;object-fit:contain;" onerror="this.style.display='none'"/>
+                                                </div>
+                                                <div style="padding:16px;">
+                                                    <h5 style="margin-bottom:6px;font-weight:600;color:#333;"><?php echo e($schoolItem->item_name ?? 'Item'); ?></h5>
+                                                    <div style="margin-bottom:8px;">
+                                                        <span class="badge" style="background:#ffebee;color:#c62828;padding:5px 10px;border-radius:20px;font-size:12px;">Required</span>
+                                                        <span class="badge ml-1" style="background:<?php echo e($style['bg']); ?>;color:<?php echo e($style['color']); ?>;padding:5px 10px;border-radius:20px;font-size:12px;"><?php echo e($cat); ?></span>
+                                                    </div>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:6px;">Qty: <?php echo e($qty); ?></p>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:10px;"><?php echo e(\Illuminate\Support\Str::limit($schoolItem->description ?? '', 60)); ?></p>
+                                                    <div style="margin-bottom:10px;"><h4 style="color:var(--base_color);font-weight:700;"><?php echo e($currency->currency_symbol ?? 'KSh'); ?> <?php echo e(number_format(($schoolItem->price ?? 0) * $qty, 2)); ?></h4></div>
+                                                    <a href="<?php echo e(route('parent-recommended-items-cart')); ?>" class="btn btn-sm btn-primary" style="width:100%;">Go to checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </div>
+                            <?php else: ?>
+                                <p class="text-muted mb-3">No required items right now.</p>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mt-25">
+                            <h4 class="mb-15">Recommended items</h4>
+                            <?php if(isset($recommended_items) && $recommended_items->count() > 0): ?>
+                                <div class="row row-gap-24">
+                                    <?php $__currentLoopData = $recommended_items->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $assigned): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php
+                                            $schoolItem = $assigned->recommendedItem;
+                                            $cat = $schoolItem->item_type ?? 'Stationery';
+                                            $style = $categoryBadges[$cat] ?? $categoryBadges['default'];
+                                            $img = $schoolItem && $schoolItem->image_url ? asset($schoolItem->image_url) : (str_contains(strtolower($cat), 'book') ? asset('public/images/demo/book.svg') : (str_contains(strtolower($cat), 'uniform') ? asset('public/images/demo/uniform.svg') : asset('public/images/demo/stationery.svg')));
+                                            $qty = (int) ($assigned->assigned_quantity ?: 1);
+                                        ?>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="white-box single-item-card" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;">
+                                                <div style="height:160px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;">
+                                                    <img src="<?php echo e($img); ?>" alt="<?php echo e($schoolItem->item_name ?? 'Item'); ?>" style="max-width:80%;max-height:80%;object-fit:contain;" onerror="this.style.display='none'"/>
+                                                </div>
+                                                <div style="padding:16px;">
+                                                    <h5 style="margin-bottom:6px;font-weight:600;color:#333;"><?php echo e($schoolItem->item_name ?? 'Item'); ?></h5>
+                                                    <div style="margin-bottom:8px;">
+                                                        <span class="badge" style="background:#e8f5e9;color:#2e7d32;padding:5px 10px;border-radius:20px;font-size:12px;">Recommended</span>
+                                                        <span class="badge ml-1" style="background:<?php echo e($style['bg']); ?>;color:<?php echo e($style['color']); ?>;padding:5px 10px;border-radius:20px;font-size:12px;"><?php echo e($cat); ?></span>
+                                                    </div>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:6px;">Qty: <?php echo e($qty); ?></p>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:10px;"><?php echo e(\Illuminate\Support\Str::limit($schoolItem->description ?? '', 60)); ?></p>
+                                                    <div style="margin-bottom:10px;"><h4 style="color:var(--base_color);font-weight:700;"><?php echo e($currency->currency_symbol ?? 'KSh'); ?> <?php echo e(number_format(($schoolItem->price ?? 0) * $qty, 2)); ?></h4></div>
+                                                    <a href="<?php echo e(route('parent-recommended-items-cart')); ?>" class="btn btn-sm btn-primary" style="width:100%;">Go to checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </div>
+                            <?php else: ?>
+                                <p class="text-muted mb-0">No recommended items right now.</p>
+                            <?php endif; ?>
+                        </div>
                     <?php else: ?>
-                    <p class="text-muted mb-0">No items have been assigned to your children yet. The school may assign recommended items from the marketplace.</p>
+                    <p class="text-muted mb-0">No items have been assigned to your children yet.</p>
                     <?php endif; ?>
                 </div>
 

@@ -34,6 +34,7 @@ Route::post('editor/upload-file', 'UploadFileController@upload_image');
 // Route::get('hide-routes',[HomeController::class,'hideRoute']);
 
 Route::middleware(['subdomain'])->get('/', 'LandingController@index')->name('/');
+Route::middleware(['subdomain', 'throttle:10,1'])->post('landing/get-started', 'LandingController@submitGetStarted')->name('landing.get-started');
 
 // Item assignment routes (legacy helper + redirect into new admin flow)
 Route::middleware(['auth'])->group(function () {

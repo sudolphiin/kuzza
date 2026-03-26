@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('icon.png') }}" type="image/png" />
+    <link rel="icon" href="{{ ! empty($setting->favicon) ? asset($setting->favicon) : asset('public/backEnd/img/favicon.png') }}" type="image/png" />
     <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/font_awesome/css/all.min.css') }}" />
     <title>Kuzza Education ERP</title>
     <meta name="_token" content="{!! csrf_token() !!}" />
@@ -67,7 +67,7 @@
 
 
     @if (isset($ttl_rtl) && $ttl_rtl == 1)
-        <link rel="stylesheet" href="{{ url('public/backEnd/') }}/assets/vendors/vendors_static_style.css" />
+        <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/vendors_static_style.css') }}" />
         <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css') }}" />
     @endif
 
@@ -99,7 +99,7 @@
                 <div class="container box-1420">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand" href="{{ url('/') }}/home">
-                        <img class="w-75" src="{{ asset('logo.png') }}" alt="Kuzza Logo" style="max-width: 150px;">
+                        <img class="w-75" src="{{ ! empty($setting->logo) ? asset($setting->logo) : asset('public/backEnd/img/logo.png') }}" alt="Kuzza Logo" style="max-width: 150px;">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

@@ -2,18 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\SmAboutPage;
-use App\SmContactPage;
-use App\SmCourse;
-use App\SmEvent;
-use App\SmHomePageSetting;
-use App\SmNews;
-use App\SmNoticeBoard;
-use App\SmStaff;
-use App\SmStudent;
-use App\SmTestimonial;
-use Brian2694\Toastr\Facades\Toastr;
-use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class LandingController extends Controller
 {
@@ -24,56 +15,55 @@ class LandingController extends Controller
 
     public function index()
     {
-        try {
-            $schoolId = $this->resolveSchoolId();
-            $homePage = SmHomePageSetting::where('school_id', $schoolId)->first();
-            $news = SmNews::where('school_id', $schoolId)->where('mark_as_archive', 0)->orderBy('order', 'asc')->limit(3)->get();
-            $courses = SmCourse::where('school_id', $schoolId)->orderBy('id', 'asc')->limit(3)->get();
-            $events = SmEvent::where('school_id', $schoolId)->orderBy('from_date', 'desc')->limit(4)->get();
-            $testimonial = SmTestimonial::where('school_id', $schoolId)->get();
-            $contact_info = SmContactPage::where('school_id', $schoolId)->first();
-            $about = SmAboutPage::where('school_id', $schoolId)->first();
-            $totalStudents = SmStudent::where('active_status', 1)->where('school_id', $schoolId)->count();
-            $totalTeachers = SmStaff::where('active_status', 1)
-                ->where(function ($q): void {
-                    $q->where('role_id', 4)->orWhere('previous_role_id', 4);
-                })
-                ->where('school_id', $schoolId)
-                ->count();
-            $courseCount = SmCourse::where('school_id', $schoolId)->count();
-            $notice_board = SmNoticeBoard::where('publish_on', '<=', date('Y-m-d'))
-                ->where('school_id', $schoolId)
-                ->where('is_published', 1)
-                ->orderBy('created_at', 'DESC')
-                ->take(3)
-                ->get();
-
-            return view('frontEnd.landing.new', compact(
-                'homePage',
-                'news',
-                'courses',
-                'events',
-                'testimonial',
-                'contact_info',
-                'about',
-                'totalStudents',
-                'totalTeachers',
-                'courseCount',
-                'notice_board'
-            ));
-        } catch (Exception $e) {
-            Toastr::error('Unable to load landing page', 'Failed');
-
-            return view('frontEnd.landing.original');
-        }
+        return view('frontEnd.landing.kuzza_landing');
     }
 
-    private function resolveSchoolId(): int
+    public function submitGetStarted(Request $request)
     {
-        if (app()->bound('school') && app('school')) {
-            return app('school')->id;
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'organisation' => 'required|string|max:255',
+            'phone' => 'required|string|max:60',
+            'email' => 'required|email|max:255',
+        ], [], [
+            'organisation' => 'school or organisation',
+        ]);
+
+        $lines = [
+            'New KUZZA Get Started inquiry',
+            '',
+            'Name: '.$validated['name'],
+            'School / organisation: '.$validated['organisation'],
+            'Phone: '.$validated['phone'],
+            'Email: '.$validated['email'],
+        ];
+
+        $body = implode("\n", $lines);
+
+        $fromAddress = config('mail.from.address') ?: 'hello@mybidhaa.com';
+        $fromName = config('mail.from.name') ?: 'KUZZA';
+
+        try {
+            Mail::raw($body, function ($message) use ($validated, $fromAddress, $fromName): void {
+                $message->from($fromAddress, $fromName)
+                    ->to('hello@mybidhaa.com')
+                    ->cc('kmuga@mybidhaa.com')
+                    ->subject('KUZZA — Get Started inquiry from '.$validated['name'])
+                    ->replyTo($validated['email'], $validated['name']);
+            });
+        } catch (Throwable $e) {
+            report($e);
+
+            $msg = 'We could not send your request right now. Please try again or email hello@mybidhaa.com.';
+            if (config('app.debug')) {
+                $msg .= ' ('.$e->getMessage().')';
+            }
+
+            return response()->json(['message' => $msg], 500);
         }
 
-        return optional(SmHomePageSetting::select('school_id')->first())->school_id ?? 1;
+        return response()->json([
+            'message' => 'Thank you, we will get in touch soon.',
+        ]);
     }
 }

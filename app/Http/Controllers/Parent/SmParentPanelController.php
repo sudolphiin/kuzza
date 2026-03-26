@@ -153,15 +153,24 @@ class SmParentPanelController extends Controller
             $smAcademicCalendarController = new SmAcademicCalendarController();
             $data['events'] = $smAcademicCalendarController->calenderData();
 
-            // Get latest pending recommended items actually assigned to this parent (via batches)
-            $recommended_items = ParentRecommendedItem::where('parent_id', auth()->id())
+            // Get latest pending items assigned to this parent, then split by assignment type.
+            $assigned_items = ParentRecommendedItem::where('parent_id', auth()->id())
                 ->where('status', 'pending')
                 ->with(['recommendedItem', 'batch'])
                 ->orderByDesc('created_at')
-                ->take(12)
+                ->take(18)
                 ->get();
 
-            return view('backEnd.parentPanel.parent_dashboard', compact('holidays', 'calendar_events', 'smevents', 'totalNotices', 'my_childrens', 'sm_weekends', 'currency', 'complaints', 'recommended_items'), $data);
+            $required_items = $assigned_items->filter(function (ParentRecommendedItem $item) {
+                return $item->assignment_type === 'required';
+            })->values();
+
+            $recommended_items = $assigned_items->filter(function (ParentRecommendedItem $item) {
+                // Backward compatible: old rows with null/empty type are treated as recommended.
+                return $item->assignment_type !== 'required';
+            })->values();
+
+            return view('backEnd.parentPanel.parent_dashboard', compact('holidays', 'calendar_events', 'smevents', 'totalNotices', 'my_childrens', 'sm_weekends', 'currency', 'complaints', 'recommended_items', 'required_items'), $data);
     }
 
     public function studentUpdate(SmStudentAdmissionRequest $smStudentAdmissionRequest)

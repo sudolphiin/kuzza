@@ -326,19 +326,19 @@
                     </div>
                 </div>
 
-                <!-- Recommended by School Section -->
+                <!-- Items assigned by school -->
                 <div class="white-box mt-40">
                     <div class="row align-items-center justify-content-between mb-20">
                         <div class="col-auto">
                             <div class="main-title mb-0">
-                                <h3 class="mb-0">Recommended by School</h3>
+                                <h3 class="mb-0">Items assigned by school</h3>
                             </div>
                         </div>
                         <div class="col-auto d-flex flex-wrap align-items-center gap-2 justify-content-end">
                             <a href="{{ route('parent-recommended-items') }}" class="primary-btn fix-gr-bg">
                                 <span class="ti-shopping-cart mr-2"></span> VIEW ALL ITEMS
                             </a>
-                            @if(isset($recommended_items) && $recommended_items->count() > 0)
+                            @if((isset($recommended_items) && $recommended_items->count() > 0) || (isset($required_items) && $required_items->count() > 0))
                                 <a href="{{ route('parent-recommended-items') }}" class="secondary-btn fix-gr-bg">
                                     See all assigned items <i class="ti-arrow-right ml-2"></i>
                                 </a>
@@ -347,36 +347,86 @@
                         </div>
                     </div>
 
-                    @if(isset($recommended_items) && $recommended_items->count() > 0)
-                    <div class="row row-gap-24 mt-20">
+                    @if((isset($recommended_items) && $recommended_items->count() > 0) || (isset($required_items) && $required_items->count() > 0))
                         @php
                             $categoryBadges = ['Books' => ['bg' => '#e3f2fd', 'color' => '#1976d2'], 'Uniform' => ['bg' => '#fce4ec', 'color' => '#d81b60'], 'Stationery' => ['bg' => '#fff3e0', 'color' => '#fb8c00'], 'default' => ['bg' => '#e8f5e9', 'color' => '#43a047']];
                         @endphp
-                        @foreach($recommended_items->take(8) as $assigned)
-                            @php
-                                $schoolItem = $assigned->recommendedItem;
-                                $cat = $schoolItem->item_type ?? 'Stationery';
-                                $style = $categoryBadges[$cat] ?? $categoryBadges['default'];
-                                $img = $schoolItem && $schoolItem->image_url ? asset($schoolItem->image_url) : (str_contains(strtolower($cat), 'book') ? asset('public/images/demo/book.svg') : (str_contains(strtolower($cat), 'uniform') ? asset('public/images/demo/uniform.svg') : asset('public/images/demo/stationery.svg')));
-                            @endphp
-                            <div class="col-lg-3 col-md-6">
-                                <div class="white-box single-item-card" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;">
-                                    <div style="height:160px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;">
-                                        <img src="{{ $img }}" alt="{{ $schoolItem->item_name ?? 'Item' }}" style="max-width:80%;max-height:80%;object-fit:contain;" onerror="this.style.display='none'"/>
-                                    </div>
-                                    <div style="padding:16px;">
-                                        <h5 style="margin-bottom:6px;font-weight:600;color:#333;">{{ $schoolItem->item_name ?? 'Item' }}</h5>
-                                        <div style="margin-bottom:8px;"><span class="badge" style="background:{{ $style['bg'] }};color:{{ $style['color'] }};padding:5px 10px;border-radius:20px;font-size:12px;">{{ $cat }}</span></div>
-                                        <p style="font-size:13px;color:#666;margin-bottom:10px;">{{ \Illuminate\Support\Str::limit($schoolItem->description ?? '', 60) }}</p>
-                                        <div style="margin-bottom:10px;"><h4 style="color:var(--base_color);font-weight:700;">{{ $currency->currency_symbol ?? 'KSh' }} {{ number_format($schoolItem->price ?? 0, 2) }}</h4></div>
-                                        <a href="{{ route('parent-recommended-items-cart') }}" class="btn btn-sm btn-primary" style="width:100%;">Go to checkout</a>
-                                    </div>
+
+                        <div class="mt-10">
+                            <h4 class="mb-15">Required items</h4>
+                            @if(isset($required_items) && $required_items->count() > 0)
+                                <div class="row row-gap-24">
+                                    @foreach($required_items->take(4) as $assigned)
+                                        @php
+                                            $schoolItem = $assigned->recommendedItem;
+                                            $cat = $schoolItem->item_type ?? 'Stationery';
+                                            $style = $categoryBadges[$cat] ?? $categoryBadges['default'];
+                                            $img = $schoolItem && $schoolItem->image_url ? asset($schoolItem->image_url) : (str_contains(strtolower($cat), 'book') ? asset('public/images/demo/book.svg') : (str_contains(strtolower($cat), 'uniform') ? asset('public/images/demo/uniform.svg') : asset('public/images/demo/stationery.svg')));
+                                            $qty = (int) ($assigned->assigned_quantity ?: 1);
+                                        @endphp
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="white-box single-item-card" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;">
+                                                <div style="height:160px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;">
+                                                    <img src="{{ $img }}" alt="{{ $schoolItem->item_name ?? 'Item' }}" style="max-width:80%;max-height:80%;object-fit:contain;" onerror="this.style.display='none'"/>
+                                                </div>
+                                                <div style="padding:16px;">
+                                                    <h5 style="margin-bottom:6px;font-weight:600;color:#333;">{{ $schoolItem->item_name ?? 'Item' }}</h5>
+                                                    <div style="margin-bottom:8px;">
+                                                        <span class="badge" style="background:#ffebee;color:#c62828;padding:5px 10px;border-radius:20px;font-size:12px;">Required</span>
+                                                        <span class="badge ml-1" style="background:{{ $style['bg'] }};color:{{ $style['color'] }};padding:5px 10px;border-radius:20px;font-size:12px;">{{ $cat }}</span>
+                                                    </div>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:6px;">Qty: {{ $qty }}</p>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:10px;">{{ \Illuminate\Support\Str::limit($schoolItem->description ?? '', 60) }}</p>
+                                                    <div style="margin-bottom:10px;"><h4 style="color:var(--base_color);font-weight:700;">{{ $currency->currency_symbol ?? 'KSh' }} {{ number_format(($schoolItem->price ?? 0) * $qty, 2) }}</h4></div>
+                                                    <a href="{{ route('parent-recommended-items-cart') }}" class="btn btn-sm btn-primary" style="width:100%;">Go to checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
+                            @else
+                                <p class="text-muted mb-3">No required items right now.</p>
+                            @endif
+                        </div>
+
+                        <div class="mt-25">
+                            <h4 class="mb-15">Recommended items</h4>
+                            @if(isset($recommended_items) && $recommended_items->count() > 0)
+                                <div class="row row-gap-24">
+                                    @foreach($recommended_items->take(4) as $assigned)
+                                        @php
+                                            $schoolItem = $assigned->recommendedItem;
+                                            $cat = $schoolItem->item_type ?? 'Stationery';
+                                            $style = $categoryBadges[$cat] ?? $categoryBadges['default'];
+                                            $img = $schoolItem && $schoolItem->image_url ? asset($schoolItem->image_url) : (str_contains(strtolower($cat), 'book') ? asset('public/images/demo/book.svg') : (str_contains(strtolower($cat), 'uniform') ? asset('public/images/demo/uniform.svg') : asset('public/images/demo/stationery.svg')));
+                                            $qty = (int) ($assigned->assigned_quantity ?: 1);
+                                        @endphp
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="white-box single-item-card" style="border:1px solid #e9ecef;border-radius:8px;overflow:hidden;">
+                                                <div style="height:160px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;">
+                                                    <img src="{{ $img }}" alt="{{ $schoolItem->item_name ?? 'Item' }}" style="max-width:80%;max-height:80%;object-fit:contain;" onerror="this.style.display='none'"/>
+                                                </div>
+                                                <div style="padding:16px;">
+                                                    <h5 style="margin-bottom:6px;font-weight:600;color:#333;">{{ $schoolItem->item_name ?? 'Item' }}</h5>
+                                                    <div style="margin-bottom:8px;">
+                                                        <span class="badge" style="background:#e8f5e9;color:#2e7d32;padding:5px 10px;border-radius:20px;font-size:12px;">Recommended</span>
+                                                        <span class="badge ml-1" style="background:{{ $style['bg'] }};color:{{ $style['color'] }};padding:5px 10px;border-radius:20px;font-size:12px;">{{ $cat }}</span>
+                                                    </div>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:6px;">Qty: {{ $qty }}</p>
+                                                    <p style="font-size:13px;color:#666;margin-bottom:10px;">{{ \Illuminate\Support\Str::limit($schoolItem->description ?? '', 60) }}</p>
+                                                    <div style="margin-bottom:10px;"><h4 style="color:var(--base_color);font-weight:700;">{{ $currency->currency_symbol ?? 'KSh' }} {{ number_format(($schoolItem->price ?? 0) * $qty, 2) }}</h4></div>
+                                                    <a href="{{ route('parent-recommended-items-cart') }}" class="btn btn-sm btn-primary" style="width:100%;">Go to checkout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-muted mb-0">No recommended items right now.</p>
+                            @endif
+                        </div>
                     @else
-                    <p class="text-muted mb-0">No items have been assigned to your children yet. The school may assign recommended items from the marketplace.</p>
+                    <p class="text-muted mb-0">No items have been assigned to your children yet.</p>
                     @endif
                 </div>
 

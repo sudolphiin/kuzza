@@ -33,6 +33,7 @@
                                 <th>Item Name</th>
                                 <th>Type</th>
                                 <th>Student</th>
+                                <th>Qty</th>
                                 <th>Price</th>
                                 <th>Deadline</th>
                                 <th>Status</th>
@@ -56,12 +57,20 @@
                                     </td>
                                     <td><?php echo e($item->student->full_name); ?></td>
                                     <td>
+                                        <strong><?php echo e((int) ($item->assigned_quantity ?: 1)); ?></strong>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $lineQty = (int) ($item->assigned_quantity ?: 1);
+                                            $linePrice = (float) optional($item->recommendedItem)->price;
+                                            $lineTotal = $linePrice * $lineQty;
+                                        ?>
                                         <strong>
                                             <?php if(isset($currency)): ?>
-                                                <?php echo e($currency->currency_symbol); ?><?php echo e(number_format($item->recommendedItem->price, 2)); ?>
+                                                <?php echo e($currency->currency_symbol); ?><?php echo e(number_format($lineTotal, 2)); ?>
 
                                             <?php else: ?>
-                                                <?php echo e(number_format($item->recommendedItem->price, 2)); ?>
+                                                <?php echo e(number_format($lineTotal, 2)); ?>
 
                                             <?php endif; ?>
                                         </strong>
