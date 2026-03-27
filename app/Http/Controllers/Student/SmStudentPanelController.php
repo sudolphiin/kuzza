@@ -952,17 +952,21 @@ class SmStudentPanelController extends Controller
                 }
             }
 
-            $recommended_items = [];
+            $assigned_items = collect();
             try {
-                $assignedIds = ParentRecommendedItem::where('student_id', $user->id)->pluck('recommended_item_id')->unique();
-                if ($assignedIds->isNotEmpty()) {
-                    $recommended_items = SchoolRecommendedItem::whereIn('id', $assignedIds)->where('is_active', true)->get();
-                }
+                $assigned_items = ParentRecommendedItem::where('student_id', $user->id)
+                    ->where('status', 'pending')
+                    ->with(['recommendedItem', 'batch'])
+                    ->orderByDesc('created_at')
+                    ->get();
             } catch (\Exception $e) {
-                $recommended_items = [];
+                $assigned_items = collect();
             }
+            $recommended_items = $assigned_items->map(function ($item) {
+                return $item->recommendedItem;
+            })->filter();
 
-            return view('backEnd.studentPanel.studentProfile', compact('due_amount','events','totalSubjects', 'totalNotices', 'online_exams', 'teachers', 'issueBooks', 'homeworkLists', 'attendances', 'driver', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'events', 'holidays', 'sm_weekends', 'records', 'student_records', 'routineDashboard', 'my_leaves', 'attendance', 'year', 'month', 'days', 'subjectAttendance', 'complaints','old_fees', 'recommended_items'), $data);
+            return view('backEnd.studentPanel.studentProfile', compact('due_amount','events','totalSubjects', 'totalNotices', 'online_exams', 'teachers', 'issueBooks', 'homeworkLists', 'attendances', 'driver', 'student_detail', 'fees_assigneds', 'fees_discounts', 'exams', 'documents', 'timelines', 'siblings', 'grades', 'events', 'holidays', 'sm_weekends', 'records', 'student_records', 'routineDashboard', 'my_leaves', 'attendance', 'year', 'month', 'days', 'subjectAttendance', 'complaints','old_fees', 'recommended_items', 'assigned_items'), $data);
     }
 
     public function studentsDocumentApi(Request $request, $id)
@@ -1047,6 +1051,39 @@ class SmStudentPanelController extends Controller
             } else {
                 return view('backEnd.studentPanel.student_result', compact('student_detail', 'exams', 'grades', 'exam_terms', 'failgpaname', 'optional_subject_setup', 'student_optional_subject', 'maxgpa', 'records'));
             }
+    }
+
+    public function studentAssignedItems()
+    {
+        try {
+            $user = auth()->user();
+            $currency = SmGeneralSettings::find(1);
+            $query = ParentRecommendedItem::where('student_id', $user->id)
+                ->where('status', 'pending')
+                ->with(['recommendedItem', 'batch'])
+                ->orderByDesc('created_at');
+
+            $type = request()->get('type');
+            if (in_array($type, ['required', 'recommended'], true)) {
+                $query->where('assignment_type', $type);
+            }
+
+            $from = request()->get('from');
+            if (!empty($from)) {
+                $query->whereDate('created_at', '>=', $from);
+            }
+
+            $to = request()->get('to');
+            if (!empty($to)) {
+                $query->whereDate('created_at', '<=', $to);
+            }
+
+            $assigned_items = $query->paginate(12)->appends(request()->query());
+
+            return view('backEnd.studentPanel.assigned_items', compact('assigned_items', 'currency'));
+        } catch (\Exception $e) {
+            return redirect()->route('student-profile')->with('error', 'Failed to load assigned items.');
+        }
     }
 
     public function studentExamSchedule()

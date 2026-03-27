@@ -56,21 +56,21 @@
 
     :root {
     --background: #FAFAFA;
-    --base_color: #415094;
-    --sidebar_bg: #0d0e12;
-    --gradient_1: #7c32ff;
-    --gradient_2: #7c32ff;
---gradient_3: #7c32ff;
-    --text-color: #828bb2;
-    --scroll_color: #828bb2;
-    --text_white: #FFFFFF;
-    --bg_white: #FFFFFF;
-    --text_black: #000000;
-    --bg_black: #000000;
-    --border_color: #EFF2F8;
-    --sidebar_active: #ffffff;
-    --sidebar_hover: #ffffff;
-    --primary-color: #7c32ff;
+    --base_color: #5B2D8E;
+    --sidebar_bg: #3A1A6B;
+    --gradient_1: #5B2D8E;
+    --gradient_2: #5B2D8E;
+--gradient_3: #5B2D8E;
+    --text-color: #1A0A2E;
+    --scroll_color: #1A0A2E;
+    --text_white: #FAFAF8;
+    --bg_white: #FAFAF8;
+    --text_black: #1A0A2E;
+    --bg_black: #1A0A2E;
+    --border_color: #F2EEF9;
+    --sidebar_active: #F2EEF9;
+    --sidebar_hover: #C8A8E9;
+    --primary-color: #5B2D8E;
     --card-gradient-cyan: linear-gradient(to right, #06b6d4, #22d3ee);
     --card-gradient-violet: linear-gradient(to right, #8b5cf6, #a78bfa);
     --card-gradient-blue: linear-gradient(to right, #3b82f6, #60a5fa);
@@ -80,22 +80,31 @@
     --card-gradient-blue-hover: linear-gradient(to right, #3b82f6, #60a5fa);
     --card-gradient-fuchsia-hover: linear-gradient(to right, #d946ef, #e879f9);
     
-    --sidebar-section: #636674;
-    --sidebar-nav-link: #9a9cae;
+    --sidebar-section: #C8A8E9;
+    --sidebar-nav-link: #FAFAF8;
     --transparent: transparent;
 
-    --input_bg: #FFFFFF;
+    --input_bg: #FAFAF8;
     --success: #4BCF90;
     --danger: #FF6D68;
-    --warning: #E09079;
+    --warning: #F5C518;
     --red: #d33333;
-    --black: #000000;
-    --link-hover: #161931;
-    --notification_title: rgb(14, 23, 38);
+    --black: #1A0A2E;
+    --link-hover: #3A1A6B;
+    --notification_title: #1A0A2E;
     --notification_time: #3b3f5c99;
     --modalLink_color: #2f2f3be6;
-    --profile_text_hover: #2d3253;
-    --table_header: rgb(246, 248, 250);
+    --profile_text_hover: #3A1A6B;
+    --table_header: #F2EEF9;
     --box_shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px!important;
+    --purple: #5B2D8E;
+    --purple-deep: #3A1A6B;
+    --yellow: #F5C518;
+    --yellow-light: #FFE066;
+    --pink-accent: #E8A0D8;
+    --lilac: #C8A8E9;
+    --white: #FAFAF8;
+    --off-white: #F2EEF9;
+    --text-dark: #1A0A2E;
     }
 </style>

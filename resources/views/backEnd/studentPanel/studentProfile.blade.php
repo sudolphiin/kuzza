@@ -287,22 +287,38 @@
             </div>
             </div>
 
-            @if(isset($recommended_items) && $recommended_items->count() > 0)
+            @if(isset($assigned_items) && $assigned_items->count() > 0)
             <div class="row mt-40">
                 <div class="col-12">
                     <div class="white-box">
                         <div class="main-title">
-                            <h3 class="mb-15">Recommended by School</h3>
-                            <p class="text-muted mb-0">Items your school wants you to have. Your parent can order these from the parent dashboard.</p>
+                            <h3 class="mb-15">Items Assigned by School</h3>
+                            <p class="text-muted mb-0">These items were assigned by the school. Your parent can order them from the parent dashboard.</p>
+                        </div>
+                        <div class="text-right">
+                            <a href="{{ route('student-assigned-items') }}" class="primary-btn small fix-gr-bg">View all assigned items</a>
                         </div>
                         <div class="row mt-20">
-                            @foreach($recommended_items->take(6) as $item)
+                            @foreach($assigned_items->take(6) as $assigned)
+                            @php
+                                $item = $assigned->recommendedItem;
+                                $qty = (int) ($assigned->assigned_quantity ?: 1);
+                                $type = $assigned->assignment_type === 'required' ? 'Required' : 'Recommended';
+                                $deadline = $assigned->batch && $assigned->batch->deadline ? $assigned->batch->deadline->format('d M Y') : null;
+                            @endphp
                             <div class="col-lg-4 col-md-6 mb-3">
                                 <div class="border rounded p-3">
-                                    <h5 class="mb-2">{{ $item->item_name }}</h5>
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h5 class="mb-2">{{ $item->item_name ?? 'Item' }}</h5>
+                                        <span class="badge {{ $type === 'Required' ? 'badge-danger' : 'badge-success' }}">{{ $type }}</span>
+                                    </div>
                                     <span class="badge badge-info">{{ $item->item_type ?? 'General' }}</span>
                                     <p class="mt-2 mb-2 text-muted small">{{ \Illuminate\Support\Str::limit($item->description ?? '', 80) }}</p>
-                                    <strong>{{ $currency ?? 'KSh' }} {{ number_format($item->price ?? 0, 2) }}</strong>
+                                    <p class="mb-1 small">Qty: <strong>{{ $qty }}</strong></p>
+                                    @if($deadline)
+                                        <p class="mb-1 small text-muted">Deadline: {{ $deadline }}</p>
+                                    @endif
+                                    <strong>{{ $currency ?? 'KSh' }} {{ number_format(($item->price ?? 0) * $qty, 2) }}</strong>
                                 </div>
                             </div>
                             @endforeach

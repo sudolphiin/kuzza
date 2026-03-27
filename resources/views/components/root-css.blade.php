@@ -100,6 +100,72 @@
     --card-gradient-blue-hover: linear-gradient(to right, {{ $blue_one_hover }}, {{ $blue_two_hover }});
     --card-gradient-fuchsia: linear-gradient(to right, {{ $fuchsia_one }}, {{ $fuchsia_two }});
     --card-gradient-fuchsia-hover: linear-gradient(to right, {{ $fuchsia_one_hover }}, {{ $fuchsia_two_hover }});
+
+    /* Custom palette override */
+    --purple: #5B2D8E;
+    --purple-deep: #3A1A6B;
+    --yellow: #F5C518;
+    --yellow-light: #FFE066;
+    --pink-accent: #E8A0D8;
+    --lilac: #C8A8E9;
+    --white: #FAFAF8;
+    --off-white: #F2EEF9;
+    --text-dark: #1A0A2E;
+
+    --base_color: #5B2D8E;
+    --primary-color: #5B2D8E;
+    --background: #FAFAFA;
+    --text-color: #1A0A2E;
+    --text_white: #FAFAF8;
+    --bg_white: #FAFAF8;
+    --border_color: #F2EEF9;
+    --link-hover: #3A1A6B;
+    --table_header: #F2EEF9;
+    --sidebar_bg: #3A1A6B;
+    --sidebar_active: #F2EEF9;
+    --sidebar_hover: #C8A8E9;
+    --sidebar-section: #C8A8E9;
+    --sidebar-nav-link: #FAFAF8;
 }
         
+</style>
+<style>
+    /* Button color override */
+    :root {
+        --button_bg: #F5C518;
+        --button_bg_hover: #FFE066;
+        --button_text: #1A0A2E;
+    }
+
+    .primary-btn,
+    .primary-btn.fix-gr-bg,
+    .primary-btn.small,
+    .primary-btn.medium,
+    .primary-btn.large,
+    .primary-btn.semi-large,
+    .btn_1,
+    .btn.btn-primary,
+    button.primary-btn,
+    a.primary-btn {
+        background: var(--button_bg) !important;
+        border-color: var(--button_bg) !important;
+        color: var(--button_text) !important;
+        background-image: none !important;
+    }
+
+    .primary-btn:hover,
+    .primary-btn.fix-gr-bg:hover,
+    .primary-btn.small:hover,
+    .primary-btn.medium:hover,
+    .primary-btn.large:hover,
+    .primary-btn.semi-large:hover,
+    .btn_1:hover,
+    .btn.btn-primary:hover,
+    button.primary-btn:hover,
+    a.primary-btn:hover {
+        background: var(--button_bg_hover) !important;
+        border-color: var(--button_bg_hover) !important;
+        color: var(--button_text) !important;
+        background-image: none !important;
+    }
 </style>

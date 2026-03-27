@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <div class="notification_pagination_container notification_list">
+    <div class="pagination_container notification_list">
         <ul class="d-flex justify-content-center">
             @if ($paginator->onFirstPage())
                 <li class="pagination_item disabled" aria-disabled="true">

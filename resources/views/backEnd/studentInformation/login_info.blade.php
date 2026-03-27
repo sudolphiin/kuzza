@@ -2,6 +2,17 @@
 @section('title')
 @lang('reports.student_login_info')
 @endsection
+@push('css')
+<style>
+    body.admin {
+        background-image: url("{{ asset('CC.png') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+@endpush
 @section('mainContent')
 <input type="text" hidden value="{{ @$clas->class_name }}" id="cls">
 <input type="text" hidden value="{{ @$clas->section_name->sectionName->section_name }}" id="sec">

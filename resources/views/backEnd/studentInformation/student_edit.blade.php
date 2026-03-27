@@ -3,14 +3,103 @@
     @lang('student.student_edit')
 @endsection
 
-@section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/backEnd/') }}/css/croppie.css">
-@endsection
 @push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/backEnd/') }}/css/croppie.css">
     <style>
         .ti-calendar:before {
             position: relative !important;
             top: -8px !important;
+        }
+        .student-admission-box {
+            padding: 0;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border-radius: 12px;
+        }
+        .student-add-form-container {
+            background-color: #f9fafb;
+            padding: 2rem;
+        }
+
+        .form-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+            height: 100%;
+        }
+
+        .stu-sub-head {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        /* General form input styling */
+        .primary_input_field,
+        .nice-select,
+        .input-group > .form-control {
+            border-radius: 8px;
+            border-color: #d1d5db;
+            font-size: 14px;
+            box-shadow: inset 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .primary_input_field:focus,
+        .nice-select:focus,
+        .nice-select.open,
+        .input-group > .form-control:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 1px #4f46e5;
+        }
+
+        /* Datepicker styling */
+        .primary_datepicker_input .primary_input_field {
+            border-radius: 8px 0 0 8px;
+        }
+        .primary_datepicker_input .btn-date {
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* File uploader */
+        .primary_file_uploader .primary_input_field {
+            border-radius: 8px 0 0 8px;
+        }
+        .primary_file_uploader .primary-btn {
+            border-radius: 0 8px 8px 0 !important;
+        }
+
+        /* Tab styling */
+        .tabs_scroll_nav {
+            border-bottom: 1px solid #e5e7eb;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+            background: #fff;
+            border-radius: 12px 12px 0 0;
+            padding-top: 10px;
+        }
+        .tabs_scroll_nav .nav-link {
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #6b7280;
+            font-weight: 500;
+            padding: 1rem;
+            transition: all .2s ease;
+        }
+        .tabs_scroll_nav .nav-link.active,
+        .tabs_scroll_nav .nav-link:hover {
+            border-bottom-color: #4f46e5;
+            color: #374151;
+        }
+        .tabs_scroll_nav .nav-link.active {
+            font-weight: 600;
         }
     </style>
 @endpush
@@ -40,7 +129,7 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <div class="white-box">
+                    <div class="white-box student-admission-box">
                         <div class="row mb-15">
                             <div class="col-lg-6">
                                 <div class="main-title">

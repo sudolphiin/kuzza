@@ -86,6 +86,54 @@ use App\Http\Requests\Admin\StudentInfo\SmStudentAdmissionRequest;
 
 class SmParentPanelController extends Controller
 {
+    private function parentContext(): array
+    {
+        $parentUser = auth()->user();
+        $parentProfile = $parentUser->parent ?: SmParent::where('user_id', $parentUser->id)->withoutGlobalScopes()->first();
+        $parentIds = array_filter([$parentUser->id, optional($parentProfile)->id]);
+        $childrens = $parentProfile ? $parentProfile->childrens : collect();
+        if ($parentProfile && $childrens->isEmpty()) {
+            $childrens = SmStudent::withoutGlobalScopes()->where('parent_id', $parentProfile->id)->get();
+        }
+        $childUserIds = $childrens->pluck('user_id')->filter()->values()->all();
+        $childStudentIds = $childrens->pluck('id')->filter()->values()->all();
+
+        return compact('parentIds', 'childUserIds', 'childStudentIds', 'parentProfile');
+    }
+
+    private function resolvedChildren(?SmParent $parentProfile)
+    {
+        $children = $parentProfile ? $parentProfile->childrens : collect();
+
+        if ($parentProfile && $children->isEmpty()) {
+            $children = SmStudent::withoutGlobalScopes()
+                ->where('parent_id', $parentProfile->id)
+                ->get();
+        }
+
+        return $children;
+    }
+
+    private function parentAssignedItemsQuery(array $context)
+    {
+        $schoolId = auth()->user()->school_id;
+
+        return ParentRecommendedItem::query()
+            ->whereHas('recommendedItem', function ($query) use ($schoolId) {
+                $query->where('school_id', $schoolId)->where('is_active', true);
+            })
+            ->where(function ($query) use ($context) {
+                $query->whereIn('parent_id', $context['parentIds']);
+
+                if (!empty($context['childUserIds'])) {
+                    $query->orWhereIn('student_id', $context['childUserIds']);
+                }
+
+                if (!empty($context['childStudentIds'])) {
+                    $query->orWhereIn('student_id', $context['childStudentIds']);
+                }
+            });
+    }
     use CustomFields;
     use NotificationSend;
 
@@ -93,7 +141,11 @@ class SmParentPanelController extends Controller
     {
         \Log::info('Parent dashboard controller called for user: ' . auth()->user()->id);
             $holidays = SmHoliday::where('active_status', 1)->where('academic_id', getAcademicId())->where('school_id', auth()->user()->school_id)->get();
-            $my_childrens = auth()->user()->parent ? auth()->user()->parent->childrens->load('assignSubjects', 'assignSubject', 'studentOnlineExams', 'studentRecords', 'studentRecords.feesInvoice', 'studentRecords.class', 'studentRecords.section', 'studentRecords.incidents', 'examSchedule', 'attendances') : [];
+            $context = $this->parentContext();
+            $my_childrens = $this->resolvedChildren($context['parentProfile']);
+            if ($my_childrens instanceof \Illuminate\Support\Collection && $my_childrens->isNotEmpty()) {
+                $my_childrens->load('assignSubjects', 'assignSubject', 'studentOnlineExams', 'studentRecords', 'studentRecords.feesInvoice', 'studentRecords.class', 'studentRecords.section', 'studentRecords.incidents', 'examSchedule', 'attendances');
+            }
 
             $sm_weekends = SmWeekend::orderBy('order', 'ASC')->where('active_status', 1)->where('school_id', auth()->user()->school_id)->get();
             $smevents = SmEvent::where('active_status', 1)
@@ -154,7 +206,7 @@ class SmParentPanelController extends Controller
             $data['events'] = $smAcademicCalendarController->calenderData();
 
             // Get latest pending items assigned to this parent, then split by assignment type.
-            $assigned_items = ParentRecommendedItem::where('parent_id', auth()->id())
+            $assigned_items = $this->parentAssignedItemsQuery($context)
                 ->where('status', 'pending')
                 ->with(['recommendedItem', 'batch'])
                 ->orderByDesc('created_at')
@@ -1731,9 +1783,8 @@ class SmParentPanelController extends Controller
     public function recommendedItems()
     {
         try {
-            $parentId = auth()->id();
-
-            $items = ParentRecommendedItem::where('parent_id', $parentId)
+            $context = $this->parentContext();
+            $items = $this->parentAssignedItemsQuery($context)
                 ->with(['recommendedItem', 'batch', 'student'])
                 ->orderByDesc('created_at')
                 ->get();
@@ -1747,7 +1798,7 @@ class SmParentPanelController extends Controller
             });
 
             $currency = SmGeneralSettings::find(1);
-            $my_childrens = auth()->user()->parent ? auth()->user()->parent->childrens : [];
+            $my_childrens = $this->resolvedChildren($context['parentProfile']);
 
             return view('backEnd.parentPanel.recommended_items', [
                 'groupedItems' => $grouped,
@@ -1768,6 +1819,7 @@ class SmParentPanelController extends Controller
         try {
             $item = SchoolRecommendedItem::findOrFail($item_id);
             $parent = auth()->user();
+            $parentIds = array_filter([$parent->id, optional($parent->parent)->id]);
             
             // Validate that parent has children
             if (!$parent->parent || $parent->parent->childrens->count() == 0) {
@@ -1779,11 +1831,18 @@ class SmParentPanelController extends Controller
 
             // Get the first child (or you can modify to select specific child)
             $student = $parent->parent->childrens->first();
+            $studentUserId = $student ? $student->user_id : null;
+            if (! $studentUserId) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Selected child does not have a user account.',
+                ]);
+            }
 
             // Check if item already exists in cart for this student
             $existingItem = ParentRecommendedItem::where('recommended_item_id', $item_id)
-                ->where('student_id', $student->id)
-                ->where('parent_id', $parent->id)
+                ->where('student_id', $studentUserId)
+                ->whereIn('parent_id', $parentIds)
                 ->where('status', 'pending')
                 ->first();
 
@@ -1798,7 +1857,7 @@ class SmParentPanelController extends Controller
             ParentRecommendedItem::create([
                 'recommended_item_id' => $item_id,
                 'parent_id' => $parent->id,
-                'student_id' => $student->id,
+                'student_id' => $studentUserId,
                 'assigned_quantity' => 1,
                 'assignment_type' => 'recommended',
                 'status' => 'pending'
@@ -1824,13 +1883,14 @@ class SmParentPanelController extends Controller
     {
         try {
             $parent = auth()->user();
-            $cart_items = ParentRecommendedItem::where('parent_id', $parent->id)
+            $context = $this->parentContext();
+            $cart_items = $this->parentAssignedItemsQuery($context)
                 ->where('status', 'pending')
                 ->with('recommendedItem', 'student')
                 ->paginate(10);
 
             $currency = SmGeneralSettings::find(1);
-            $total_amount = ParentRecommendedItem::where('parent_id', $parent->id)
+            $total_amount = $this->parentAssignedItemsQuery($context)
                 ->where('status', 'pending')
                 ->with('recommendedItem')
                 ->get()
@@ -1858,9 +1918,9 @@ class SmParentPanelController extends Controller
                 'reason' => 'nullable|string|max:255',
             ]);
 
-            $parentId = auth()->id();
-            $item = ParentRecommendedItem::where('id', $id)
-                ->where('parent_id', $parentId)
+            $context = $this->parentContext();
+            $item = $this->parentAssignedItemsQuery($context)
+                ->where('id', $id)
                 ->firstOrFail();
 
             $reason = $request->input('reason');
@@ -1896,8 +1956,9 @@ class SmParentPanelController extends Controller
         ]);
 
         $parent = auth()->user();
+        $context = $this->parentContext();
 
-        $items = ParentRecommendedItem::where('parent_id', $parent->id)
+        $items = $this->parentAssignedItemsQuery($context)
             ->whereIn('id', $request->input('item_ids', []))
             ->where('status', 'pending')
             ->with('recommendedItem')

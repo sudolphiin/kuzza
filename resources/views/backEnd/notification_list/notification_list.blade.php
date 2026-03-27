@@ -1,12 +1,11 @@
 @extends('backEnd.master')
 @push('css')
     <style>
-        .notification_pagination_container.notification_list ul {
+        .pagination_container.notification_list ul {
             gap: 10px;
-            display: none;
         }
 
-        .notification_pagination_container.notification_list ul li a {
+        .pagination_container.notification_list ul li a {
             height: 32px;
             width: 32px;
             border-radius: 2px;
@@ -16,17 +15,17 @@
             color: #828bb2;
         }
 
-        .notification_pagination_container.notification_list ul li a:hover {
+        .pagination_container.notification_list ul li a:hover {
             background: var(--primary-color);
             color: var(--white);
         }
 
-        .notification_pagination_container.notification_list ul li a.current {
+        .pagination_container.notification_list ul li a.current {
             background: var(--primary-color);
             color: var(--white);
         }
 
-        .notification_pagination_container.notification_list ul li a.current i {
+        .pagination_container.notification_list ul li a.current i {
             color: var(--white);
         }
     </style>
