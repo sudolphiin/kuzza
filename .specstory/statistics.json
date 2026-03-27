@@ -1,0 +1,94 @@
+{
+  "sessions": {
+    "019d29f0-e184-7131-866f-af9ebaf94db5": {
+      "user_message_count": 7,
+      "agent_message_count": 28,
+      "start_timestamp": "2026-03-26T11:39:33.037Z",
+      "end_timestamp": "2026-03-26T12:03:17.204Z",
+      "markdown_size_bytes": 76112,
+      "provider": "codex-cli",
+      "last_updated": "2026-03-27T04:39:14Z"
+    },
+    "019d2aa4-357b-7180-ae4d-608361e01368": {
+      "user_message_count": 1,
+      "agent_message_count": 1,
+      "start_timestamp": "2026-03-26T14:55:06.338Z",
+      "end_timestamp": "2026-03-26T14:55:08.233Z",
+      "markdown_size_bytes": 379,
+      "provider": "codex-cli",
+      "last_updated": "2026-03-27T04:39:14Z"
+    },
+    "019d2c95-8c01-7362-a0ef-f9eba16f4b7a": {
+      "user_message_count": 2,
+      "agent_message_count": 7,
+      "start_timestamp": "2026-03-27T00:01:54.853Z",
+      "end_timestamp": "2026-03-27T00:04:35.800Z",
+      "markdown_size_bytes": 38319,
+      "provider": "codex-cli",
+      "last_updated": "2026-03-27T04:39:14Z"
+    },
+    "019d2db5-ee95-7ff0-b333-9d8063a1263e": {
+      "user_message_count": 1,
+      "agent_message_count": 10,
+      "start_timestamp": "2026-03-27T05:13:16.974Z",
+      "end_timestamp": "2026-03-27T05:13:45.044Z",
+      "markdown_size_bytes": 33206,
+      "provider": "codex-cli",
+      "last_updated": "2026-03-27T05:13:45Z"
+    },
+    "019d2db6-fee6-7d33-b1b8-2234175ec895": {
+      "user_message_count": 19,
+      "agent_message_count": 86,
+      "start_timestamp": "2026-03-27T05:14:20.856Z",
+      "end_timestamp": "2026-03-27T07:06:58.775Z",
+      "markdown_size_bytes": 178152,
+      "provider": "codex-cli",
+      "last_updated": "2026-03-27T07:06:59Z"
+    },
+    "15a1e814-e06d-4bfb-898b-f2850c556dff": {
+      "user_message_count": 1,
+      "agent_message_count": 164,
+      "start_timestamp": "2026-03-26T10:07:32.642Z",
+      "end_timestamp": "2026-03-26T10:17:12.229Z",
+      "markdown_size_bytes": 172644,
+      "provider": "gemini-cli",
+      "last_updated": "2026-03-27T04:38:48Z"
+    },
+    "1f0270a7-51de-41be-9e0c-83eb93d4c77d": {
+      "user_message_count": 1,
+      "agent_message_count": 0,
+      "start_timestamp": "2026-03-27T02:53:49+03:00",
+      "end_timestamp": "1970-01-01T03:00:00+03:00",
+      "markdown_size_bytes": 213,
+      "provider": "copilotide",
+      "last_updated": "2026-03-27T04:38:47Z"
+    },
+    "5e3d02a7-32de-4331-85e5-4741188cd7bf": {
+      "user_message_count": 1,
+      "agent_message_count": 18,
+      "start_timestamp": "2026-03-26T23:39:38.000Z",
+      "end_timestamp": "2026-03-26T23:52:02.412Z",
+      "markdown_size_bytes": 88169,
+      "provider": "gemini-cli",
+      "last_updated": "2026-03-27T04:38:48Z"
+    },
+    "75857435-019e-40bd-b235-a898546dfbed": {
+      "user_message_count": 0,
+      "agent_message_count": 8,
+      "start_timestamp": "2026-03-27T00:33:08.243Z",
+      "end_timestamp": "2026-03-27T00:36:03.929Z",
+      "markdown_size_bytes": 84211,
+      "provider": "gemini-cli",
+      "last_updated": "2026-03-27T04:38:48Z"
+    },
+    "c09284f5-c860-4495-b2e9-93611817cc02": {
+      "user_message_count": 1,
+      "agent_message_count": 0,
+      "start_timestamp": "2026-03-26T23:56:26.136Z",
+      "end_timestamp": "2026-03-26T23:56:26.136Z",
+      "markdown_size_bytes": 232,
+      "provider": "gemini-cli",
+      "last_updated": "2026-03-27T04:38:48Z"
+    }
+  }
+}

@@ -2,13 +2,60 @@
 @section('title')
     Assign Items to Student
 @endsection
-@push('style')
+@push('css')
 <style>
     .assign-shell {
         background: #f5f7fb;
         padding: 24px;
         border-radius: 14px;
         border: 1px solid #e4e7f2;
+    }
+
+    .assign-shell .panel-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 16px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .assign-shell .panel-title {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: #94a3b8;
+        margin-bottom: 10px;
+    }
+
+    .assign-shell .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.6), rgba(148, 163, 184, 0.1));
+        border: 0;
+        margin: 20px 0;
+    }
+
+    .assign-shell .nav-tabs {
+        border-bottom: 0;
+        background: #eef2ff;
+        padding: 6px;
+        border-radius: 999px;
+        display: inline-flex;
+        gap: 6px;
+    }
+
+    .assign-shell .nav-tabs .nav-link {
+        border: 0;
+        border-radius: 999px;
+        padding: 8px 18px;
+        font-weight: 600;
+        color: #4b5563;
+    }
+
+    .assign-shell .nav-tabs .nav-link.active {
+        background: #111827;
+        color: #ffffff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
     }
 
     .assign-shell .section-title {
@@ -104,14 +151,49 @@
         background-color: #f3f4f6;
     }
 
+    /* Recipients palette overrides */
+    .assign-shell .recipients-panel {
+        background: var(--off-white);
+        border-color: var(--lilac);
+        box-shadow: 0 10px 22px rgba(58, 26, 107, 0.12);
+    }
+
+    .assign-shell .recipients-panel .panel-title {
+        color: var(--purple);
+    }
+
+    .assign-shell .recipients-panel .scope-toggle-chain {
+        border-color: var(--lilac);
+        background: var(--white);
+        box-shadow: 0 4px 12px rgba(58, 26, 107, 0.12);
+    }
+
+    .assign-shell .recipients-panel .scope-toggle-chain .toggle-option:not(:last-child) {
+        border-right-color: var(--lilac);
+    }
+
+    .assign-shell .recipients-panel .scope-toggle-chain .toggle-option label {
+        color: var(--text-dark);
+    }
+
+    .assign-shell .recipients-panel .scope-toggle-chain .toggle-option input:checked + label {
+        background: var(--purple);
+        color: var(--white);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .assign-shell .recipients-panel .scope-toggle-chain .toggle-option label:hover {
+        background-color: var(--off-white);
+    }
+
     /* Selections as right-side card */
     .selections-card {
-        background: linear-gradient(165deg, #0b1020 0%, #111827 55%, #0f766e 120%);
+        background: var(--purple-deep);
         border-radius: 12px;
-        border: 1px solid rgba(15, 23, 42, 0.15);
+        border: 1px solid var(--lilac);
         padding: 10px 12px;
-        color: #e5e7eb;
-        box-shadow: 0 10px 24px rgba(2, 6, 23, 0.35);
+        color: var(--white);
+        box-shadow: 0 10px 24px rgba(58, 26, 107, 0.25);
         min-height: 86px;
     }
 
@@ -119,31 +201,31 @@
         font-size: 10px;
         letter-spacing: .08em;
         text-transform: uppercase;
-        color: rgba(226, 232, 240, 0.7);
+        color: var(--lilac);
     }
 
     .selections-card .count-line {
         font-size: 13px;
-        color: #e2e8f0;
+        color: var(--white);
     }
 
     .selections-card .total-line strong {
-        color: #fbbf24;
+        color: var(--yellow);
     }
 
     #selections-detail {
-        background: #0b1220;
-        border: 1px solid rgba(148, 163, 184, 0.25);
-        color: #e2e8f0;
+        background: var(--off-white);
+        border: 1px solid var(--lilac);
+        color: var(--text-dark);
     }
 
     #selections-detail .text-muted,
     #selections-detail .small {
-        color: #94a3b8 !important;
+        color: var(--purple) !important;
     }
 
     #selections-list li {
-        border-color: rgba(148, 163, 184, 0.25) !important;
+        border-color: var(--lilac) !important;
     }
 
     .cart-pulse {
@@ -163,6 +245,63 @@
         object-fit: cover;
         border: 1px solid #e5e7eb;
         background: #f9fafb;
+    }
+
+    @media (min-width: 992px) {
+        .assign-shell .selections-panel {
+            position: sticky;
+            top: 90px;
+        }
+    }
+
+    /* History Table */
+    .history-table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        margin-top: -10px;
+    }
+    .history-table thead th {
+        border: none;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        letter-spacing: .06em;
+        padding-top: 0;
+        padding-bottom: 4px;
+    }
+    .history-table tbody tr {
+        background: #ffffff;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        transition: all .2s ease-in-out;
+    }
+    .history-table tbody tr:hover {
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+        transform: translateY(-2px);
+    }
+    .history-table tbody td {
+        border-top: none;
+        padding: 1rem;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+    .history-table tbody td:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .history-table tbody td:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    /* Batch Item Card (in modal) */
+    .batch-item-card {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 16px;
+        height: 100%;
     }
 </style>
 @endpush
@@ -197,105 +336,118 @@
 
                         <div class="row mb-20">
                             <div class="col-md-6">
-                                <label class="primary_input_label d-block">Recipients</label>
-                                <div class="scope-toggle-chain">
-                                    <div class="toggle-option">
-                                        <input class="scope-radio" type="radio" name="assign_scope" id="scope-all" value="all" checked>
-                                        <label for="scope-all">Assign to all students</label>
-                                    </div>
-                                    <div class="toggle-option">
-                                        <input class="scope-radio" type="radio" name="assign_scope" id="scope-class" value="class">
-                                        <label for="scope-class">Assign to class / stream</label>
-                                    </div>
-                                    <div class="toggle-option">
-                                        <input class="scope-radio" type="radio" name="assign_scope" id="scope-student" value="student">
-                                        <label for="scope-student">Assign to specific student</label>
+                                <div class="panel-card h-100 recipients-panel">
+                                    <div class="panel-title">Recipients</div>
+                                    <div class="scope-toggle-chain">
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-all" value="all" checked>
+                                            <label for="scope-all">Assign to all students</label>
+                                        </div>
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-class" value="class">
+                                            <label for="scope-class">Assign to class / stream</label>
+                                        </div>
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-student" value="student">
+                                            <label for="scope-student">Assign to specific student</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div id="scope-class-fields" class="mb-3" style="display:none;">
-                                    <label class="primary_input_label d-block">Class / Section</label>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-2">
-                                            <select id="class-select" class="primary_select form-control">
-                                                <option value="">Select class</option>
-                                                @foreach($classes as $class)
-                                                    <option value="{{ $class->id }}">{{ $class->class_name }}</option>
-                                                @endforeach
-                                            </select>
+                                <div class="panel-card h-100">
+                                    <div class="panel-title">Targeting</div>
+                                    <div id="scope-class-fields" class="mb-3" style="display:none;">
+                                        <label class="primary_input_label d-block">Class / Section</label>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <select id="class-select" class="primary_select form-control">
+                                                    <option value="">Select class</option>
+                                                    @foreach($classes as $class)
+                                                        <option value="{{ $class->id }}">{{ $class->class_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <select id="section-select" class="primary_select form-control">
+                                                    <option value="">All sections</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 mb-2">
-                                            <select id="section-select" class="primary_select form-control">
-                                                <option value="">All sections</option>
-                                            </select>
-                                        </div>
+                                        <small class="text-muted d-block">All students in the selected class/section will receive these items.</small>
                                     </div>
-                                    <small class="text-muted d-block">All students in the selected class/section will receive these items.</small>
-                                </div>
-                                <div id="scope-student-fields">
-                                    <label class="primary_input_label">Search student</label>
-                                    <input type="text" id="student-search" class="primary_input_field form-control" placeholder="Type student name or admission no...">
-                                    <input type="hidden" id="selected-student-id">
-                                    <input type="hidden" id="selected-student-user-id">
-                                    <input type="hidden" id="selected-student-name">
-                                    <div id="student-results" class="list-group mt-1" style="display:none; max-height:200px; overflow-y:auto;"></div>
-                                    <div id="selected-student-display" class="mt-2 text-success" style="display:none;"></div>
+                                    <div id="scope-student-fields">
+                                        <label class="primary_input_label">Search student</label>
+                                        <input type="text" id="student-search" class="primary_input_field form-control" placeholder="Type student name or admission no...">
+                                        <input type="hidden" id="selected-student-id">
+                                        <input type="hidden" id="selected-student-user-id">
+                                        <input type="hidden" id="selected-student-name">
+                                        <div id="student-results" class="list-group mt-1" style="display:none; max-height:200px; overflow-y:auto;"></div>
+                                        <div id="selected-student-display" class="mt-2 text-success" style="display:none;"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <hr>
+                        <hr class="section-divider">
 
                         <div class="row mb-20">
                             <div class="col-md-6">
-                                <label class="primary_input_label">Search products</label>
-                                <div class="input-group">
-                                    <input type="text" id="product-search" class="primary_input_field form-control" placeholder="Type to search (e.g. books, uniform)...">
-                                    <div class="input-group-append">
-                                        <button type="button" id="btn-search-products" class="btn btn-primary">Search</button>
+                                <div class="panel-card h-100">
+                                    <div class="panel-title">Product search</div>
+                                    <label class="primary_input_label">Search products</label>
+                                    <div class="input-group">
+                                        <input type="text" id="product-search" class="primary_input_field form-control" placeholder="Type to search (e.g. books, uniform)...">
+                                        <div class="input-group-append">
+                                            <button type="button" id="btn-search-products" class="btn btn-primary">Search</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <small class="text-muted d-block mt-1">Press Enter to search. Suggestions appear as you type.</small>
-                                <div class="mt-3">
-                                    <label class="primary_input_label">Categories</label>
-                                    <select id="product-category" class="primary_select form-control">
-                                        <option value="">All categories</option>
-                                    </select>
-                                    <small class="text-muted d-block mt-1">Use this to quickly jump between groups such as Special needs, books, uniforms, and more.</small>
+                                    <small class="text-muted d-block mt-1">Press Enter to search. Suggestions appear as you type.</small>
+                                    <div class="mt-3">
+                                        <label class="primary_input_label">Categories</label>
+                                        <select id="product-category" class="primary_select form-control">
+                                            <option value="">All categories</option>
+                                        </select>
+                                        <small class="text-muted d-block mt-1">Use this to quickly jump between groups such as Special needs, books, uniforms, and more.</small>
+                                    </div>
                                 </div>
                             </div>
                         <div class="col-md-3">
-                                <label class="primary_input_label">Deadline (optional)</label>
-                                <input type="date" id="assignment-deadline" class="primary_input_field form-control">
-                                <small class="text-muted d-block">For information only; items remain even after the date.</small>
+                                <div class="panel-card h-100">
+                                    <div class="panel-title">Timing</div>
+                                    <label class="primary_input_label">Deadline (optional)</label>
+                                    <input type="date" id="assignment-deadline" class="primary_input_field form-control">
+                                    <small class="text-muted d-block">For information only; items remain even after the date.</small>
+                                </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="primary_input_label">Selections</label>
-                                <div id="selections-summary" class="selections-card cursor-pointer" style="cursor:pointer;" title="Click to view or edit selections">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="meta">Live selections</div>
-                                            <div class="count-line"><span id="selections-count">0</span> item(s) selected</div>
-                                            <div class="total-line">Total: <strong id="selections-total">KES 0.00</strong></div>
+                                <div class="panel-card selections-panel h-100">
+                                    <div class="panel-title">Selections</div>
+                                    <div id="selections-summary" class="selections-card cursor-pointer" style="cursor:pointer;" title="Click to view or edit selections">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="meta">Live selections</div>
+                                                <div class="count-line"><span id="selections-count">0</span> item(s) selected</div>
+                                                <div class="total-line">Total: <strong id="selections-total">KES 0.00</strong></div>
+                                            </div>
+                                            <span id="selections-chevron" class="ti-angle-down"></span>
                                         </div>
-                                        <span id="selections-chevron" class="ti-angle-down"></span>
                                     </div>
-                                </div>
-                                <div id="selections-detail" class="border rounded p-3 mt-2 bg-light" style="display:none;">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <strong>Selected items</strong>
-                                        <button type="button" id="btn-remove-all" class="btn btn-sm btn-outline-danger">Remove all</button>
-                                    </div>
-                                    <div class="mb-2 small">
-                                        <strong>Recipients:</strong> <span id="detail-recipients" class="text-muted">—</span>
-                                    </div>
-                                    <div class="mb-2 small">
-                                        <strong>Deadline:</strong> <span id="detail-deadline" class="text-muted">—</span>
-                                    </div>
-                                    <ul id="selections-list" class="list-unstyled mb-0" style="max-height:280px; overflow-y:auto;"></ul>
-                                    <div class="mt-2 pt-2 border-top">
-                                        <strong>Total: <span id="detail-total">KES 0.00</span></strong>
+                                    <div id="selections-detail" class="border rounded p-3 mt-2 bg-light" style="display:none;">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <strong>Selected items</strong>
+                                            <button type="button" id="btn-remove-all" class="btn btn-sm btn-outline-danger">Remove all</button>
+                                        </div>
+                                        <div class="mb-2 small">
+                                            <strong>Recipients:</strong> <span id="detail-recipients" class="text-muted">—</span>
+                                        </div>
+                                        <div class="mb-2 small">
+                                            <strong>Deadline:</strong> <span id="detail-deadline" class="text-muted">—</span>
+                                        </div>
+                                        <ul id="selections-list" class="list-unstyled mb-0" style="max-height:280px; overflow-y:auto;"></ul>
+                                        <div class="mt-2 pt-2 border-top">
+                                            <strong>Total: <span id="detail-total">KES 0.00</span></strong>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +474,7 @@
                             <p class="text-muted mb-3">Batches group items that were assigned together in a single selection.</p>
                             @if(isset($batches) && $batches->count())
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table history-table">
                                         <thead>
                                         <tr>
                                             <th>Date</th>
@@ -377,7 +529,7 @@
                                                                 $assignmentType = $item->assignment_type === 'required' ? 'Required' : 'Recommended';
                                                             @endphp
                                                             <div class="col-md-6 mb-3">
-                                                                <div class="border rounded p-3 h-100">
+                                                                <div class="batch-item-card">
                                                                     <div class="d-flex">
                                                                         @if($photo)
                                                                             <img src="{{ $photo }}" alt="Item image" class="batch-product-photo mr-3">
@@ -423,7 +575,7 @@
                                     </table>
                                 </div>
                                 <div class="mt-3">
-                                    {{ $batches->links() }}
+                                    {{ $batches->appends(request()->query())->links() }}
                                 </div>
                             @else
                                 <p class="text-muted">No assignments found yet.</p>
@@ -526,7 +678,7 @@
                     return;
                 }
 
-                let html = '<h5 class="mb-3">Select items to assign</h5><div class="row">';
+                let html = '<h5 class="mb-3 section-title">Select items to assign</h5><div class="row">';
                 products.forEach(function(p) {
                     const id = (p.id || '').toString();
                     const selected = selectedProducts.find(function(sp) { return String(sp.id) === String(id); }) || null;
@@ -538,27 +690,34 @@
                     const assignmentType = selected ? String(selected.assignment_type || 'recommended') : 'recommended';
                     const imgUrl = (p.image_url || '').replace(/"/g, '');
                     const imgTag = imgUrl
-                        ? '<img src="' + imgUrl + '" alt="" class="product-thumb mr-2 rounded" loading="lazy" width="56" height="56" style="object-fit:cover;">'
-                        : '<span class="product-thumb-placeholder mr-2 d-inline-block bg-light rounded text-muted" style="width:56px;height:56px;line-height:56px;text-align:center;font-size:10px;">No image</span>';
-                    html += '<div class="col-md-6 col-lg-4 mb-3">' +
-                        '<div class="border rounded p-3 h-100">' +
+                        ? '<img src="' + imgUrl + '" alt="" class="product-thumb mr-4" loading="lazy" width="80" height="80" style="object-fit:cover;">'
+                        : '<span class="product-thumb-placeholder mr-4 d-inline-block bg-light text-muted" style="width:80px;height:80px;line-height:80px;text-align:center;font-size:10px;">No image</span>';
+                    html += '<div class="col-md-6 col-lg-4 mb-3 d-flex">' +
+                        '<div class="panel-card product-card h-100 w-100">' +
                         '<label class="d-flex align-items-start mb-0 cursor-pointer">' +
-                        '<input type="checkbox" class="product-cb mt-1 mr-2" ' + (isChecked ? 'checked ' : '') +
+                        '<input type="checkbox" class="product-cb mt-1 mr-3" ' + (isChecked ? 'checked ' : '') +
                         'data-id="' + escapeHtml(id) + '" data-name="' + name + '" data-category="' + category + '" data-price="' + price + '" data-description="' + escapeHtml(p.description || '') + '" data-image="' + imgUrl + '" data-url="' + escapeHtml(p.product_url || '') + '">' +
                         '<div class="flex-grow-1 min-w-0">' +
-                        imgTag +
-                        '<strong class="d-block">' + name + '</strong>' +
-                        '<small class="text-muted d-block">' + category + ' — KES ' + formatPrice(price) + '</small>' +
-                        '<div class="mt-2 d-flex align-items-center flex-wrap">' +
-                        '<label class="small text-muted mb-0 mr-2">Qty</label>' +
-                        '<input type="number" min="1" max="999" value="' + quantity + '" class="form-control form-control-sm product-qty" data-id="' + escapeHtml(id) + '" style="width:80px;">' +
-                        '<label class="small text-muted mb-0 ml-3 mr-2">Type</label>' +
-                        '<select class="form-control form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '" style="width:150px;">' +
+                        '<div class="d-flex mb-2">' +
+                            imgTag +
+                            '<div class="ml-3">' +
+                                '<strong class="d-block">' + name + '</strong>' +
+                                '<small class="text-muted d-block">' + category + ' — KES ' + formatPrice(price) + '</small>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="mt-2 d-flex align-items-end" style="gap: 10px;">' +
+                            '<div>' +
+                                '<label class="primary_input_label" style="font-size: 10px; margin-bottom: 2px;">Qty</label>' +
+                                '<input type="number" min="1" max="999" value="' + quantity + '" class="primary_input_field form-control-sm product-qty" data-id="' + escapeHtml(id) + '" style="width:70px; height: 32px;">' +
+                            '</div>' +
+                            '<div>' +
+                                '<label class="primary_input_label" style="font-size: 10px; margin-bottom: 2px;">Type</label>' +
+                                '<select class="primary_select form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '" style="width:130px; height: 32px;">' +
                         '<option value="recommended" ' + (assignmentType === 'recommended' ? 'selected' : '') + '>Recommended</option>' +
                         '<option value="required" ' + (assignmentType === 'required' ? 'selected' : '') + '>Required</option>' +
                         '</select>' +
                         '</div>' +
-                        '</div></label></div></div>';
+                        '</div></div></label></div></div>';
                 });
                 html += '</div>';
                 $('#products-list').html(html);
@@ -572,13 +731,13 @@
                 currentPage = meta.current_page || 1;
                 lastPage = meta.last_page || 1;
 
-                let html = '<div id="products-pagination" class="d-flex justify-content-between align-items-center mt-3">' +
-                    '<button type="button" class="btn btn-sm btn-outline-secondary mr-2" id="btn-prev-page" ' + (currentPage <= 1 ? 'disabled' : '') + '>&laquo; Prev</button>' +
-                    '<div class="d-flex align-items-center small text-muted">' +
-                    'Page&nbsp;<input type="number" id="page-input" class="form-control form-control-sm d-inline-block" style="width:80px;" min="1" max="' + lastPage + '" value="' + currentPage + '">&nbsp;of&nbsp;' + lastPage +
-                    '<button type="button" class="btn btn-sm btn-outline-primary ml-2" id="btn-page-go">Go</button>' +
+                let html = '<div id="products-pagination" class="d-flex justify-content-center align-items-center mt-3" style="gap: 8px;">' +
+                    '<button type="button" class="btn btn-sm btn-outline-secondary" id="btn-prev-page" ' + (currentPage <= 1 ? 'disabled' : '') + '>&laquo; Prev</button>' +
+                    '<div class="d-flex align-items-center small text-muted" style="gap: 6px;">' +
+                    'Page <input type="number" id="page-input" class="form-control form-control-sm d-inline-block" style="width:80px;" min="1" max="' + lastPage + '" value="' + currentPage + '"> of ' + lastPage +
+                    '<button type="button" class="btn btn-sm btn-outline-primary" id="btn-page-go">Go</button>' +
                     '</div>' +
-                    '<button type="button" class="btn btn-sm btn-outline-secondary ml-2" id="btn-next-page" ' + (currentPage >= lastPage ? 'disabled' : '') + '>Next &raquo;</button>' +
+                    '<button type="button" class="btn btn-sm btn-outline-secondary" id="btn-next-page" ' + (currentPage >= lastPage ? 'disabled' : '') + '>Next &raquo;</button>' +
                     '</div>';
 
                 $('#products-pagination').remove();

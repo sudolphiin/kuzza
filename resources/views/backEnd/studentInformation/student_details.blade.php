@@ -2,14 +2,61 @@
 @section('title')
     @lang('student.student_list')
 @endsection
-@section('mainContent')
+@push('css')
 <style>
-      .dataTables_length label{
+    /* General form input styling */
+    .primary_input_field,
+    .primary_select.form-control,
+    .input-group > .form-control {
+        border-radius: 8px; /* Slightly less rounded for general inputs */
+        border-color: #d1d5db;
+        font-size: 14px;
+        box-shadow: inset 0 0 0 1px rgba(209, 213, 219, 0.5);
+        transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+        background-color: #ffffff;
+    }
+
+    .primary_input_field:focus,
+    .primary_select.form-control:focus,
+    .input-group > .form-control:focus {
+        border-color: #4f46e5; /* A distinct focus color */
+        box-shadow:
+            0 0 0 1px rgba(79, 70, 229, 0.4),
+            0 4px 12px rgba(15, 23, 42, 0.18);
+        background-color: #ffffff;
+    }
+
+    /* DataTables Pagination Styling */
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.5em 1em;
+        margin-left: 2px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background-color: #f9fafb;
+        color: #4b5563 !important;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #eef2ff;
+        border-color: #4f46e5;
+        color: #4f46e5 !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-color: #4f46e5;
+        border-color: #4f46e5;
+        color: #ffffff !important;
+    }
+
+    .dataTables_length label {
         display: flex;
         align-items: center;
         gap: 10px;
     }
-  
+
     .dataTables_length select {
         height: 37px;
         width: 55px;
@@ -18,7 +65,11 @@
         padding: 0px 5px;
         color: var(--base_color);
     }
+
 </style>
+@endpush
+
+@section('mainContent')
     <section class="sms-breadcrumb mb-20 up_breadcrumb">
         <div class="container-fluid">
             <div class="row justify-content-between">
@@ -414,4 +465,3 @@
         });
     </script>
 @endpush
-
