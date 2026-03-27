@@ -11627,3 +11627,2320 @@ The root cause was that `/parent-dashboard` and `/recommended-items` were each r
 I also tightened the shared query so it only returns rows with a real active `recommendedItem` for the current school. Syntax checks passed for both [SmParentPanelController.php](/home/joe/Videos/Code/kuzza/kuzza/app/Http/Controllers/Parent/SmParentPanelController.php) and [AssignItemsToStudentController.php](/home/joe/Videos/Code/kuzza/kuzza/app/Http/Controllers/Admin/StudentInfo/AssignItemsToStudentController.php).
 
 Next step: refresh `/parent-dashboard` and `/recommended-items`. If they still show empty, open the new parent diagnostics from [assign_items_to_student.blade.php](/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php) for one affected parent; that will tell us immediately whether the issue is missing assignment rows or bad legacy ids.
+
+---
+
+_**User (2026-03-27 11:45:54Z)**_
+
+update the ui of Select items to assign card layout
+
+
+---
+
+_**Agent (gpt-5.4 2026-03-27 11:46:05Z)**_
+
+I’m updating the “Select items to assign” area next. I’ll first locate the current card markup and surrounding styles, then I’ll refresh the layout so the selection UI feels clearer and easier to scan without changing the assignment logic underneath.
+
+_**Agent (gpt-5.4 2026-03-27 11:46:05Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `rg -n "Select items to assign|products-list|product-card|Confirm and assign" resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc 'rg -n "Select items to assign|products-list|product-card|Confirm and assign" resources/views/backEnd/studentInformation/assign_items_to_student.blade.php'
+Chunk ID: cc939b
+Wall time: 0.0000 seconds
+Process exited with code 0
+Original token count: 168
+Output:
+309:                        <div id="products-list" class="mb-20"></div>
+314:                                    <span class="ti-check mr-2"></span> Confirm and assign
+525:                    $('#products-list').html('<p class="text-muted">No products found. Try a different search or leave empty to see all.</p>');
+529:                let html = '<h5 class="mb-3">Select items to assign</h5><div class="row">';
+564:                $('#products-list').html(html);
+585:                $('#products-list').after(html);
+592:                $('#products-list').empty();
+603:                    $('#products-list').html('<p class="text-danger">Failed to load products.</p>');
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:46:05Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '330,470p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '330,470p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: 4ada4b
+Wall time: 0.0525 seconds
+Process exited with code 0
+Original token count: 2612
+Output:
+                                            <th>Deadline</th>
+                                            <th>Total items</th>
+                                            <th>Pending</th>
+                                            <th>Already bought</th>
+                                            <th>Ordered</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($batches as $batch)
+                                            @php
+                                                $items = $batch->items;
+                                                $total = $items->count();
+                                                $pending = $items->where('status','pending')->count();
+                                                $bought = $items->where('status','already_bought')->count();
+                                                $ordered = $items->where('status','ordered')->count();
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $batch->created_at->format('d M Y H:i') }}</td>
+                                                <td>
+                                                    @if($batch->scope === 'all')
+                                                        All students
+                                                    @elseif($batch->scope === 'class')
+                                                        Class ID {{ $batch->class_id }}@if($batch->section_id) — Section ID {{ $batch->section_id }}@endif
+                                                    @else
+                                                        Specific students
+                                                    @endif
+                                                </td>
+                                                <td>{{ $batch->deadline ? $batch->deadline->format('d M Y') : 'None' }}</td>
+                                                <td>{{ $total }}</td>
+                                                <td>{{ $pending }} pending</td>
+                                                <td>{{ $bought }} bought</td>
+                                                <td>{{ $ordered }} ordered</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary toggle-batch-items" data-batch-id="{{ $batch->id }}">View items</button>
+                                                </td>
+                                            </tr>
+                                            <template id="batch-items-template-{{ $batch->id }}">
+                                                @if($items->isEmpty())
+                                                    <span class="text-muted">No items in this batch.</span>
+                                                @else
+                                                    <div class="row">
+                                                        @foreach($items as $item)
+                                                            @php
+                                                                $recommended = $item->recommendedItem;
+                                                                $photo = optional($recommended)->image_url;
+                                                                $qty = (int) ($item->assigned_quantity ?: 1);
+                                                                $assignmentType = $item->assignment_type === 'required' ? 'Required' : 'Recommended';
+                                                            @endphp
+                                                            <div class="col-md-6 mb-3">
+                                                                <div class="border rounded p-3 h-100">
+                                                                    <div class="d-flex">
+                                                                        @if($photo)
+                                                                            <img src="{{ $photo }}" alt="Item image" class="batch-product-photo mr-3">
+                                                                        @else
+                                                                            <div class="batch-product-photo mr-3 d-flex align-items-center justify-content-center text-muted small">No image</div>
+                                                                        @endif
+                                                
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:46:05Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '660,760p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '660,760p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: 8e6ff2
+Wall time: 0.0175 seconds
+Process exited with code 0
+Original token count: 1393
+Output:
+                            name: cb.data('name'),
+                            category: cb.data('category'),
+                            price: parseFloat(cb.data('price')) || 0,
+                            description: cb.data('description'),
+                            image_url: cb.data('image'),
+                            product_url: cb.data('url'),
+                            quantity: quantity,
+                            assignment_type: cb.closest('.border').find('.product-assignment-type').val() || 'recommended'
+                        });
+                    }
+                } else {
+                    selectedProducts = selectedProducts.filter(function(sp) { return String(sp.id) !== id; });
+                }
+                renderSelectionsSummary();
+                updateButtonsState();
+            });
+
+            $(document).on('input change', '.product-qty', function() {
+                const input = $(this);
+                const id = String(input.data('id'));
+                const quantity = Math.max(1, parseInt(input.val(), 10) || 1);
+                input.val(quantity);
+                const existing = selectedProducts.find(function(sp) { return String(sp.id) === id; });
+                if (existing) {
+                    existing.quantity = quantity;
+                    renderSelectionsSummary();
+                }
+            });
+
+            $(document).on('change', '.product-assignment-type', function() {
+                const select = $(this);
+                const id = String(select.data('id'));
+                const value = (select.val() === 'required') ? 'required' : 'recommended';
+                const existing = selectedProducts.find(function(sp) { return String(sp.id) === id; });
+                if (existing) {
+                    existing.assignment_type = value;
+                    renderSelectionsSummary();
+                }
+            });
+
+            function renderSelectionsSummary() {
+                const count = selectedProducts.length;
+                const total = selectedProducts.reduce(function(sum, p) {
+                    return sum + ((p.price || 0) * Math.max(1, Number(p.quantity || 1)));
+                }, 0);
+                $('#selections-count').text(count);
+                $('#selections-total').text('KES ' + formatPrice(total));
+                $('#detail-total').text('KES ' + formatPrice(total));
+
+                let recipientsText = '—';
+                if (currentScope === 'all') recipientsText = 'All students';
+                else if (currentScope === 'class' && selectedClassId) {
+                    recipientsText = $('#class-select option:selected').text() + (selectedSectionId ? (' — ' + $('#section-select option:selected').text()) : ' (all sections)');
+                } else if (currentScope === 'student' && selectedStudent) recipientsText = selectedStudent.name;
+                $('#detail-recipients').text(recipientsText);
+
+                const deadlineVal = $('#assignment-deadline').val();
+                $('#detail-deadline').text(deadlineVal || 'None');
+
+                let listHtml = '';
+                selectedProducts.forEach(function(p) {
+                    const qty = Math.max(1, Number(p.quantity || 1));
+                    const lineTotal = (p.price || 0) * qty;
+                    const assignmentType = (p.assignment_type === 'required') ? 'Required' : 'Recommended';
+                    listHtml += '<li class="d-flex justify-content-between align-items-center py-2 border-bottom">' +
+                        '<span class="text-truncate flex-grow-1">' + escapeHtml(p.name) + ' × ' + qty + ' — KES ' + formatPrice(lineTotal) + '<span class="ml-2 badge badge-light">' + assignmentType + '</span></span>' +
+                        '<button type="button" class="btn btn-sm btn-outline-danger ml-2 remove-selection" data-id="' + escapeHtml(String(p.id)) + '" title="Remove from selections">' +
+                        '<i class="ti-close"></i></button></li>';
+                });
+                if (!listHtml) {
+                    listHtml = '<li class="text-muted small">No items selected. Search and check products above.</li>';
+                    $('#btn-remove-all').hide();
+                } else {
+                    $('#btn-remove-all').show();
+                }
+                $('#selections-list').html(listHtml);
+
+                // Subtle pulse animation on cart summary when items change
+                const $summary = $('#selections-summary');
+                $summary.removeClass('cart-pulse');
+                // force reflow so animation can restart
+                void $summary[0].offsetWidth;
+                $summary.addClass('cart-pulse');
+            }
+
+            $('#selections-summary').on('click', 
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:46:14Z)**_
+
+I’ve got the render path for the selection cards. Next I’m reshaping the product card markup and styles together so the layout change is cohesive instead of just being a CSS patch on top of the old structure.
+
+_**Agent (gpt-5.4 2026-03-27 11:46:14Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '1,220p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '1,220p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: 4805a5
+Wall time: 0.0000 seconds
+Process exited with code 0
+Original token count: 1927
+Output:
+@extends('backEnd.master')
+@section('title')
+    Assign Items to Student
+@endsection
+@push('style')
+<style>
+    .assign-shell {
+        background: #f5f7fb;
+        padding: 24px;
+        border-radius: 14px;
+        border: 1px solid #e4e7f2;
+    }
+
+    .assign-shell .section-title {
+        font-weight: 600;
+        font-size: 20px;
+        color: #1f2937;
+    }
+
+    .assign-shell .section-subtitle {
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .assign-shell .primary_input_label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: #6b7280;
+        margin-bottom: 6px;
+    }
+
+    .assign-shell .primary_input_field,
+    .assign-shell .primary_select.form-control,
+    .assign-shell .input-group>.form-control {
+        border-radius: 10px;
+        border-color: #d1d5db;
+        font-size: 14px;
+        box-shadow: inset 0 0 0 1px rgba(209, 213, 219, 0.5);
+        transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+        background-color: #ffffff;
+    }
+
+    .assign-shell .primary_input_field:focus,
+    .assign-shell .primary_select.form-control:focus,
+    .assign-shell .input-group>.form-control:focus {
+        border-color: #4f46e5;
+        box-shadow:
+            0 0 0 1px rgba(79, 70, 229, 0.4),
+            0 4px 12px rgba(15, 23, 42, 0.18);
+        background-color: #ffffff;
+    }
+
+    .assign-shell .input-group .btn {
+        border-radius: 0 10px 10px 0;
+        padding-inline: 18px;
+        font-weight: 500;
+    }
+
+    /* Connected radio pill chain */
+    .scope-toggle-chain {
+        display: inline-flex;
+        align-items: stretch;
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+    }
+
+    .scope-toggle-chain .toggle-option {
+        position: relative;
+        margin: 0;
+    }
+
+    .scope-toggle-chain .toggle-option:not(:last-child) {
+        border-right: 1px solid #e5e7eb;
+    }
+
+    .scope-toggle-chain .toggle-option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .scope-toggle-chain .toggle-option label {
+        display: block;
+        padding: 8px 14px;
+        margin: 0;
+        font-size: 13px;
+        color: #4b5563;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+
+    .scope-toggle-chain .toggle-option input:checked + label {
+        background: linear-gradient(135deg, #2563eb, #22c55e);
+        color: #fff;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .scope-toggle-chain .toggle-option label:hover {
+        background-color: #f3f4f6;
+    }
+
+    /* Selections as right-side card */
+    .selections-card {
+        background: linear-gradient(165deg, #0b1020 0%, #111827 55%, #0f766e 120%);
+        border-radius: 12px;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        padding: 10px 12px;
+        color: #e5e7eb;
+        box-shadow: 0 10px 24px rgba(2, 6, 23, 0.35);
+        min-height: 86px;
+    }
+
+    .selections-card .meta {
+        font-size: 10px;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: rgba(226, 232, 240, 0.7);
+    }
+
+    .selections-card .count-line {
+        font-size: 13px;
+        color: #e2e8f0;
+    }
+
+    .selections-card .total-line strong {
+        color: #fbbf24;
+    }
+
+    #selections-detail {
+        background: #0b1220;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        color: #e2e8f0;
+    }
+
+    #selections-detail .text-muted,
+    #selections-detail .small {
+        color: #94a3b8 !important;
+    }
+
+    #selections-list li {
+        border-color: rgba(148, 163, 184, 0.25) !important;
+    }
+
+    .cart-pulse {
+        animation: cartPulse .28s ease-out;
+    }
+
+    @keyframes cartPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+
+    .batch-product-photo {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid #e5e7eb;
+        background: #f9fafb;
+    }
+</style>
+@endpush
+@section('mainContent')
+    @php
+        $activeTab = request()->query('tab') === 'assigned' ? 'assigned' : 'new';
+        $breadCrumbs = [
+            'h1' => 'Assign Items to Student',
+            'bcPages' => ['<a href="#">Student Information</a>'],
+        ];
+    @endphp
+    <x-bread-crumb-component :breadCrumbs="$breadCrumbs" />
+    <section class="admin-visitor-area up_st_admin_visitor">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:46:14Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '500,620p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '500,620p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: f5418c
+Wall time: 0.0000 seconds
+Process exited with code 0
+Original token count: 1884
+Output:
+                selectedClassId = $(this).val() || '';
+                selectedSectionId = '';
+                $('#section-select').html('<option value=\"\">All sections</option>');
+                if (!selectedClassId) {
+                    updateButtonsState();
+                    return;
+                }
+                $.get(baseUrl + '/assign-items-to-student/sections', { class_id: selectedClassId }).done(function(res) {
+                    const sections = res.sections || [];
+                    let options = '<option value=\"\">All sections</option>';
+                    sections.forEach(function(s) {
+                        options += '<option value=\"' + s.id + '\">' + s.section_name + '</option>';
+                    });
+                    $('#section-select').html(options);
+                });
+                updateButtonsState();
+            });
+
+            $('#section-select').on('change', function() {
+                selectedSectionId = $(this).val() || '';
+                updateButtonsState();
+            });
+
+            function renderProducts(products) {
+                if (!products.length) {
+                    $('#products-list').html('<p class="text-muted">No products found. Try a different search or leave empty to see all.</p>');
+                    return;
+                }
+
+                let html = '<h5 class="mb-3">Select items to assign</h5><div class="row">';
+                products.forEach(function(p) {
+                    const id = (p.id || '').toString();
+                    const selected = selectedProducts.find(function(sp) { return String(sp.id) === String(id); }) || null;
+                    const isChecked = !!selected;
+                    const name = escapeHtml(p.name || '');
+                    const category = escapeHtml(p.category || '');
+                    const price = Number(p.price || 0);
+                    const quantity = selected ? Math.max(1, Number(selected.quantity || 1)) : 1;
+                    const assignmentType = selected ? String(selected.assignment_type || 'recommended') : 'recommended';
+                    const imgUrl = (p.image_url || '').replace(/"/g, '');
+                    const imgTag = imgUrl
+                        ? '<img src="' + imgUrl + '" alt="" class="product-thumb mr-2 rounded" loading="lazy" width="56" height="56" style="object-fit:cover;">'
+                        : '<span class="product-thumb-placeholder mr-2 d-inline-block bg-light rounded text-muted" style="width:56px;height:56px;line-height:56px;text-align:center;font-size:10px;">No image</span>';
+                    html += '<div class="col-md-6 col-lg-4 mb-3">' +
+                        '<div class="border rounded p-3 h-100">' +
+                        '<label class="d-flex align-items-start mb-0 cursor-pointer">' +
+                        '<input type="checkbox" class="product-cb mt-1 mr-2" ' + (isChecked ? 'checked ' : '') +
+                        'data-id="' + escapeHtml(id) + '" data-name="' + name + '" data-category="' + category + '" data-price="' + price + '" data-description="' + escapeHtml(p.description || '') + '" data-image="' + imgUrl + '" data-url="' + escapeHtml(p.product_url || '') + '">' +
+                        '<div class="flex-grow-1 min-w-0">' +
+                        imgTag +
+                        '<strong class="d-block">' + name + '</strong>' +
+                        '<small class="text-muted d-block">' + category + ' — KES ' + formatPrice(price) + '</small>' +
+                        '<div class="mt-2 d-flex align-items-center flex-wrap">' +
+                        '<label class="small text-muted mb-0 mr-2">Qty</label>' +
+                        '<input type="number" min="1" max="999" value="' + quantity + '" class="form-control form-control-sm product-qty" data-id="' + escapeHtml(id) + '" style="width:80px;">' +
+                        '<label class="small text-muted mb-0 ml-3 mr-2">Type</label>' +
+                        '<select class="form-control form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '" style="width:150px;">' +
+                        '<option value="recommended" ' + (assignmentType === 'recommended' ? 'selected' : '') + '>Recommended</option>' +
+                        '<option value="required" ' + (assignmentType === 'required' ? 'selected' : '') + '>Required</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '</div></label></div></div>';
+                });
+                html += '</div>';
+                $('#products-list').html(html);
+            }
+
+            function renderProductsPagination(meta) {
+                if (!meta || !meta.last_page) {
+                    $('#products-pagination').remove();
+         
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:46:19Z)**_
+
+I’ve got the exact render function and the couple of selectors tied to it. I’m updating both together so the new card layout stays stable when quantity/type changes and when selections are toggled.
+
+_**Agent (gpt-5.4 2026-03-27 11:46:47Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+     .batch-product-photo {
+         width: 48px;
+         height: 48px;
+         border-radius: 8px;
+         object-fit: cover;
+         border: 1px solid #e5e7eb;
+         background: #f9fafb;
+     }
++
++    .assign-products-shell {
++        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
++        border: 1px solid #dbe3f0;
++        border-radius: 18px;
++        padding: 20px;
++        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
++    }
++
++    .assign-products-header {
++        display: flex;
++        justify-content: space-between;
++        align-items: end;
++        gap: 12px;
++        margin-bottom: 18px;
++    }
++
++    .assign-products-title {
++        font-size: 18px;
++        font-weight: 700;
++        color: #18212f;
++        margin-bottom: 4px;
++    }
++
++    .assign-products-copy {
++        margin: 0;
++        color: #64748b;
++        font-size: 13px;
++    }
++
++    .assign-products-chip {
++        display: inline-flex;
++        align-items: center;
++        gap: 8px;
++        padding: 8px 12px;
++        border-radius: 999px;
++        background: #eef4ff;
++        color: #3757a6;
++        font-size: 12px;
++        font-weight: 600;
++        white-space: nowrap;
++    }
++
++    .assign-products-grid {
++        display: grid;
++        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
++        gap: 16px;
++    }
++
++    .assign-product-card {
++        position: relative;
++        display: flex;
++        flex-direction: column;
++        height: 100%;
++        padding: 16px;
++        border-radius: 18px;
++        border: 1px solid #dbe3f0;
++        background: #ffffff;
++        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
++        transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
++    }
++
++    .assign-product-card:hover {
++        transform: translateY(-2px);
++        box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1);
++    }
++
++    .assign-product-card.is-selected {
++        border-color: #5b2d8e;
++        box-shadow: 0 16px 34px rgba(91, 45, 142, 0.14);
++        background: linear-gradient(180deg, #ffffff 0%, #f8f1ff 100%);
++    }
++
++    .assign-product-top {
++        display: flex;
++        align-items: start;
++        gap: 12px;
++        margin-bottom: 14px;
++    }
++
++    .assign-product-check {
++        margin-top: 6px;
++        transform: scale(1.12);
++    }
++
++    .assign-product-media,
++    .assign-product-media-placeholder {
++        width: 64px;
++        height: 64px;
++        border-radius: 16px;
++        border: 1px solid #e2e8f0;
++        flex-shrink: 0;
++        background: #f8fafc;
++    }
++
++    .assign-product-media {
++        object-fit: cover;
++    }
++
++    .assign-product-media-placeholder {
++        display: flex;
++        align-items: center;
++        justify-content: center;
++        font-size: 11px;
++        color: #94a3b8;
++        font-weight: 600;
++    }
++
++    .assign-product-body {
++        min-width: 0;
++        flex: 1 1 auto;
++    }
++
++    .assign-product-name {
++        margin: 0 0 6px;
++        font-size: 15px;
++        line-height: 1.35;
++        font-weight: 700;
++        color: #18212f;
++    }
++
++    .assign-product-meta {
++        display: flex;
++        flex-wrap: wrap;
++        gap: 8px;
++        margin-bottom: 8px;
++    }
++
++    .assign-product-tag {
++        display: inline-flex;
++        align-items: center;
++        padding: 5px 10px;
++        border-radius: 999px;
++        background: #f1f5f9;
++        color: #475569;
++        font-size: 11px;
++        font-weight: 700;
++        text-transform: uppercase;
++        letter-spacing: .04em;
++    }
++
++    .assign-product-price {
++        font-size: 16px;
++        font-weight: 800;
++        color: #5b2d8e;
++        margin-bottom: 8px;
++    }
++
++    .assign-product-description {
++        margin: 0;
++        font-size: 13px;
++        line-height: 1.5;
++        color: #64748b;
++        min-height: 38px;
++    }
++
++    .assign-product-controls {
++        display: grid;
++        grid-template-columns: 92px 1fr;
++        gap: 12px;
++        margin-top: auto;
++        padding-top: 14px;
++        border-top: 1px solid #edf2f7;
++    }
++
++    .assign-product-field label {
++        display: block;
++        margin-bottom: 6px;
++        font-size: 11px;
++        font-weight: 700;
++        text-transform: uppercase;
++        letter-spacing: .05em;
++        color: #64748b;
++    }
++
++    .assign-product-card .product-qty,
++    .assign-product-card .product-assignment-type {
++        border-radius: 12px;
++        border-color: #cbd5e1;
++        height: 40px;
++        box-shadow: none;
++    }
++
++    @media (max-width: 767px) {
++        .assign-products-header {
++            flex-direction: column;
++            align-items: start;
++        }
++
++        .assign-products-grid {
++            grid-template-columns: 1fr;
++        }
++    }
+ </style>
+ @endpush
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:47:14Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+-                let html = '<h5 class="mb-3">Select items to assign</h5><div class="row">';
++                let html = '<div class="assign-products-shell">' +
++                    '<div class="assign-products-header">' +
++                    '<div>' +
++                    '<h5 class="assign-products-title">Select items to assign</h5>' +
++                    '<p class="assign-products-copy">Choose the products you want the school to push to students and parents. Adjust quantity and assignment type before confirming.</p>' +
++                    '</div>' +
++                    '<div class="assign-products-chip"><i class="ti-package"></i><span>' + products.length + ' result(s)</span></div>' +
++                    '</div>' +
++                    '<div class="assign-products-grid">';
+                 products.forEach(function(p) {
+                     const id = (p.id || '').toString();
+                     const selected = selectedProducts.find(function(sp) { return String(sp.id) === String(id); }) || null;
+                     const isChecked = !!selected;
+                     const name = escapeHtml(p.name || '');
+                     const category = escapeHtml(p.category || '');
+                     const price = Number(p.price || 0);
++                    const description = escapeHtml(p.description || '');
+                     const quantity = selected ? Math.max(1, Number(selected.quantity || 1)) : 1;
+                     const assignmentType = selected ? String(selected.assignment_type || 'recommended') : 'recommended';
+                     const imgUrl = (p.image_url || '').replace(/"/g, '');
+                     const imgTag = imgUrl
+-                        ? '<img src="' + imgUrl + '" alt="" class="product-thumb mr-2 rounded" loading="lazy" width="56" height="56" style="object-fit:cover;">'
+-                        : '<span class="product-thumb-placeholder mr-2 d-inline-block bg-light rounded text-muted" style="width:56px;height:56px;line-height:56px;text-align:center;font-size:10px;">No image</span>';
+-                    html += '<div class="col-md-6 col-lg-4 mb-3">' +
+-                        '<div class="border rounded p-3 h-100">' +
+-                        '<label class="d-flex align-items-start mb-0 cursor-pointer">' +
+-                        '<input type="checkbox" class="product-cb mt-1 mr-2" ' + (isChecked ? 'checked ' : '') +
+-                        'data-id="' + escapeHtml(id) + '" data-name="' + name + '" data-category="' + category + '" data-price="' + price + '" data-description="' + escapeHtml(p.description || '') + '" data-image="' + imgUrl + '" data-url="' + escapeHtml(p.product_url || '') + '">' +
+-                        '<div class="flex-grow-1 min-w-0">' +
+-                        imgTag +
+-                        '<strong class="d-block">' + name + '</strong>' +
+-                        '<small class="text-muted d-block">' + category + ' — KES ' + formatPrice(price) + '</small>' +
+-                        '<div class="mt-2 d-flex align-items-center flex-wrap">' +
+-                        '<label class="small text-muted mb-0 mr-2">Qty</label>' +
+-                        '<input type="number" min="1" max="999" value="' + quantity + '" class="form-control form-control-sm product-qty" data-id="' + escapeHtml(id) + '" style="width:80px;">' +
+-                        '<label class="small text-muted mb-0 ml-3 mr-2">Type</label>' +
+-                        '<select class="form-control form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '" style="width:150px;">' +
++                        ? '<img src="' + imgUrl + '" alt="" class="assign-product-media" loading="lazy">'
++                        : '<span class="assign-product-media-placeholder">No image</span>';
++                    html += '<div class="assign-product-card ' + (isChecked ? 'is-selected' : '') + '">' +
++                        '<div class="assign-product-top">' +
++                        '<input type="checkbox" class="product-cb assign-product-check" ' + (isChecked ? 'checked ' : '') +
++                        'data-id="' + escapeHtml(id) + '" data-name="' + name + '" data-category="' + category + '" data-price="' + price + '" data-description="' + description + '" data-image="' + imgUrl + '" data-url="' + escapeHtml(p.product_url || '') + '">' +
++                        imgTag +
++                        '<div class="assign-product-body">' +
++                        '<h6 class="assign-product-name">' + name + '</h6>' +
++                        '<div class="assign-product-meta">' +
++                        '<span class="assign-product-tag">' + (category || 'General') + '</span>' +
++                        '<span class="assign-product-tag">' + (assignmentType === 'required' ? 'Required' : 'Recommended') + '</span>' +
++                        '</div>' +
++                        '<div class="assign-product-price">KES ' + formatPrice(price) + '</div>' +
++                        '<p class="assign-product-description">' + (description || 'No description available for this item yet.') + '</p>' +
++                        '</div>' +
++                        '</div>' +
++                        '<div class="assign-product-controls">' +
++                        '<div class="assign-product-field">' +
++                        '<label>Quantity</label>' +
++                        '<input type="number" min="1" max="999" value="' + quantity + '" class="form-control form-control-sm product-qty" data-id="' + escapeHtml(id) + '">' +
++                        '</div>' +
++                        '<div class="assign-product-field">' +
++                        '<label>Assignment Type</label>' +
++                        '<select class="form-control form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '">' +
+                         '<option value="recommended" ' + (assignmentType === 'recommended' ? 'selected' : '') + '>Recommended</option>' +
+                         '<option value="required" ' + (assignmentType === 'required' ? 'selected' : '') + '>Required</option>' +
+                         '</select>' +
+                         '</div>' +
+-                        '</div></label></div></div>';
++                        '</div>' +
++                        '</div>';
+                 });
+-                html += '</div>';
++                html += '</div></div>';
+                 $('#products-list').html(html);
+             }
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:47:20Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+                         selectedProducts.push({
+                             id: id,
+                             name: cb.data('name'),
+                             category: cb.data('category'),
+                             price: parseFloat(cb.data('price')) || 0,
+                             description: cb.data('description'),
+                             image_url: cb.data('image'),
+                             product_url: cb.data('url'),
+                             quantity: quantity,
+-                            assignment_type: cb.closest('.border').find('.product-assignment-type').val() || 'recommended'
++                            assignment_type: cb.closest('.assign-product-card').find('.product-assignment-type').val() || 'recommended'
+                         });
+                     }
+                 } else {
+                     selectedProducts = selectedProducts.filter(function(sp) { return String(sp.id) !== id; });
+                 }
++                cb.closest('.assign-product-card').toggleClass('is-selected', cb.is(':checked'));
+                 renderSelectionsSummary();
+                 updateButtonsState();
+             });
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:47:26Z)**_
+
+The card layout is in place now. I’m polishing one small interaction detail so the visible “Required/Recommended” chip on each card stays in sync when you change the dropdown, which keeps the new layout feeling trustworthy instead of decorative.
+
+_**Agent (gpt-5.4 2026-03-27 11:47:29Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+             $(document).on('change', '.product-assignment-type', function() {
+                 const select = $(this);
+                 const id = String(select.data('id'));
+                 const value = (select.val() === 'required') ? 'required' : 'recommended';
++                const card = select.closest('.assign-product-card');
+                 const existing = selectedProducts.find(function(sp) { return String(sp.id) === id; });
+                 if (existing) {
+                     existing.assignment_type = value;
+                     renderSelectionsSummary();
+                 }
++                card.find('.assign-product-tag').eq(1).text(value === 'required' ? 'Required' : 'Recommended');
+             });
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 11:47:35Z)**_
+
+I refreshed the “Select items to assign” UI in [assign_items_to_student.blade.php](/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php).
+
+The old layout was a plain bordered card grid. It now renders as a more intentional product picker with:
+- a styled results shell and header
+- cleaner product cards with stronger hierarchy for image, name, category, price, and description
+- quantity and assignment type controls anchored in a dedicated footer area
+- a selected-state treatment so checked items are visually obvious
+
+I also updated the card interaction logic so selection styling stays in sync with the checkbox and the visible “Required/Recommended” chip updates when the dropdown changes. I didn’t run browser-level verification here, so the next check is to open the assign page and confirm the new card layout behaves well across desktop and mobile.
+
+---
+
+_**User (2026-03-27 12:13:55Z)**_
+
+update the ui of Select items to assign card layout
+
+---
+
+_**Agent (gpt-5.4 2026-03-27 12:14:04Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `rg -n "Select items to assign|Items to assign|Select items" resources/views/backEnd/studentInformation/assign_items_to_student.blade.php && sed -n '1,260p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "rg -n \"Select items to assign|Items to assign|Select items\" resources/views/backEnd/studentInformation/assign_items_to_student.blade.php && sed -n '1,260p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: 90ae41
+Wall time: 0.0000 seconds
+Process exited with code 0
+Original token count: 1717
+Output:
+722:                let html = '<h5 class="mb-3 section-title">Select items to assign</h5><div class="row">';
+@extends('backEnd.master')
+@section('title')
+    Assign Items to Student
+@endsection
+@push('css')
+<style>
+    .assign-shell {
+        background: #f5f7fb;
+        padding: 24px;
+        border-radius: 14px;
+        border: 1px solid #e4e7f2;
+    }
+
+    .assign-shell .panel-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 16px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .assign-shell .panel-title {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: #94a3b8;
+        margin-bottom: 10px;
+    }
+
+    .assign-shell .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.6), rgba(148, 163, 184, 0.1));
+        border: 0;
+        margin: 20px 0;
+    }
+
+    .assign-shell .nav-tabs {
+        border-bottom: 0;
+        background: #eef2ff;
+        padding: 6px;
+        border-radius: 999px;
+        display: inline-flex;
+        gap: 6px;
+    }
+
+    .assign-shell .nav-tabs .nav-link {
+        border: 0;
+        border-radius: 999px;
+        padding: 8px 18px;
+        font-weight: 600;
+        color: #4b5563;
+    }
+
+    .assign-shell .nav-tabs .nav-link.active {
+        background: #111827;
+        color: #ffffff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+    }
+
+    .assign-shell .section-title {
+        font-weight: 600;
+        font-size: 20px;
+        color: #1f2937;
+    }
+
+    .assign-shell .section-subtitle {
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .assign-shell .primary_input_label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: #6b7280;
+        margin-bottom: 6px;
+    }
+
+    .assign-shell .primary_input_field,
+    .assign-shell .primary_select.form-control,
+    .assign-shell .input-group>.form-control {
+        border-radius: 10px;
+        border-color: #d1d5db;
+        font-size: 14px;
+        box-shadow: inset 0 0 0 1px rgba(209, 213, 219, 0.5);
+        transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+        background-color: #ffffff;
+    }
+
+    .assign-shell .primary_input_field:focus,
+    .assign-shell .primary_select.form-control:focus,
+    .assign-shell .input-group>.form-control:focus {
+        border-color: #4f46e5;
+        box-shadow:
+            0 0 0 1px rgba(79, 70, 229, 0.4),
+            0 4px 12px rgba(15, 23, 42, 0.18);
+        background-color: #ffffff;
+    }
+
+    .assign-shell .input-group .btn {
+        border-radius: 0 10px 10px 0;
+        padding-inline: 18px;
+        font-weight: 500;
+    }
+
+    /* Connected radio pill chain */
+    .scope-toggle-chain {
+        display: inline-flex;
+        align-items: stretch;
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+    }
+
+    .scope-toggle-chain .toggle-option {
+        position: relative;
+        margin: 0;
+    }
+
+    .scope-toggle-chain .toggle-option:not(:last-child) {
+        border-right: 1px solid #e5e7eb;
+    }
+
+    .scope-toggle-chain .toggle-option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .scope-toggle-chain .toggle-option label {
+        display: block;
+        padding: 8px 14px;
+        margin: 0;
+        font-size: 13px;
+        color: #4b5563;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+
+    .scope-toggle-chain .toggle-option input:checked + label {
+        background: linear-gradient(135deg, #2563eb, #22c55e);
+        color: #fff;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .scope-toggle-chain .toggle-option label:hover {
+        background-color: #f3f4f6;
+    }
+
+    /* Recipients palette overrides */
+    .assign-shell .recipients-panel {
+        background: var(--off-white);
+        border-color: var(--lilac);
+        box-shadow: 0 10px 22px rgba(58, 26, 107, 0.12);
+    }
+
+    .assign-shell .recipients-panel .panel-title {
+        color: var(--purple);
+    }
+
+    .assign-shell .recipients-panel .scope-toggle-chain {
+        border-color: var(--lilac);
+        background: var(--white);
+        box-shadow: 0 4px 12px rgba(58, 26, 107, 0.12);
+    }
+
+    .assign-shell .recipients-panel .scope-togg
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:14:07Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '260,980p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '260,980p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: 8a566e
+Wall time: 0.0002 seconds
+Process exited with code 0
+Original token count: 11280
+Output:
+        border-spacing: 0 10px;
+        margin-top: -10px;
+    }
+    .history-table thead th {
+        border: none;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        letter-spacing: .06em;
+        padding-top: 0;
+        padding-bottom: 4px;
+    }
+    .history-table tbody tr {
+        background: #ffffff;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        transition: all .2s ease-in-out;
+    }
+    .history-table tbody tr:hover {
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+        transform: translateY(-2px);
+    }
+    .history-table tbody td {
+        border-top: none;
+        padding: 1rem;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+    .history-table tbody td:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .history-table tbody td:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    /* Batch Item Card (in modal) */
+    .batch-item-card {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 16px;
+        height: 100%;
+    }
+</style>
+@endpush
+@section('mainContent')
+    @php
+        $activeTab = request()->query('tab') === 'assigned' ? 'assigned' : 'new';
+        $breadCrumbs = [
+            'h1' => 'Assign Items to Student',
+            'bcPages' => ['<a href="#">Student Information</a>'],
+        ];
+    @endphp
+    <x-bread-crumb-component :breadCrumbs="$breadCrumbs" />
+    <section class="admin-visitor-area up_st_admin_visitor">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="white-box assign-shell">
+                        <ul class="nav nav-tabs mb-3" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link {{ $activeTab === 'new' ? 'active' : '' }}" data-toggle="tab" href="#tab-assign-new" role="tab">New items</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $activeTab === 'assigned' ? 'active' : '' }}" data-toggle="tab" href="#tab-assign-history" role="tab">Assigned items</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                        <div class="tab-pane fade {{ $activeTab === 'new' ? 'show active' : '' }}" id="tab-assign-new" role="tabpanel">
+                        <div class="main-title mb-3">
+                            <h3 class="mb-1 section-title">Search products and assign to a student</h3>
+                            <p class="section-subtitle mb-0">Items you pick here will quietly appear on the student and parent dashboards for easy checkout.</p>
+                        </div>
+
+                        <div class="row mb-20">
+                            <div class="col-md-6">
+                                <div class="panel-card h-100 recipients-panel">
+                                    <div class="panel-title">Recipients</div>
+                                    <div class="scope-toggle-chain">
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-all" value="all" checked>
+                                            <label for="scope-all">Assign to all students</label>
+                                        </div>
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-class" value="class">
+                                            <label for="scope-class">Assign to class / stream</label>
+                                        </div>
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-student" value="student">
+                                            <label for="scope-student">Assign to specific student</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel-card h-100">
+                                    <div class="panel-title">Targeting</div>
+                            
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:14:45Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+     /* Batch Item Card (in modal) */
+     .batch-item-card {
+         background: #f9fafb;
+         border: 1px solid #e5e7eb;
+         border-radius: 12px;
+         padding: 16px;
+         height: 100%;
+     }
++
++    .product-grid-header {
++        display: flex;
++        align-items: center;
++        justify-content: space-between;
++        gap: 12px;
++        margin-bottom: 16px;
++        padding: 14px 16px;
++        background: linear-gradient(135deg, rgba(91, 45, 142, 0.08), rgba(245, 197, 24, 0.14));
++        border: 1px solid rgba(200, 168, 233, 0.75);
++        border-radius: 16px;
++    }
++
++    .product-grid-header .eyebrow {
++        display: inline-flex;
++        align-items: center;
++        padding: 5px 10px;
++        border-radius: 999px;
++        background: rgba(91, 45, 142, 0.12);
++        color: var(--purple-deep);
++        font-size: 11px;
++        font-weight: 700;
++        letter-spacing: .08em;
++        text-transform: uppercase;
++    }
++
++    .product-grid-header .helper {
++        color: #6b7280;
++        font-size: 13px;
++        margin-top: 4px;
++    }
++
++    .product-count-badge {
++        min-width: 74px;
++        text-align: center;
++        padding: 10px 14px;
++        border-radius: 14px;
++        background: #fff;
++        border: 1px solid rgba(200, 168, 233, 0.9);
++        color: var(--purple-deep);
++        box-shadow: 0 10px 20px rgba(58, 26, 107, 0.08);
++    }
++
++    .product-count-badge strong {
++        display: block;
++        font-size: 24px;
++        line-height: 1;
++    }
++
++    .product-count-badge span {
++        display: block;
++        font-size: 11px;
++        text-transform: uppercase;
++        letter-spacing: .08em;
++        color: #6b7280;
++        margin-top: 4px;
++    }
++
++    .product-card {
++        position: relative;
++        overflow: hidden;
++        border: 1px solid #e8def6 !important;
++        border-radius: 18px !important;
++        padding: 18px !important;
++        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
++    }
++
++    .product-card::before {
++        content: '';
++        position: absolute;
++        inset: 0 auto auto 0;
++        width: 100%;
++        height: 5px;
++        background: linear-gradient(90deg, var(--purple), var(--pink-accent), var(--yellow));
++        opacity: 0;
++        transition: opacity .18s ease;
++    }
++
++    .product-card:hover {
++        transform: translateY(-3px);
++        box-shadow: 0 18px 32px rgba(58, 26, 107, 0.12);
++        border-color: rgba(91, 45, 142, 0.35) !important;
++    }
++
++    .product-card.is-selected {
++        background: linear-gradient(180deg, rgba(245, 197, 24, 0.08), rgba(200, 168, 233, 0.14));
++        border-color: rgba(91, 45, 142, 0.5) !important;
++        box-shadow: 0 18px 34px rgba(58, 26, 107, 0.16);
++    }
++
++    .product-card.is-selected::before {
++        opacity: 1;
++    }
++
++    .product-card .product-check {
++        width: 20px;
++        height: 20px;
++        margin-top: 4px;
++        accent-color: var(--purple);
++        flex: 0 0 auto;
++    }
++
++    .product-card .product-card-body {
++        display: flex;
++        flex-direction: column;
++        gap: 14px;
++        min-width: 0;
++    }
++
++    .product-card .product-top {
++        display: flex;
++        align-items: flex-start;
++        gap: 14px;
++        min-width: 0;
++    }
++
++    .product-card .product-thumb,
++    .product-card .product-thumb-placeholder {
++        width: 76px;
++        height: 76px;
++        border-radius: 16px;
++        flex: 0 0 76px;
++        border: 1px solid #eadcf8;
++        background: #f8f5fc;
++        object-fit: cover;
++    }
++
++    .product-card .product-thumb-placeholder {
++        display: flex !important;
++        align-items: center;
++        justify-content: center;
++        padding: 8px;
++        text-align: center;
++        font-size: 11px;
++        line-height: 1.3;
++    }
++
++    .product-card .product-meta {
++        min-width: 0;
++    }
++
++    .product-card .product-name {
++        font-size: 16px;
++        font-weight: 700;
++        color: #1f2937;
++        line-height: 1.35;
++        margin-bottom: 6px;
++    }
++
++    .product-card .product-category {
++        display: inline-flex;
++        align-items: center;
++        padding: 4px 10px;
++        border-radius: 999px;
++        background: rgba(91, 45, 142, 0.08);
++        color: var(--purple-deep);
++        font-size: 11px;
++        font-weight: 600;
++        margin-bottom: 8px;
++    }
++
++    .product-card .product-description {
++        color: #6b7280;
++        font-size: 13px;
++        line-height: 1.5;
++        margin-bottom: 0;
++    }
++
++    .product-card .product-footer {
++        display: flex;
++        align-items: end;
++        justify-content: space-between;
++        gap: 14px;
++        flex-wrap: wrap;
++    }
++
++    .product-card .product-price {
++        font-size: 24px;
++        font-weight: 800;
++        color: var(--purple-deep);
++        line-height: 1;
++    }
++
++    .product-card .product-price small {
++        display: block;
++        color: #6b7280;
++        font-size: 11px;
++        font-weight: 600;
++        text-transform: uppercase;
++        letter-spacing: .08em;
++        margin-bottom: 6px;
++    }
++
++    .product-card .product-controls {
++        display: flex;
++        align-items: end;
++        gap: 10px;
++        flex-wrap: wrap;
++    }
++
++    .product-card .product-control {
++        min-width: 92px;
++    }
++
++    .product-card .product-control.wide {
++        min-width: 146px;
++    }
++
++    .product-card .product-control .primary_input_label {
++        font-size: 10px;
++        margin-bottom: 4px;
++    }
++
++    @media (max-width: 767px) {
++        .product-grid-header {
++            flex-direction: column;
++            align-items: flex-start;
++        }
++
++        .product-count-badge {
++            width: 100%;
++        }
++
++        .product-card .product-top {
++            flex-direction: column;
++        }
++
++        .product-card .product-footer {
++            align-items: stretch;
++        }
++    }
+ </style>
+ @endpush
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:15:14Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+             function renderProducts(products) {
+                 if (!products.length) {
+                     $('#products-list').html('<p class="text-muted">No products found. Try a different search or leave empty to see all.</p>');
+                     return;
+                 }
+ 
+-                let html = '<h5 class="mb-3 section-title">Select items to assign</h5><div class="row">';
++                let html = '<div class="product-grid-header">' +
++                    '<div>' +
++                        '<span class="eyebrow">Select items to assign</span>' +
++                        '<div class="helper">Pick the products, set quantity and mark whether each item is required or recommended.</div>' +
++                    '</div>' +
++                    '<div class="product-count-badge"><strong>' + products.length + '</strong><span>results</span></div>' +
++                    '</div><div class="row">';
+                 products.forEach(function(p) {
+                     const id = (p.id || '').toString();
+                     const selected = selectedProducts.find(function(sp) { return String(sp.id) === String(id); }) || null;
+                     const isChecked = !!selected;
+                     const name = escapeHtml(p.name || '');
+                     const category = escapeHtml(p.category || '');
+                     const price = Number(p.price || 0);
+                     const quantity = selected ? Math.max(1, Number(selected.quantity || 1)) : 1;
+                     const assignmentType = selected ? String(selected.assignment_type || 'recommended') : 'recommended';
++                    const description = escapeHtml(p.description || 'This item is ready to be assigned to the selected recipients.');
+                     const imgUrl = (p.image_url || '').replace(/"/g, '');
+                     const imgTag = imgUrl
+-                        ? '<img src="' + imgUrl + '" alt="" class="product-thumb mr-4" loading="lazy" width="80" height="80" style="object-fit:cover;">'
+-                        : '<span class="product-thumb-placeholder mr-4 d-inline-block bg-light text-muted" style="width:80px;height:80px;line-height:80px;text-align:center;font-size:10px;">No image</span>';
++                        ? '<img src="' + imgUrl + '" alt="" class="product-thumb" loading="lazy" width="76" height="76">'
++                        : '<span class="product-thumb-placeholder text-muted">No image</span>';
+                     html += '<div class="col-md-6 col-lg-4 mb-3 d-flex">' +
+-                        '<div class="panel-card product-card h-100 w-100">' +
+-                        '<label class="d-flex align-items-start mb-0 cursor-pointer">' +
+-                        '<input type="checkbox" class="product-cb mt-1 mr-3" ' + (isChecked ? 'checked ' : '') +
++                        '<div class="panel-card product-card h-100 w-100 ' + (isChecked ? 'is-selected' : '') + '">' +
++                        '<label class="d-flex align-items-start mb-0 cursor-pointer">' +
++                        '<input type="checkbox" class="product-cb product-check" ' + (isChecked ? 'checked ' : '') +
+                         'data-id="' + escapeHtml(id) + '" data-name="' + name + '" data-category="' + category + '" data-price="' + price + '" data-description="' + escapeHtml(p.description || '') + '" data-image="' + imgUrl + '" data-url="' + escapeHtml(p.product_url || '') + '">' +
+-                        '<div class="flex-grow-1 min-w-0">' +
+-                        '<div class="d-flex mb-2">' +
+-                            imgTag +
+-                            '<div class="ml-3">' +
+-                                '<strong class="d-block">' + name + '</strong>' +
+-                                '<small class="text-muted d-block">' + category + ' — KES ' + formatPrice(price) + '</small>' +
++                        '<div class="product-card-body flex-grow-1 min-w-0">' +
++                        '<div class="product-top">' +
++                            imgTag +
++                            '<div class="product-meta">' +
++                                '<div class="product-name">' + name + '</div>' +
++                                '<div class="product-category">' + category + '</div>' +
++                                '<p class="product-description">' + description + '</p>' +
+                             '</div>' +
+                         '</div>' +
+-                        '<div class="mt-2 d-flex align-items-end" style="gap: 10px;">' +
+-                            '<div>' +
+-                                '<label class="primary_input_label" style="font-size: 10px; margin-bottom: 2px;">Qty</label>' +
+-                                '<input type="number" min="1" max="999" value="' + quantity + '" class="primary_input_field form-control-sm product-qty" data-id="' + escapeHtml(id) + '" style="width:70px; height: 32px;">' +
++                        '<div class="product-footer">' +
++                            '<div class="product-price"><small>Price</small>KES ' + formatPrice(price) + '</div>' +
++                            '<div class="product-controls">' +
++                            '<div class="product-control">' +
++                                '<label class="primary_input_label">Qty</label>' +
++                                '<input type="number" min="1" max="999" value="' + quantity + '" class="primary_input_field form-control-sm product-qty" data-id="' + escapeHtml(id) + '" style="width:92px; height: 38px;">' +
+                             '</div>' +
+-                            '<div>' +
+-                                '<label class="primary_input_label" style="font-size: 10px; margin-bottom: 2px;">Type</label>' +
+-                                '<select class="primary_select form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '" style="width:130px; height: 32px;">' +
++                            '<div class="product-control wide">' +
++                                '<label class="primary_input_label">Type</label>' +
++                                '<select class="primary_select form-control-sm product-assignment-type" data-id="' + escapeHtml(id) + '" style="width:146px; height: 38px;">' +
+                         '<option value="recommended" ' + (assignmentType === 'recommended' ? 'selected' : '') + '>Recommended</option>' +
+                         '<option value="required" ' + (assignmentType === 'required' ? 'selected' : '') + '>Required</option>' +
+                         '</select>' +
+                         '</div>' +
+-                        '</div></div></label></div></div>';
++                        '</div></div></div></label></div></div>';
+                 });
+                 html += '</div>';
+                 $('#products-list').html(html);
+             }
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:15:23Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+             $(document).on('change', '.product-cb', function() {
+                 const cb = $(this);
+                 const id = String(cb.data('id'));
+                 const qtyInput = cb.closest('.product-card').find('.product-qty').first();
+                 const quantity = Math.max(1, parseInt(qtyInput.val(), 10) || 1);
+@@
+                 } else {
+                     selectedProducts = selectedProducts.filter(function(sp) { return String(sp.id) !== id; });
+                 }
++                cb.closest('.product-card').toggleClass('is-selected', cb.is(':checked'));
+                 renderSelectionsSummary();
+                 updateButtonsState();
+             });
+@@
+             $(document).on('click', '.remove-selection', function() {
+                 var id = $(this).data('id');
+                 selectedProducts = selectedProducts.filter(function(sp) { return String(sp.id) !== String(id); });
+-                $('.product-cb').each(function() { if (String($(this).data('id')) === String(id)) $(this).prop('checked', false); });
++                $('.product-cb').each(function() {
++                    if (String($(this).data('id')) === String(id)) {
++                        $(this).prop('checked', false).closest('.product-card').removeClass('is-selected');
++                    }
++                });
+                 renderSelectionsSummary();
+                 updateButtonsState();
+             });
+@@
+             $('#btn-remove-all').on('click', function() {
+                 selectedProducts = [];
+-                $('.product-cb').prop('checked', false);
++                $('.product-cb').prop('checked', false);
++                $('.product-card').removeClass('is-selected');
+                 renderSelectionsSummary();
+                 updateButtonsState();
+             });
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:15:27Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '320,520p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php && sed -n '720,860p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '320,520p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php && sed -n '720,860p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: f70a39
+Wall time: 0.0001 seconds
+Process exited with code 0
+Original token count: 4127
+Output:
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: rgba(91, 45, 142, 0.12);
+        color: var(--purple-deep);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    .product-grid-header .helper {
+        color: #6b7280;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .product-count-badge {
+        min-width: 74px;
+        text-align: center;
+        padding: 10px 14px;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid rgba(200, 168, 233, 0.9);
+        color: var(--purple-deep);
+        box-shadow: 0 10px 20px rgba(58, 26, 107, 0.08);
+    }
+
+    .product-count-badge strong {
+        display: block;
+        font-size: 24px;
+        line-height: 1;
+    }
+
+    .product-count-badge span {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: #6b7280;
+        margin-top: 4px;
+    }
+
+    .product-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #e8def6 !important;
+        border-radius: 18px !important;
+        padding: 18px !important;
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--purple), var(--pink-accent), var(--yellow));
+        opacity: 0;
+        transition: opacity .18s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 32px rgba(58, 26, 107, 0.12);
+        border-color: rgba(91, 45, 142, 0.35) !important;
+    }
+
+    .product-card.is-selected {
+        background: linear-gradient(180deg, rgba(245, 197, 24, 0.08), rgba(200, 168, 233, 0.14));
+        border-color: rgba(91, 45, 142, 0.5) !important;
+        box-shadow: 0 18px 34px rgba(58, 26, 107, 0.16);
+    }
+
+    .product-card.is-selected::before {
+        opacity: 1;
+    }
+
+    .product-card .product-check {
+        width: 20px;
+        height: 20px;
+        margin-top: 4px;
+        accent-color: var(--purple);
+        flex: 0 0 auto;
+    }
+
+    .product-card .product-card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-width: 0;
+    }
+
+    .product-card .product-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        min-width: 0;
+    }
+
+    .product-card .product-thumb,
+    .product-card .product-thumb-placeholder {
+        width: 76px;
+        height: 76px;
+        border-radius: 16px;
+        flex: 0 0 76px;
+        border: 1px solid #eadcf8;
+        background: #f8f5fc;
+        object-fit: cover;
+    }
+
+    .product-card .product-thumb-placeholder {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        text-align: center;
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    .product-card .product-meta {
+        min-width: 0;
+    }
+
+    .product-card .product-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1f2937;
+        line-height: 1.35;
+        margin-bottom: 6px;
+    }
+
+    .product-card .product-category {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(91, 45, 142, 0.08);
+        color: var(--purple-deep);
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .product-card .product-description {
+        color: #6b7280;
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    .product-card .product-footer {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .product-card .product-price {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--purple-deep);
+        line-height: 1;
+    }
+
+    .product-card .product-price small {
+        display: block;
+        color: #6b7280;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        margin-bottom: 6px;
+    }
+
+    .product-card .product-controls {
+        display: flex;
+        align-items: end;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .product-card .product-control {
+        min-width: 92px;
+    }
+
+    .product-card .product-control.wide {
+        min-w
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:15:31Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '500,620p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '500,620p' resources/views/backEnd/studentInformation/assign_items_to_student.blade.php"
+Chunk ID: dd8fdb
+Wall time: 0.0000 seconds
+Process exited with code 0
+Original token count: 1682
+Output:
+        display: flex;
+        align-items: end;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .product-card .product-control {
+        min-width: 92px;
+    }
+
+    .product-card .product-control.wide {
+        min-width: 146px;
+    }
+
+    .product-card .product-control .primary_input_label {
+        font-size: 10px;
+        margin-bottom: 4px;
+    }
+
+    @media (max-width: 767px) {
+        .product-grid-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .product-count-badge {
+            width: 100%;
+        }
+
+        .product-card .product-top {
+            flex-direction: column;
+        }
+
+        .product-card .product-footer {
+            align-items: stretch;
+        }
+    }
+</style>
+@endpush
+@section('mainContent')
+    @php
+        $activeTab = request()->query('tab') === 'assigned' ? 'assigned' : 'new';
+        $breadCrumbs = [
+            'h1' => 'Assign Items to Student',
+            'bcPages' => ['<a href="#">Student Information</a>'],
+        ];
+    @endphp
+    <x-bread-crumb-component :breadCrumbs="$breadCrumbs" />
+    <section class="admin-visitor-area up_st_admin_visitor">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="white-box assign-shell">
+                        <ul class="nav nav-tabs mb-3" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link {{ $activeTab === 'new' ? 'active' : '' }}" data-toggle="tab" href="#tab-assign-new" role="tab">New items</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $activeTab === 'assigned' ? 'active' : '' }}" data-toggle="tab" href="#tab-assign-history" role="tab">Assigned items</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                        <div class="tab-pane fade {{ $activeTab === 'new' ? 'show active' : '' }}" id="tab-assign-new" role="tabpanel">
+                        <div class="main-title mb-3">
+                            <h3 class="mb-1 section-title">Search products and assign to a student</h3>
+                            <p class="section-subtitle mb-0">Items you pick here will quietly appear on the student and parent dashboards for easy checkout.</p>
+                        </div>
+
+                        <div class="row mb-20">
+                            <div class="col-md-6">
+                                <div class="panel-card h-100 recipients-panel">
+                                    <div class="panel-title">Recipients</div>
+                                    <div class="scope-toggle-chain">
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-all" value="all" checked>
+                                            <label for="scope-all">Assign to all students</label>
+                                        </div>
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-class" value="class">
+                                            <label for="scope-class">Assign to class / stream</label>
+                                        </div>
+                                        <div class="toggle-option">
+                                            <input class="scope-radio" type="radio" name="assign_scope" id="scope-student" value="student">
+                                            <label for="scope-student">Assign to specific student</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel-card h-100">
+                                    <div class="panel-title">Targeting</div>
+                                    <div id="scope-class-fields" class="mb-3" style="display:none;">
+                                        <label class="primary_input_label d-block">Class / Section</label>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <select id="class-select" class="primary_select form-control">
+                                                    <option value="">Select class</option>
+                                                    @foreac
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:15:38Z)**_
+
+Nice one — I refreshed the **“Select items to assign”** card layout in `resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`.
+
+What changed:
+- Added a cleaner results header with a live result count
+- Redesigned each product into a more polished card with:
+  - stronger image/name/category hierarchy
+  - clearer price display
+  - tidier quantity + type controls
+- Added selected-state styling so checked items stand out immediately
+- Kept the existing assignment logic exactly the same
+
+I didn’t change backend behavior here, just the UI layer. Refresh the page and the new layout should show up. If you want, I can next make the cards a bit more compact or more colorful.
+
+---
+
+_**User (2026-03-27 12:27:13Z)**_
+
+in the cards sections implement the raw where the images start
+
+
+---
+
+_**Agent (gpt-5.4 2026-03-27 12:27:26Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+     .product-card .product-top {
+         display: flex;
+         align-items: flex-start;
+         gap: 14px;
+         min-width: 0;
++        padding: 14px;
++        border-radius: 16px;
++        background: linear-gradient(180deg, rgba(250, 250, 248, 0.98), rgba(242, 238, 249, 0.95));
++        border: 1px solid rgba(200, 168, 233, 0.45);
+     }
+@@
+     .product-card .product-meta {
+         min-width: 0;
++        flex: 1 1 auto;
+     }
+@@
+         .product-card .product-footer {
+             align-items: stretch;
+         }
++
++        .product-card .product-top {
++            padding: 12px;
++        }
+     }
+ </style>
+ @endpush
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:27:32Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`**
+
+```diff
+@@
+-                        '<div class="product-top">' +
++                        '<div class="product-top product-media-row">' +
+                             imgTag +
+                             '<div class="product-meta">' +
+                                 '<div class="product-name">' + name + '</div>' +
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 12:27:36Z)**_
+
+Good catch — I updated the card area where the images begin so it reads more like a proper row.
+
+Updated in `resources/views/backEnd/studentInformation/assign_items_to_student.blade.php`:
+- Added a styled top media row around the image + item details
+- Gave that row its own soft background, border, and spacing
+- Improved alignment so the image section feels clearly separated from the controls below
+
+The logic is unchanged — this is just a cleaner card structure. Refresh the page and you should see the image section look more organized.
+
+---
+
+_**User (2026-03-27 13:10:20Z)**_
+
+/recommended-items-cart/checkout in Payment Method add icons to selects
+
+
+---
+
+_**Agent (gpt-5.4 2026-03-27 13:10:24Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `rg -n "Payment Method|recommended-items-cart/checkout|checkout" resources/views app/Http/Controllers routes -g '!storage'`</summary>
+```
+Command: /bin/bash -lc "rg -n \"Payment Method|recommended-items-cart/checkout|checkout\" resources/views app/Http/Controllers routes -g '"'!storage'"'"
+Chunk ID: b3625c
+Wall time: 0.0063 seconds
+Process exited with code 0
+Original token count: 3630
+Output:
+routes/parent.php:57:        Route::get('recommended-items-cart/checkout', 'Parent\SmParentPanelController@recommendedItemsCheckoutPage')->name('parent-recommended-items-cart.checkout-page');
+routes/parent.php:58:        Route::post('recommended-items-cart/checkout', 'Parent\SmParentPanelController@checkoutRecommendedItems')->name('parent-recommended-items-cart.checkout');
+routes/web.php:53:    // Parent-facing demo shop & checkout (URI adjusted to avoid Apache serving the physical /parents folder)
+routes/web.php:55:    Route::get('parent-items/checkout', 'ItemAssignmentController@checkoutPage')->name('parents.items.checkoutPage');
+routes/web.php:56:    Route::post('parent-items/checkout', 'ItemAssignmentController@checkout')->name('parents.items.checkout');
+routes/web.php:57:    Route::post('parent-items/process-checkout', 'ItemAssignmentController@processCheckout')->name('parents.items.processCheckout');
+app/Http/Controllers/RouteListController.php:2511:                'name' => 'Payment Method Settings',
+app/Http/Controllers/Parent/SmParentPanelController.php:1948:     *  - Store selection in session and redirect to GET checkout page
+app/Http/Controllers/Parent/SmParentPanelController.php:1950:    public function checkoutRecommendedItems(Request $request)
+app/Http/Controllers/Parent/SmParentPanelController.php:1957:        session()->put('recommended_items_checkout_item_ids', array_values($request->input('item_ids', [])));
+app/Http/Controllers/Parent/SmParentPanelController.php:1959:        return redirect()->route('parent-recommended-items-cart.checkout-page');
+app/Http/Controllers/Parent/SmParentPanelController.php:1963:     * GET checkout page for recommended items.
+app/Http/Controllers/Parent/SmParentPanelController.php:1964:     * Reads selected item ids from session (set by checkoutRecommendedItems()).
+app/Http/Controllers/Parent/SmParentPanelController.php:1968:        $itemIds = (array) session()->get('recommended_items_checkout_item_ids', []);
+app/Http/Controllers/Parent/SmParentPanelController.php:1972:            Toastr::warning('Please select items to checkout first.', 'Warning');
+app/Http/Controllers/Parent/SmParentPanelController.php:1985:            Toastr::warning('No valid items selected for checkout.', 'Warning');
+app/Http/Controllers/Parent/SmParentPanelController.php:1991:            Toastr::warning('Please checkout items for one student at a time.', 'Warning');
+app/Http/Controllers/Parent/SmParentPanelController.php:2005:        return view('backEnd.parentPanel.recommended_items_checkout', compact('items', 'total', 'currency', 'wallet_balance', 'item_ids'));
+app/Http/Controllers/Parent/SmParentPanelController.php:2031:            Toastr::warning('No valid items selected for checkout.', 'Warning');
+app/Http/Controllers/Parent/SmParentPanelController.php:2037:            Toastr::warning('Please checkout items for one student at a time.', 'Warning');
+app/Http/Controllers/Parent/SmParentPanelController.php:2139:            session()->forget('recommended_items_checkout_item_ids');
+app/Http/Controllers/ItemAssignmentController.php:40:    // Show checkout summary (accepts POST from shop form)
+app/Http/Controllers/ItemAssignmentController.php:41:    public function checkout(Request $request)
+app/Http/Controllers/ItemAssignmentController.php:64:        return view('backEnd.parentPanel.items_checkout', compact('cart', 'total'));
+app/Http/Controllers/ItemAssignmentController.php:67:    // Show checkout page pre-filled with demo items (GET)
+app/Http/Controllers/ItemAssignmentController.php:68:    public function checkoutPage()
+app/Http/Controllers/ItemAssignmentController.php:109:        return view('backEnd.parentPanel.items_checkout', compact('cart', 'total'));
+app/Http/Controllers/ItemAssignmentController.php:112:    // Process (fake) checkout — simply returns a success page with summary
+app/Http/Controllers/ItemAssignmentController.php:132:        return view('backEnd.parentPanel.items_checkout_success', compact('name', 'method', 'cart'));
+app/Http/Controllers/Admin/Communicate/SmsEmailTemplateController.php:49:            $data->er_checkout = $request->er_checkout;
+app/Http/Controllers/Admin/Communicate/SmsEmailTemplateController.php:50:            $data->st_checkout = $request->st_checkout;
+app/Http/Controllers/Admin/SystemSettings/SmSystemSettingController.php:1186:                $generalSettData->lms_checkout       = $request->lms_checkout;
+resources/views/frontEnd/landing/index.blade.php:354:                            Payment Methods etc.
+resources/views/frontEnd/landing/original.blade.php:340:                            Payment Methods etc.
+app/Http/Controllers/api/SmApiController.php:211:                        } elseif ($atten
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 13:10:31Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="exec_command"><details>
+<summary>Tool use: **exec_command** `sed -n '1,220p' resources/views/backEnd/parentPanel/recommended_items_checkout.blade.php`</summary>
+```
+Command: /bin/bash -lc "sed -n '1,220p' resources/views/backEnd/parentPanel/recommended_items_checkout.blade.php"
+Chunk ID: 1d3ce8
+Wall time: 0.0000 seconds
+Process exited with code 0
+Original token count: 2852
+Output:
+@extends('backEnd.master')
+@section('title')
+    Recommended Items Checkout
+@endsection
+
+@section('mainContent')
+<section class="student-details">
+    <div class="container-fluid p-0">
+        <div class="white-box">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="main-title">
+                        <h3 class="mb-15">Checkout</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 text-right">
+                    <a href="{{ route('parent-recommended-items-cart') }}" class="secondary-btn fix-gr-bg">
+                        <span class="ti-arrow-left mr-2"></span>
+                        Back to Cart
+                    </a>
+                </div>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger mt-20">
+                    <strong>Please fix the errors below and try again.</strong>
+                    <ul class="mb-0 mt-10">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('parent-recommended-items-cart.pay') }}" id="checkout-form">
+                @csrf
+                @foreach($item_ids as $id)
+                    <input type="hidden" name="item_ids[]" value="{{ $id }}">
+                @endforeach
+
+                <div class="row mt-20">
+                    <div class="col-lg-7">
+                        <div class="white-box" style="border: 2px solid #e9ecef; border-radius: 8px;">
+                            <h5 style="margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #eee;">Order Summary</h5>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead style="background-color: #f8f9fa;">
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Student</th>
+                                            <th class="text-right">Qty</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($items as $item)
+                                            @php
+                                                $qty = (int) ($item->assigned_quantity ?: 1);
+                                                $price = (float) optional($item->recommendedItem)->price;
+                                                $line = $qty * $price;
+                                            @endphp
+                                            <tr>
+                                                <td>
+                                                    <strong>{{ optional($item->recommendedItem)->item_name }}</strong>
+                                                    <div class="text-muted" style="font-size: 12px;">
+                                                        {{ ucfirst(str_replace('_', ' ', optional($item->recommendedItem)->item_type)) }}
+                                                    </div>
+                                                </td>
+                                                <td>{{ optional($item->student)->full_name }}</td>
+                                                <td class="text-right"><strong>{{ $qty }}</strong></td>
+                                                <td class="text-right">
+                                                    <strong>
+                                                        @if(isset($currency))
+                                                            {{ $currency->currency_symbol }}{{ number_format($line, 2) }}
+                                                        @else
+                                                            {{ number_format($line, 2) }}
+                                                        @endif
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin
+... (truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 13:11:06Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="apply_patch"><details>
+<summary>Tool use: **apply_patch**</summary>
+**Update: `/home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/parentPanel/recommended_items_checkout.blade.php`**
+
+```diff
+@@
+ @section('title')
+     Recommended Items Checkout
+ @endsection
++
++@push('css')
++<style>
++    .payment-method-option {
++        position: relative;
++        display: flex;
++        align-items: flex-start;
++        gap: 14px;
++        padding: 16px 18px;
++        margin-bottom: 12px;
++        border: 1px solid #e5dff2;
++        border-radius: 16px;
++        background: #fff;
++        cursor: pointer;
++        transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background-color .18s ease;
++    }
++
++    .payment-method-option:hover {
++        border-color: rgba(91, 45, 142, 0.35);
++        box-shadow: 0 12px 24px rgba(58, 26, 107, 0.08);
++        transform: translateY(-1px);
++    }
++
++    .payment-method-option.active {
++        background: linear-gradient(180deg, rgba(245, 197, 24, 0.07), rgba(200, 168, 233, 0.14));
++        border-color: rgba(91, 45, 142, 0.45);
++        box-shadow: 0 16px 28px rgba(58, 26, 107, 0.12);
++    }
++
++    .payment-method-option input[type="radio"] {
++        margin-top: 10px;
++        accent-color: var(--purple, #5B2D8E);
++        flex: 0 0 auto;
++    }
++
++    .payment-method-icon {
++        width: 46px;
++        height: 46px;
++        border-radius: 14px;
++        display: inline-flex;
++        align-items: center;
++        justify-content: center;
++        font-size: 20px;
++        color: var(--purple-deep, #3A1A6B);
++        background: rgba(91, 45, 142, 0.1);
++        border: 1px solid rgba(200, 168, 233, 0.9);
++        flex: 0 0 46px;
++    }
++
++    .payment-method-copy {
++        flex: 1 1 auto;
++        min-width: 0;
++    }
++
++    .payment-method-copy strong {
++        display: block;
++        color: #1f2937;
++        margin-bottom: 3px;
++    }
++
++    .payment-method-copy .text-muted {
++        font-size: 12px;
++        line-height: 1.45;
++    }
++</style>
++@endpush
+ 
+ @section('mainContent')
+ <section class="student-details">
+@@
+                             <div class="mb-15">
+                                 <label class="primary_input_label d-block mb-2">Select how you want to pay</label>
+ 
+-                                <div class="d-flex align-items-center mb-10" style="gap: 10px;">
++                                <label class="payment-method-option" for="pm_mpesa">
+                                     <input type="radio" name="payment_method" id="pm_mpesa" value="mpesa" {{ old('payment_method', 'mpesa') === 'mpesa' ? 'checked' : '' }}>
+-                                    <label for="pm_mpesa" class="mb-0">
++                                    <span class="payment-method-icon">
++                                        <i class="ti-mobile"></i>
++                                    </span>
++                                    <span class="payment-method-copy">
+                                         <strong>MPESA</strong>
+                                         <div class="text-muted" style="font-size: 12px;">You’ll receive a payment prompt on your phone.</div>
+-                                    </label>
+-                                </div>
++                                    </span>
++                                </label>
+ 
+                                 <div id="mpesa-fields" class="mb-15" style="padding-left: 24px;">
+                                     <label class="primary_input_label" for="mpesa_phone">MPESA Phone Number</label>
+                                     <input type="text" class="primary_input_field form-control" name="mpesa_phone" id="mpesa_phone" placeholder="e.g. 07XXXXXXXX" value="{{ old('mpesa_phone') }}">
+@@
+-                                <div class="d-flex align-items-center mb-10" style="gap: 10px;">
++                                <label class="payment-method-option" for="pm_wallet">
+                                     <input type="radio" name="payment_method" id="pm_wallet" value="kuzza_wallet" {{ old('payment_method') === 'kuzza_wallet' ? 'checked' : '' }}>
+-                                    <label for="pm_wallet" class="mb-0">
++                                    <span class="payment-method-icon">
++                                        <i class="ti-wallet"></i>
++                                    </span>
++                                    <span class="payment-method-copy">
+                                         <strong>Kuzza Wallet</strong>
+                                         <div class="text-muted" style="font-size: 12px;">Pay instantly from your wallet balance.</div>
+-                                    </label>
+-                                </div>
++                                    </span>
++                                </label>
+                                 <div id="wallet-hint" class="mb-15 text-muted" style="padding-left: 24px; font-size: 12px;">
+                                     Wallet balance: <strong>
+                                         @if(isset($currency))
+                                             {{ $currency->currency_symbol }}{{ number_format((float) $wallet_balance, 2) }}
+@@
+-                                <div class="d-flex align-items-center mb-10" style="gap: 10px;">
++                                <label class="payment-method-option" for="pm_paylater">
+                                     <input type="radio" name="payment_method" id="pm_paylater" value="pay_later" {{ old('payment_method') === 'pay_later' ? 'checked' : '' }}>
+-                                    <label for="pm_paylater" class="mb-0">
++                                    <span class="payment-method-icon">
++                                        <i class="ti-time"></i>
++                                    </span>
++                                    <span class="payment-method-copy">
+                                         <strong>Pay Later</strong>
+                                         <div class="text-muted" style="font-size: 12px;">Request approval from the school before payment is due.</div>
+-                                    </label>
+-                                </div>
++                                    </span>
++                                </label>
+ 
+                                 <div id="paylater-terms" class="mb-15" style="padding-left: 24px; display: none;">
+                                     <label class="d-flex align-items-center" style="gap: 10px; margin-bottom: 0;">
+                                         <input type="checkbox" name="pay_later_terms" value="1" {{ old('pay_later_terms') ? 'checked' : '' }}>
+@@
+ <script>
+     (function () {
++        function paintPaymentOptions() {
++            $('.payment-method-option').removeClass('active');
++            $('input[name="payment_method"]:checked').closest('.payment-method-option').addClass('active');
++        }
++
+         function syncPaymentUI() {
+             var method = $('input[name="payment_method"]:checked').val();
+ 
+             $('#mpesa-fields').toggle(method === 'mpesa');
+             $('#paylater-terms').toggle(method === 'pay_later');
++            paintPaymentOptions();
+         }
+ 
+         $(document).on('change', 'input[name="payment_method"]', syncPaymentUI);
+         syncPaymentUI();
+     })();
+```
+</details></tool-use>
+
+_**Agent (gpt-5.4 2026-03-27 13:11:12Z)**_
+
+Nice — I added icons to the **Payment Method** options on `/recommended-items-cart/checkout`.
+
+Updated: `resources/views/backEnd/parentPanel/recommended_items_checkout.blade.php`
+
+What changed:
+- Added icons for:
+  - `MPESA`
+  - `Kuzza Wallet`
+  - `Pay Later`
+- Turned each payment option into a clearer clickable card
+- Added active-state styling so the selected method stands out
+
+The payment logic stays the same — just a cleaner UI. Refresh the checkout page and you should see it.

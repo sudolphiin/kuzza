@@ -1,9 +1,8 @@
-@extends('backEnd.master')
-@section('title')
+<?php $__env->startSection('title'); ?>
     Recommended Items Checkout
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('css')
+<?php $__env->startPush('css'); ?>
 <style>
     .payment-method-option {
         position: relative;
@@ -67,9 +66,9 @@
         line-height: 1.45;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('mainContent')
+<?php $__env->startSection('mainContent'); ?>
 <section class="student-details">
     <div class="container-fluid p-0">
         <div class="white-box">
@@ -80,29 +79,29 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 text-right">
-                    <a href="{{ route('parent-recommended-items-cart') }}" class="secondary-btn fix-gr-bg">
+                    <a href="<?php echo e(route('parent-recommended-items-cart')); ?>" class="secondary-btn fix-gr-bg">
                         <span class="ti-arrow-left mr-2"></span>
                         Back to Cart
                     </a>
                 </div>
             </div>
 
-            @if ($errors->any())
+            <?php if($errors->any()): ?>
                 <div class="alert alert-danger mt-20">
                     <strong>Please fix the errors below and try again.</strong>
                     <ul class="mb-0 mt-10">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-            @endif
+            <?php endif; ?>
 
-            <form method="POST" action="{{ route('parent-recommended-items-cart.pay') }}" id="checkout-form">
-                @csrf
-                @foreach($item_ids as $id)
-                    <input type="hidden" name="item_ids[]" value="{{ $id }}">
-                @endforeach
+            <form method="POST" action="<?php echo e(route('parent-recommended-items-cart.pay')); ?>" id="checkout-form">
+                <?php echo csrf_field(); ?>
+                <?php $__currentLoopData = $item_ids; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <input type="hidden" name="item_ids[]" value="<?php echo e($id); ?>">
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <div class="row mt-20">
                     <div class="col-lg-7">
@@ -120,32 +119,35 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($items as $item)
-                                            @php
+                                        <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php
                                                 $qty = (int) ($item->assigned_quantity ?: 1);
                                                 $price = (float) optional($item->recommendedItem)->price;
                                                 $line = $qty * $price;
-                                            @endphp
+                                            ?>
                                             <tr>
                                                 <td>
-                                                    <strong>{{ optional($item->recommendedItem)->item_name }}</strong>
+                                                    <strong><?php echo e(optional($item->recommendedItem)->item_name); ?></strong>
                                                     <div class="text-muted" style="font-size: 12px;">
-                                                        {{ ucfirst(str_replace('_', ' ', optional($item->recommendedItem)->item_type)) }}
+                                                        <?php echo e(ucfirst(str_replace('_', ' ', optional($item->recommendedItem)->item_type))); ?>
+
                                                     </div>
                                                 </td>
-                                                <td>{{ optional($item->student)->full_name }}</td>
-                                                <td class="text-right"><strong>{{ $qty }}</strong></td>
+                                                <td><?php echo e(optional($item->student)->full_name); ?></td>
+                                                <td class="text-right"><strong><?php echo e($qty); ?></strong></td>
                                                 <td class="text-right">
                                                     <strong>
-                                                        @if(isset($currency))
-                                                            {{ $currency->currency_symbol }}{{ number_format($line, 2) }}
-                                                        @else
-                                                            {{ number_format($line, 2) }}
-                                                        @endif
+                                                        <?php if(isset($currency)): ?>
+                                                            <?php echo e($currency->currency_symbol); ?><?php echo e(number_format($line, 2)); ?>
+
+                                                        <?php else: ?>
+                                                            <?php echo e(number_format($line, 2)); ?>
+
+                                                        <?php endif; ?>
                                                     </strong>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -153,16 +155,18 @@
                             <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <span>Total Items:</span>
-                                    <strong>{{ count($items) }}</strong>
+                                    <strong><?php echo e(count($items)); ?></strong>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-size: 18px;">
                                     <span>Grand Total:</span>
                                     <strong style="color: var(--base_color, #20b2aa);">
-                                        @if(isset($currency))
-                                            {{ $currency->currency_symbol }}{{ number_format($total, 2) }}
-                                        @else
-                                            {{ number_format($total, 2) }}
-                                        @endif
+                                        <?php if(isset($currency)): ?>
+                                            <?php echo e($currency->currency_symbol); ?><?php echo e(number_format($total, 2)); ?>
+
+                                        <?php else: ?>
+                                            <?php echo e(number_format($total, 2)); ?>
+
+                                        <?php endif; ?>
                                     </strong>
                                 </div>
                             </div>
@@ -177,7 +181,7 @@
                                 <label class="primary_input_label d-block mb-2">Select how you want to pay</label>
 
                                 <label class="payment-method-option" for="pm_mpesa">
-                                    <input type="radio" name="payment_method" id="pm_mpesa" value="mpesa" {{ old('payment_method', 'mpesa') === 'mpesa' ? 'checked' : '' }}>
+                                    <input type="radio" name="payment_method" id="pm_mpesa" value="mpesa" <?php echo e(old('payment_method', 'mpesa') === 'mpesa' ? 'checked' : ''); ?>>
                                     <span class="payment-method-icon">
                                         <i class="ti-mobile"></i>
                                     </span>
@@ -189,14 +193,21 @@
 
                                 <div id="mpesa-fields" class="mb-15" style="padding-left: 24px;">
                                     <label class="primary_input_label" for="mpesa_phone">MPESA Phone Number</label>
-                                    <input type="text" class="primary_input_field form-control" name="mpesa_phone" id="mpesa_phone" placeholder="e.g. 07XXXXXXXX" value="{{ old('mpesa_phone') }}">
-                                    @error('mpesa_phone')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <input type="text" class="primary_input_field form-control" name="mpesa_phone" id="mpesa_phone" placeholder="e.g. 07XXXXXXXX" value="<?php echo e(old('mpesa_phone')); ?>">
+                                    <?php $__errorArgs = ['mpesa_phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <label class="payment-method-option" for="pm_wallet">
-                                    <input type="radio" name="payment_method" id="pm_wallet" value="kuzza_wallet" {{ old('payment_method') === 'kuzza_wallet' ? 'checked' : '' }}>
+                                    <input type="radio" name="payment_method" id="pm_wallet" value="kuzza_wallet" <?php echo e(old('payment_method') === 'kuzza_wallet' ? 'checked' : ''); ?>>
                                     <span class="payment-method-icon">
                                         <i class="ti-wallet"></i>
                                     </span>
@@ -207,16 +218,18 @@
                                 </label>
                                 <div id="wallet-hint" class="mb-15 text-muted" style="padding-left: 24px; font-size: 12px;">
                                     Wallet balance: <strong>
-                                        @if(isset($currency))
-                                            {{ $currency->currency_symbol }}{{ number_format((float) $wallet_balance, 2) }}
-                                        @else
-                                            {{ number_format((float) $wallet_balance, 2) }}
-                                        @endif
+                                        <?php if(isset($currency)): ?>
+                                            <?php echo e($currency->currency_symbol); ?><?php echo e(number_format((float) $wallet_balance, 2)); ?>
+
+                                        <?php else: ?>
+                                            <?php echo e(number_format((float) $wallet_balance, 2)); ?>
+
+                                        <?php endif; ?>
                                     </strong>
                                 </div>
 
                                 <label class="payment-method-option" for="pm_paylater">
-                                    <input type="radio" name="payment_method" id="pm_paylater" value="pay_later" {{ old('payment_method') === 'pay_later' ? 'checked' : '' }}>
+                                    <input type="radio" name="payment_method" id="pm_paylater" value="pay_later" <?php echo e(old('payment_method') === 'pay_later' ? 'checked' : ''); ?>>
                                     <span class="payment-method-icon">
                                         <i class="ti-time"></i>
                                     </span>
@@ -228,14 +241,21 @@
 
                                 <div id="paylater-terms" class="mb-15" style="padding-left: 24px; display: none;">
                                     <label class="d-flex align-items-center" style="gap: 10px; margin-bottom: 0;">
-                                        <input type="checkbox" name="pay_later_terms" value="1" {{ old('pay_later_terms') ? 'checked' : '' }}>
+                                        <input type="checkbox" name="pay_later_terms" value="1" <?php echo e(old('pay_later_terms') ? 'checked' : ''); ?>>
                                         <span style="font-size: 13px;">
                                             I understand this is a request and delivery/payment will proceed after school approval.
                                         </span>
                                     </label>
-                                    @error('pay_later_terms')
-                                        <span class="text-danger d-block">{{ $message }}</span>
-                                    @enderror
+                                    <?php $__errorArgs = ['pay_later_terms'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="text-danger d-block"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
 
@@ -253,9 +273,9 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
 <script>
     (function () {
         function paintPaymentOptions() {
@@ -275,4 +295,6 @@
         syncPaymentUI();
     })();
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('backEnd.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/joe/Videos/Code/kuzza/kuzza/resources/views/backEnd/parentPanel/recommended_items_checkout.blade.php ENDPATH**/ ?>
