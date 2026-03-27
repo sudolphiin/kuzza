@@ -23,5 +23,9 @@ class ItemAssignmentBatch extends Model
     {
         return $this->hasMany(ParentRecommendedItem::class, 'assignment_batch_id');
     }
-}
 
+    public function creator()
+    {
+        return $this->belongsTo(\App\User::class, 'created_by');
+    }
+}

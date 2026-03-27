@@ -569,6 +569,8 @@ Route::group(['middleware' => ['XSS', 'subscriptionAccessUrl']], function () {
         Route::get('assign-items-to-student/search-students', 'Admin\StudentInfo\AssignItemsToStudentController@searchStudents')->name('assign-items-to-student.search-students');
         Route::get('assign-items-to-student/sections', 'Admin\StudentInfo\AssignItemsToStudentController@sectionsByClass')->name('assign-items-to-student.sections');
         Route::post('assign-items-to-student/assign', 'Admin\StudentInfo\AssignItemsToStudentController@assignToStudent')->name('assign-items-to-student.assign');
+        Route::post('assign-items-to-student/batches/{batch}/reassign', 'Admin\StudentInfo\AssignItemsToStudentController@reassignBatch')->name('assign-items-to-student.reassign-batch');
+        Route::post('assign-items-to-student/repair-legacy', 'Admin\StudentInfo\AssignItemsToStudentController@repairLegacyAssignments')->name('assign-items-to-student.repair-legacy');
         Route::delete('assign-items-to-student/batches/{batch}', 'Admin\StudentInfo\AssignItemsToStudentController@unassignBatch')->name('assign-items-to-student.unassign-batch');
         Route::delete('assign-items-to-student/items/{item}', 'Admin\StudentInfo\AssignItemsToStudentController@unassignItem')->name('assign-items-to-student.unassign-item');
 

@@ -470,7 +470,13 @@
                         </div>
                         </div> <!-- /tab-assign-new -->
                         <div class="tab-pane fade {{ $activeTab === 'assigned' ? 'show active' : '' }}" id="tab-assign-history" role="tabpanel">
-                            <h3 class="mb-15">Assigned items history</h3>
+                            <div class="d-flex justify-content-between align-items-center mb-15">
+                                <h3 class="mb-0">Assigned items history</h3>
+                                <form method="POST" action="{{ route('assign-items-to-student.repair-legacy') }}" onsubmit="return confirm('Repair legacy assignments? This will update older rows that used student/parent profile IDs.');">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-primary">Repair Legacy Assignments</button>
+                                </form>
+                            </div>
                             <p class="text-muted mb-3">Batches group items that were assigned together in a single selection.</p>
                             @if(isset($batches) && $batches->count())
                                 <div class="table-responsive">
@@ -478,6 +484,7 @@
                                         <thead>
                                         <tr>
                                             <th>Date</th>
+                                            <th>Assigned by</th>
                                             <th>Scope</th>
                                             <th>Deadline</th>
                                             <th>Total items</th>
@@ -491,13 +498,16 @@
                                         @foreach($batches as $batch)
                                             @php
                                                 $items = $batch->items;
-                                                $total = $items->count();
-                                                $pending = $items->where('status','pending')->count();
-                                                $bought = $items->where('status','already_bought')->count();
-                                                $ordered = $items->where('status','ordered')->count();
+                                                $total = $items->sum(function($i){ return (int) ($i->assigned_quantity ?: 1); });
+                                                $pending = $items->where('status','pending')->sum(function($i){ return (int) ($i->assigned_quantity ?: 1); });
+                                                $bought = $items->where('status','already_bought')->sum(function($i){ return (int) ($i->assigned_quantity ?: 1); });
+                                                $ordered = $items->where('status','ordered')->sum(function($i){ return (int) ($i->assigned_quantity ?: 1); });
+                                                $creator = $batch->creator;
+                                                $creatorName = $creator->full_name ?? $creator->name ?? $creator->username ?? 'Admin';
                                             @endphp
                                             <tr>
                                                 <td>{{ $batch->created_at->format('d M Y H:i') }}</td>
+                                                <td>{{ $creatorName }}</td>
                                                 <td>
                                                     @if($batch->scope === 'all')
                                                         All students
@@ -514,6 +524,10 @@
                                                 <td>{{ $ordered }} ordered</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-outline-secondary toggle-batch-items" data-batch-id="{{ $batch->id }}">View items</button>
+                                                    <form method="POST" action="{{ route('assign-items-to-student.reassign-batch', $batch->id) }}" class="d-inline" onsubmit="return confirm('Reassign this batch to the correct parent accounts? A new batch will be created.');">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">Reassign</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             <template id="batch-items-template-{{ $batch->id }}">
@@ -598,6 +612,33 @@
                     </button>
                 </div>
                 <div class="modal-body" id="batchItemsModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmAssignModal" tabindex="-1" role="dialog" aria-labelledby="confirmAssignModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmAssignModalLabel">Confirm Assignment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2"><strong>Recipients:</strong> <span id="confirm-recipients">—</span></div>
+                    <div class="mb-2"><strong>Items:</strong> <span id="confirm-count">0</span></div>
+                    <div class="mb-2"><strong>Total:</strong> <span id="confirm-total">KES 0.00</span></div>
+                    <div class="mb-2"><strong>Deadline:</strong> <span id="confirm-deadline">—</span></div>
+                    <div class="border-top pt-3">
+                        <strong>Items Summary</strong>
+                        <ul id="confirm-items" class="list-unstyled mb-0 mt-2" style="max-height:220px; overflow-y:auto;"></ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="btn-confirm-assign" class="primary-btn fix-gr-bg">Assign Now</button>
+                </div>
             </div>
         </div>
     </div>
@@ -810,7 +851,7 @@
             $(document).on('change', '.product-cb', function() {
                 const cb = $(this);
                 const id = String(cb.data('id'));
-                const qtyInput = cb.closest('.border').find('.product-qty').first();
+                const qtyInput = cb.closest('.product-card').find('.product-qty').first();
                 const quantity = Math.max(1, parseInt(qtyInput.val(), 10) || 1);
                 if (cb.is(':checked')) {
                     if (!selectedProducts.some(function(sp) { return String(sp.id) === id; })) {
@@ -823,7 +864,7 @@
                             image_url: cb.data('image'),
                             product_url: cb.data('url'),
                             quantity: quantity,
-                            assignment_type: cb.closest('.border').find('.product-assignment-type').val() || 'recommended'
+                            assignment_type: cb.closest('.product-card').find('.product-assignment-type').val() || 'recommended'
                         });
                     }
                 } else {
@@ -859,7 +900,10 @@
             function renderSelectionsSummary() {
                 const count = selectedProducts.length;
                 const total = selectedProducts.reduce(function(sum, p) {
-                    return sum + ((p.price || 0) * Math.max(1, Number(p.quantity || 1)));
+                    // Ensure price and quantity are always numbers for calculation
+                    const itemPrice = parseFloat(p.price) || 0;
+                    const itemQuantity = Math.max(1, parseInt(p.quantity, 10) || 1);
+                    return sum + (itemPrice * itemQuantity);
                 }, 0);
                 $('#selections-count').text(count);
                 $('#selections-total').text('KES ' + formatPrice(total));
@@ -984,6 +1028,31 @@
             }
 
             $('#btn-assign').on('click', function() {
+                if (selectedProducts.length === 0) return;
+                let recipientsText = 'All students';
+                if (currentScope === 'class') {
+                    const cls = $('#class-select option:selected').text() || 'Class';
+                    const sec = $('#section-select option:selected').text();
+                    recipientsText = sec ? (cls + ' / ' + sec) : cls;
+                } else if (currentScope === 'student' && selectedStudent) {
+                    recipientsText = selectedStudent.name;
+                }
+                const deadline = $('#assignment-deadline').val() || '—';
+                $('#confirm-recipients').text(recipientsText);
+                $('#confirm-count').text(selectedProducts.length);
+                $('#confirm-total').text($('#selections-total').text() || 'KES 0.00');
+                $('#confirm-deadline').text(deadline);
+                let itemsHtml = '';
+                selectedProducts.forEach(function(p) {
+                    const qty = p.quantity || 1;
+                    const type = p.assignment_type === 'required' ? 'Required' : 'Recommended';
+                    itemsHtml += '<li class="mb-2"><strong>' + escapeHtml(p.name || 'Item') + '</strong> · Qty ' + qty + ' · ' + type + '</li>';
+                });
+                $('#confirm-items').html(itemsHtml || '<li class="text-muted">No items selected.</li>');
+                $('#confirmAssignModal').modal('show');
+            });
+
+            $('#btn-confirm-assign').on('click', function() {
                 const studentId = $('#selected-student-id').val();
                 if (selectedProducts.length === 0) return;
                 $('#assign-status').text('Assigning...').css('color', '');
@@ -1001,11 +1070,21 @@
                     method: 'POST',
                     data: payload
                 }).done(function(res) {
+                    $('#confirmAssignModal').modal('hide');
                     const assigned = (typeof res.assigned === 'number') ? res.assigned : null;
+                    const skippedParent = res.skipped_no_parent || 0;
+                    const skippedStudentUser = res.skipped_no_student_user || 0;
                     const message = assigned !== null
                         ? (assigned === 0 ? 'Items already assigned to all selected recipients.' : (assigned + ' item(s) assigned to selected recipients.'))
                         : 'Items assigned successfully.';
-                    $('#assign-status').text(message).css('color', 'green');
+                    let extra = '';
+                    if (skippedParent || skippedStudentUser) {
+                        const parts = [];
+                        if (skippedParent) parts.push(skippedParent + ' missing parent account');
+                        if (skippedStudentUser) parts.push(skippedStudentUser + ' missing student user');
+                        extra = ' Skipped ' + parts.join(', ') + '.';
+                    }
+                    $('#assign-status').text(message + extra).css('color', 'green');
                     selectedProducts = [];
                     $('.product-cb').prop('checked', false);
                     renderSelectionsSummary();
@@ -1018,6 +1097,7 @@
                         window.location.href = baseUrl + '/assign-items-to-student?tab=assigned';
                     }, 450);
                 }).fail(function(xhr) {
+                    $('#confirmAssignModal').modal('hide');
                     const msg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Failed to assign.';
                     $('#assign-status').text(msg).css('color', 'red');
                 });
