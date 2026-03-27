@@ -63,6 +63,7 @@ use App\SchoolRecommendedItem;
 use App\ParentRecommendedItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Modules\Wallet\Entities\WalletTransaction;
 use App\Models\MyBidhaaOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -76,7 +77,6 @@ use App\Scopes\StatusAcademicSchoolScope;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SmStudentRegistrationField;
 use Modules\RolePermission\Entities\InfixRole;
-use Modules\Wallet\Entities\WalletTransaction;
 use Modules\OnlineExam\Entities\InfixOnlineExam;
 use Modules\BehaviourRecords\Entities\AssignIncident;
 use App\Http\Controllers\SmAcademicCalendarController;
@@ -1943,10 +1943,9 @@ class SmParentPanelController extends Controller
     }
 
     /**
-     * Checkout selected recommended items:
-     *  - Create local order + order_items
-     *  - Attempt to log a corresponding order in MyBidhaa ec_orders table
-     *  - Mark selected ParentRecommendedItem rows as ordered (removed from list)
+     * Checkout selected recommended items (preview):
+     *  - Validate selection
+     *  - Store selection in session and redirect to GET checkout page
      */
     public function checkoutRecommendedItems(Request $request)
     {
@@ -1955,61 +1954,168 @@ class SmParentPanelController extends Controller
             'item_ids.*' => 'integer',
         ]);
 
+        session()->put('recommended_items_checkout_item_ids', array_values($request->input('item_ids', [])));
+
+        return redirect()->route('parent-recommended-items-cart.checkout-page');
+    }
+
+    /**
+     * GET checkout page for recommended items.
+     * Reads selected item ids from session (set by checkoutRecommendedItems()).
+     */
+    public function recommendedItemsCheckoutPage()
+    {
+        $itemIds = (array) session()->get('recommended_items_checkout_item_ids', []);
+        $itemIds = array_values(array_filter($itemIds));
+
+        if (empty($itemIds)) {
+            Toastr::warning('Please select items to checkout first.', 'Warning');
+            return redirect()->route('parent-recommended-items-cart');
+        }
+
+        $context = $this->parentContext();
+
+        $items = $this->parentAssignedItemsQuery($context)
+            ->whereIn('id', $itemIds)
+            ->where('status', 'pending')
+            ->with('recommendedItem', 'student')
+            ->get();
+
+        if ($items->isEmpty()) {
+            Toastr::warning('No valid items selected for checkout.', 'Warning');
+            return redirect()->route('parent-recommended-items-cart');
+        }
+
+        $studentIds = $items->pluck('student_id')->filter()->unique();
+        if ($studentIds->count() > 1) {
+            Toastr::warning('Please checkout items for one student at a time.', 'Warning');
+            return redirect()->route('parent-recommended-items-cart');
+        }
+
+        $total = (float) $items->sum(function ($item) {
+            $qty = (int) ($item->assigned_quantity ?: 1);
+            $price = $item->recommendedItem ? (float) $item->recommendedItem->price : 0;
+            return $price * $qty;
+        });
+
+        $currency = SmGeneralSettings::find(1);
+        $wallet_balance = (float) (optional(auth()->user())->wallet_balance ?: 0);
+        $item_ids = array_values($items->pluck('id')->toArray());
+
+        return view('backEnd.parentPanel.recommended_items_checkout', compact('items', 'total', 'currency', 'wallet_balance', 'item_ids'));
+    }
+
+    /**
+     * Place order and pay for selected recommended items.
+     */
+    public function payRecommendedItems(Request $request)
+    {
+        $request->validate([
+            'item_ids' => 'required|array',
+            'item_ids.*' => 'integer',
+            'payment_method' => 'required|in:mpesa,kuzza_wallet,pay_later',
+            'mpesa_phone' => 'required_if:payment_method,mpesa|nullable|string|max:32',
+            'pay_later_terms' => 'exclude_unless:payment_method,pay_later|required|accepted',
+        ]);
+
         $parent = auth()->user();
         $context = $this->parentContext();
 
         $items = $this->parentAssignedItemsQuery($context)
             ->whereIn('id', $request->input('item_ids', []))
             ->where('status', 'pending')
-            ->with('recommendedItem')
+            ->with('recommendedItem', 'student')
             ->get();
 
         if ($items->isEmpty()) {
             Toastr::warning('No valid items selected for checkout.', 'Warning');
-
             return redirect()->route('parent-recommended-items-cart');
         }
 
-        $total = $items->sum(function ($item) {
-            return $item->recommendedItem ? (float) $item->recommendedItem->price : 0;
+        $studentIds = $items->pluck('student_id')->filter()->unique();
+        if ($studentIds->count() > 1) {
+            Toastr::warning('Please checkout items for one student at a time.', 'Warning');
+            return redirect()->route('parent-recommended-items-cart');
+        }
+
+        $total = (float) $items->sum(function ($item) {
+            $qty = (int) ($item->assigned_quantity ?: 1);
+            $price = $item->recommendedItem ? (float) $item->recommendedItem->price : 0;
+            return $price * $qty;
         });
 
-        $studentId = optional($items->first()->student)->id;
+        $studentId = (int) $studentIds->first();
+        $paymentMethod = $request->input('payment_method');
 
-        \DB::beginTransaction();
-
+        DB::beginTransaction();
         try {
+            $status = match ($paymentMethod) {
+                'kuzza_wallet' => 'paid',
+                'pay_later' => 'pay_later',
+                'mpesa' => 'awaiting_mpesa',
+                default => 'pending',
+            };
+
             $order = Order::create([
                 'parent_id' => $parent->id,
                 'student_id' => $studentId,
                 'total_amount' => $total,
-                'status' => 'pending',
+                'status' => $status,
                 'external_source' => 'mybidhaa',
+                'notes' => $paymentMethod === 'mpesa'
+                    ? ('MPESA phone: ' . $request->input('mpesa_phone'))
+                    : null,
             ]);
 
             foreach ($items as $item) {
+                $qty = (int) ($item->assigned_quantity ?: 1);
                 $price = $item->recommendedItem ? (float) $item->recommendedItem->price : 0;
 
                 OrderItem::create([
                     'order_id' => $order->id,
                     'recommended_item_id' => $item->recommended_item_id,
                     'parent_recommended_item_id' => $item->id,
-                    'quantity' => 1,
+                    'quantity' => $qty,
                     'price' => $price,
                 ]);
 
-                $item->status = 'ordered';
+                $item->status = in_array($paymentMethod, ['kuzza_wallet', 'pay_later'], true) ? 'ordered' : 'awaiting_payment';
                 $item->save();
             }
 
-            // Attempt to create a corresponding order in the MyBidhaa ec_orders table.
+            if ($paymentMethod === 'kuzza_wallet') {
+                $currentBalance = (float) ($parent->wallet_balance ?: 0);
+                if ($currentBalance < $total) {
+                    DB::rollBack();
+                    Toastr::error('Insufficient wallet balance.', 'Error');
+                    return redirect()->back()->withInput();
+                }
+
+                $parent->wallet_balance = $currentBalance - $total;
+                $parent->save();
+
+                $walletTransaction = new WalletTransaction();
+                $walletTransaction->amount = $total;
+                $walletTransaction->expense = $total;
+                $walletTransaction->payment_method = 'Kuzza Wallet';
+                $walletTransaction->user_id = $parent->id;
+                $walletTransaction->note = 'Recommended items order #' . $order->id;
+                $walletTransaction->type = 'expense';
+                $walletTransaction->status = 'approve';
+                $walletTransaction->created_by = $parent->id;
+                $walletTransaction->academic_id = $parent->academic_id ?? 1;
+                $walletTransaction->school_id = $parent->school_id ?? 1;
+                $walletTransaction->save();
+            }
+
+            // Attempt to create a corresponding order in the MyBidhaa ec_orders table (best effort)
             try {
                 $code = 'SCH-' . now()->format('YmdHis') . '-' . $order->id;
 
                 $ecOrder = MyBidhaaOrder::create([
                     'code' => $code,
                     'user_id' => $parent->id,
-                    'status' => 'pending',
+                    'status' => $paymentMethod === 'kuzza_wallet' ? 'paid' : 'pending',
                     'amount' => $total,
                     'sub_total' => $total,
                     'tax_amount' => 0,
@@ -2021,7 +2127,6 @@ class SmParentPanelController extends Controller
 
                 $order->external_order_id = $ecOrder->id ?? null;
                 $order->external_order_code = $code;
-                $order->status = 'submitted_to_mybidhaa';
                 $order->save();
             } catch (\Throwable $e) {
                 Log::error('Failed to log order to MyBidhaa ec_orders table', [
@@ -2030,16 +2135,16 @@ class SmParentPanelController extends Controller
                 ]);
             }
 
-            \DB::commit();
+            DB::commit();
+            session()->forget('recommended_items_checkout_item_ids');
 
-            Toastr::success('Order created successfully. MyBidhaa will handle payment and delivery.', 'Success');
+            Toastr::success('Order placed', 'Success');
 
-            return redirect()->route('parent-recommended-items-cart');
+            return redirect()->route('parent-dashboard');
         } catch (Exception $exception) {
-            \DB::rollBack();
+            DB::rollBack();
             Log::error($exception->getMessage());
-            Toastr::error('Failed to create order.', 'Error');
-
+            Toastr::error('Failed to place order.', 'Error');
             return redirect()->route('parent-recommended-items-cart');
         }
     }

@@ -22,9 +22,11 @@
             </div>
 
             @if($cart_items && count($cart_items) > 0)
-                <form method="POST" action="{{ route('parent-recommended-items-cart.checkout') }}">
+                <form method="POST" action="{{ route('parent-recommended-items-cart.checkout') }}" id="recommended-items-checkout-form">
                     @csrf
-                    <div class="table-responsive mt-20">
+                </form>
+
+                <div class="table-responsive mt-20">
                     <table class="table table-hover">
                         <thead style="background-color: #f8f9fa;">
                             <tr>
@@ -45,7 +47,7 @@
                             @foreach($cart_items as $item)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="item_ids[]" value="{{ $item->id }}" class="item-checkbox">
+                                        <input type="checkbox" name="item_ids[]" value="{{ $item->id }}" class="item-checkbox" form="recommended-items-checkout-form">
                                     </td>
                                     <td>
                                         <strong>{{ $item->recommendedItem->item_name }}</strong>
@@ -137,17 +139,16 @@
                                 </strong>
                             </div>
 
-                            <button type="submit" class="btn btn-lg primary-btn fix-gr-bg btn-block" style="margin-top: 20px;">
-                                <i class="ti-shopping-cart mr-2"></i> Confirm selected items
+                            <button type="submit" class="btn btn-lg primary-btn fix-gr-bg btn-block" style="margin-top: 20px;" form="recommended-items-checkout-form">
+                                <i class="ti-credit-card mr-2"></i> Proceed to checkout
                             </button>
 
                             <p style="text-align: center; color: #999; font-size: 12px; margin-top: 15px;">
-                                Once you proceed with payment, the items will be dispatched to your child.
+                                Select your items, then choose MPESA, Kuzza Wallet, or Pay Later on the next page.
                             </p>
                         </div>
                     </div>
                 </div>
-                </form>
 
                 <!-- Pagination -->
                 @if($cart_items->hasPages())
@@ -183,6 +184,18 @@
     (function () {
         $('#select-all-items').on('change', function () {
             $('.item-checkbox').prop('checked', $(this).is(':checked'));
+        });
+
+        $('#recommended-items-checkout-form').on('submit', function (e) {
+            var anyChecked = $('.item-checkbox:checked').length > 0;
+            if (!anyChecked) {
+                e.preventDefault();
+                if (typeof toastr !== 'undefined') {
+                    toastr.warning('Please select at least one item to checkout.');
+                } else {
+                    alert('Please select at least one item to checkout.');
+                }
+            }
         });
     })();
 </script>

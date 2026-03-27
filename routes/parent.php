@@ -54,7 +54,9 @@ Route::group(['middleware' => ['XSS', 'subdomain', 'fees_due_check']], function 
         Route::get('recommended-items', 'Parent\SmParentPanelController@recommendedItems')->name('parent-recommended-items');
         Route::post('recommended-items/{item_id}/add-to-cart', 'Parent\SmParentPanelController@addRecommendedItemToCart')->name('add-recommended-item');
         Route::get('recommended-items-cart', 'Parent\SmParentPanelController@recommendedItemsCart')->name('parent-recommended-items-cart');
+        Route::get('recommended-items-cart/checkout', 'Parent\SmParentPanelController@recommendedItemsCheckoutPage')->name('parent-recommended-items-cart.checkout-page');
         Route::post('recommended-items-cart/checkout', 'Parent\SmParentPanelController@checkoutRecommendedItems')->name('parent-recommended-items-cart.checkout');
+        Route::post('recommended-items-cart/pay', 'Parent\SmParentPanelController@payRecommendedItems')->name('parent-recommended-items-cart.pay');
         Route::post('recommended-items-cart/{id}/already-bought', 'Parent\SmParentPanelController@markRecommendedItemAlreadyBought')->name('parent-recommended-items-cart.already-bought');
 
         // Procurement System Routes (New Addition)
