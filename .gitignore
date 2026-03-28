@@ -10,7 +10,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /uploads
-/storage
+/storage/
 docker-compose.override.yml
 /.idea
 /.vscode
@@ -19,3 +19,9 @@ docker-compose.override.yml
 copy.php
 change-list.txt
 .DS_Store
+.htaccess
+
+# Security
+kuzza_export.sql
+auth.json
+config.json
