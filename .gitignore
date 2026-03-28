@@ -1,5 +1,5 @@
 /node_modules
-/public/hot
+/public/
 /vendor
 .env
 .env.backup
@@ -10,7 +10,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /uploads
-/storage/app/uploads
+/storage
 docker-compose.override.yml
 /.idea
 /.vscode

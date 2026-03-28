@@ -6,7 +6,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>KUZZA — Simplifying Education for Every Child</title>
 @php
-    $kuzzaLogoPath = is_file(public_path('images/kuzza_logo.png'))
+    $kuzzaLogoPath = is_file('/public/images/kuzza_logo.png')
         ? 'images/kuzza_logo.png'
         : 'images/kuzza_logo.svg';
     $kuzzaLogoUrl = asset($kuzzaLogoPath);
@@ -920,111 +920,6 @@ footer strong { color: var(--yellow); }
   </div>
 </section>
 
-<!-- MARKET -->
-<section class="section market-bg" id="market">
-  <div class="market-inner">
-    <div class="market-header reveal">
-      <div class="section-label">Market Opportunity</div>
-      <h2 class="section-title">A massive, underserved market.</h2>
-      <p class="section-body">Kenya's educational procurement market is fragmented, inefficient — and enormous.</p>
-    </div>
-    <div class="market-cards reveal">
-      <div class="mcard tam">
-        <div class="mcard-label">Total Addressable Market</div>
-        <div class="mcard-name">TAM</div>
-        <div class="mcard-value">KES 17B</div>
-        <div class="mcard-desc">30,000 rural schools + 3,000 special needs schools across Kenya spending KES 500K–800K annually.</div>
-      </div>
-      <div class="mcard sam">
-        <div class="mcard-label">Serviceable Addressable Market</div>
-        <div class="mcard-name">SAM</div>
-        <div class="mcard-value">KES 7B</div>
-        <div class="mcard-desc">12,000 rural schools and 1,200 special needs schools reachable within 3–5 years.</div>
-      </div>
-      <div class="mcard som">
-        <div class="mcard-label">Serviceable Obtainable Market</div>
-        <div class="mcard-name">SOM</div>
-        <div class="mcard-value">KES 1.4B</div>
-        <div class="mcard-desc">20% adoption of reachable schools — our near-term revenue target.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ROADMAP -->
-<section class="section" id="roadmap">
-  <div class="roadmap-inner">
-    <div class="roadmap-header reveal">
-      <div class="section-label" style="display:block;text-align:center;border:none">5-Year Growth Roadmap</div>
-      <h2 class="section-title" style="text-align:center">Scaling to KES 2B+ GMV by 2030.</h2>
-    </div>
-    <div class="timeline reveal">
-      <div class="tnode">
-        <div class="tnode-dot"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2026</div>
-          <div class="tnode-schools">100 Schools</div>
-          <div class="tnode-gmv">KES 80M GMV &middot; 10 Counties</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2027</div>
-          <div class="tnode-schools">1,000 Schools</div>
-          <div class="tnode-gmv">KES 250M GMV &middot; 20 Counties</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot" style="background:var(--yellow);outline-color:var(--yellow)"></div>
-        <div class="tnode-card" style="border-color:var(--yellow)">
-          <div class="tnode-year" style="color:var(--yellow)">2028</div>
-          <div class="tnode-schools">2,500 Schools</div>
-          <div class="tnode-gmv">KES 700M GMV &middot; All 47 Counties</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2029</div>
-          <div class="tnode-schools">4,000 Schools</div>
-          <div class="tnode-gmv">KES 1.2B GMV</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot" style="background:var(--pink-accent);outline-color:var(--pink-accent)"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2030</div>
-          <div class="tnode-schools">6,000 Schools</div>
-          <div class="tnode-gmv">KES 2B+ GMV</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS STRIP -->
-<section class="stats-strip" id="impact">
-  <div class="stats-strip-inner reveal">
-    <div>
-      <div class="strip-num">80%</div>
-      <div class="strip-label">Revenue Growth Year on Year</div>
-    </div>
-    <div>
-      <div class="strip-num">30%</div>
-      <div class="strip-label">Return on Investment</div>
-    </div>
-    <div>
-      <div class="strip-num">15%</div>
-      <div class="strip-label">EBITDA Margin at Scale</div>
-    </div>
-    <div>
-      <div class="strip-num">75%</div>
-      <div class="strip-label">Customer Satisfaction Score</div>
-    </div>
-  </div>
-</section>
-
 <!-- PARTNERSHIPS -->
 <section class="section partner-bg" id="partners">
   <div class="partner-inner">
@@ -1058,7 +953,7 @@ footer strong { color: var(--yellow); }
       <a href="#" class="js-open-get-started" role="button" style="text-decoration:none">
         <button class="btn-primary" style="font-size:1.05rem;padding:1rem 2.4rem">Onboard Your School — Free</button>
       </a>
-      <a href="mailto:kmuga@mybidhaa.com" style="text-decoration:none">
+      <a href="mailto:kuzza@mybidhaa.com" style="text-decoration:none">
         <button class="btn-ghost" style="font-size:1.05rem;padding:1rem 2.4rem">Talk to Our Team</button>
       </a>
     </div>
@@ -1068,7 +963,7 @@ footer strong { color: var(--yellow); }
 <!-- CONTACT STRIP -->
 <div class="contact-strip">
   <div class="contact-item"><span>🌐</span> www.mybidhaa.com</div>
-  <div class="contact-item"><span>✉️</span> kmuga@mybidhaa.com</div>
+  <div class="contact-item"><span>✉️</span> kuzza@mybidhaa.com</div>
   <div class="contact-item"><span>📞</span> +254 729 000 403</div>
 </div>
 
