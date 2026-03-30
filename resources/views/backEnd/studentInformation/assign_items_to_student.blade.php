@@ -524,66 +524,68 @@
                                                 <td>{{ $ordered }} ordered</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-outline-secondary toggle-batch-items" data-batch-id="{{ $batch->id }}">View items</button>
-                                                    <form method="POST" action="{{ route('assign-items-to-student.reassign-batch', $batch->id) }}" class="d-inline" onsubmit="return confirm('Reassign this batch to the correct parent accounts? A new batch will be created.');">
+                                                    <form method="POST" action="{{ route('assign-items-to-student.reassign-batch', $batch->id) }}" class="d-inline js-reassign-batch-form" onsubmit="return confirm('Reassign this batch to the correct parent accounts? A new batch will be created.');">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">Reassign</button>
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">Reassign items</button>
                                                     </form>
                                                 </td>
                                             </tr>
-                                            <template id="batch-items-template-{{ $batch->id }}">
-                                                @if($items->isEmpty())
-                                                    <span class="text-muted">No items in this batch.</span>
-                                                @else
-                                                    <div class="row">
-                                                        @foreach($items as $item)
-                                                            @php
-                                                                $recommended = $item->recommendedItem;
-                                                                $photo = optional($recommended)->image_url;
-                                                                $qty = (int) ($item->assigned_quantity ?: 1);
-                                                                $assignmentType = $item->assignment_type === 'required' ? 'Required' : 'Recommended';
-                                                            @endphp
-                                                            <div class="col-md-6 mb-3">
-                                                                <div class="batch-item-card">
-                                                                    <div class="d-flex">
-                                                                        @if($photo)
-                                                                            <img src="{{ $photo }}" alt="Item image" class="batch-product-photo mr-3">
-                                                                        @else
-                                                                            <div class="batch-product-photo mr-3 d-flex align-items-center justify-content-center text-muted small">No image</div>
-                                                                        @endif
-                                                                        <div class="flex-grow-1">
-                                                                            <div class="font-weight-bold mb-1">{{ optional($recommended)->item_name ?? 'Item' }}</div>
-                                                                            <div class="small text-muted mb-1">Category: {{ optional($recommended)->item_type ?: 'General' }}</div>
-                                                                            <div class="small mb-1">Assigned quantity: <strong>{{ $qty }}</strong></div>
-                                                                            <div class="small mb-1">Type: <strong>{{ $assignmentType }}</strong></div>
-                                                                            <div class="small mb-1">Status: <span class="badge badge-light">{{ ucfirst($item->status) }}</span></div>
-                                                                            @if(optional($recommended)->description)
-                                                                                <div class="small text-muted mb-1">{{ $recommended->description }}</div>
+                                            <tr class="batch-items-row d-none" id="batch-items-row-{{ $batch->id }}">
+                                                <td colspan="9">
+                                                    @if($items->isEmpty())
+                                                        <span class="text-muted">No items in this batch.</span>
+                                                    @else
+                                                        <div class="row">
+                                                            @foreach($items as $item)
+                                                                @php
+                                                                    $recommended = $item->recommendedItem;
+                                                                    $photo = optional($recommended)->image_url;
+                                                                    $qty = (int) ($item->assigned_quantity ?: 1);
+                                                                    $assignmentType = $item->assignment_type === 'required' ? 'Required' : 'Recommended';
+                                                                @endphp
+                                                                <div class="col-md-6 mb-3">
+                                                                    <div class="batch-item-card">
+                                                                        <div class="d-flex">
+                                                                            @if($photo)
+                                                                                <img src="{{ $photo }}" alt="Item image" class="batch-product-photo mr-3">
+                                                                            @else
+                                                                                <div class="batch-product-photo mr-3 d-flex align-items-center justify-content-center text-muted small">No image</div>
                                                                             @endif
-                                                                            @if($item->notes)
-                                                                                <div class="small text-muted">Reason: {{ $item->notes }}</div>
-                                                                            @endif
+                                                                            <div class="flex-grow-1">
+                                                                                <div class="font-weight-bold mb-1">{{ optional($recommended)->item_name ?? 'Item' }}</div>
+                                                                                <div class="small text-muted mb-1">Category: {{ optional($recommended)->item_type ?: 'General' }}</div>
+                                                                                <div class="small mb-1">Assigned quantity: <strong>{{ $qty }}</strong></div>
+                                                                                <div class="small mb-1">Type: <strong>{{ $assignmentType }}</strong></div>
+                                                                                <div class="small mb-1">Status: <span class="badge badge-light">{{ ucfirst($item->status) }}</span></div>
+                                                                                @if(optional($recommended)->description)
+                                                                                    <div class="small text-muted mb-1">{{ $recommended->description }}</div>
+                                                                                @endif
+                                                                                @if($item->notes)
+                                                                                    <div class="small text-muted">Reason: {{ $item->notes }}</div>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="mt-2 text-right">
+                                                                            <form method="POST" action="{{ route('assign-items-to-student.unassign-item', $item->id) }}" onsubmit="return confirm('Unassign this item from all recipients in this batch?');">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit" class="btn btn-sm btn-outline-danger">Unassign</button>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="mt-2 text-right">
-                                                                        <form method="POST" action="{{ route('assign-items-to-student.unassign-item', $item->id) }}" onsubmit="return confirm('Unassign this item from all recipients in this batch?');">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-sm btn-outline-danger">Unassign</button>
-                                                                        </form>
-                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                    <div class="border-top pt-3 mt-2">
-                                                        <form method="POST" action="{{ route('assign-items-to-student.unassign-batch', $batch->id) }}" onsubmit="return confirm('Unassign all items in this batch?');">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger">Unassign entire batch</button>
-                                                        </form>
-                                                    </div>
-                                                @endif
-                                            </template>
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="border-top pt-3 mt-2">
+                                                            <form method="POST" action="{{ route('assign-items-to-student.unassign-batch', $batch->id) }}" onsubmit="return confirm('Unassign all items in this batch?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-sm btn-danger">Unassign entire batch</button>
+                                                            </form>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -658,6 +660,51 @@
             let currentQuery = '';
             let currentPage = 1;
             let lastPage = 1;
+
+            function showModalCompat(selector) {
+                const element = document.querySelector(selector);
+                if (!element) {
+                    return;
+                }
+
+                if (window.bootstrap && window.bootstrap.Modal) {
+                    window.bootstrap.Modal.getOrCreateInstance(element).show();
+                    return;
+                }
+
+                if (window.jQuery && typeof $(selector).modal === 'function') {
+                    $(selector).modal('show');
+                    return;
+                }
+
+                element.style.display = 'block';
+                element.classList.add('show');
+                element.removeAttribute('aria-hidden');
+                document.body.classList.add('modal-open');
+            }
+
+            function hideModalCompat(selector) {
+                const element = document.querySelector(selector);
+                if (!element) {
+                    return;
+                }
+
+                if (window.bootstrap && window.bootstrap.Modal) {
+                    const instance = window.bootstrap.Modal.getOrCreateInstance(element);
+                    instance.hide();
+                    return;
+                }
+
+                if (window.jQuery && typeof $(selector).modal === 'function') {
+                    $(selector).modal('hide');
+                    return;
+                }
+
+                element.style.display = 'none';
+                element.classList.remove('show');
+                element.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+            }
 
             function formatPrice(n) {
                 return (Number(n)).toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -960,14 +1007,25 @@
                 updateButtonsState();
             });
 
-            // Assigned items tab: popup modal for batch items
+            // Assigned items tab: inline expand/collapse for batch items
             $(document).on('click', '.toggle-batch-items', function() {
-                var batchId = $(this).data('batch-id');
-                var template = document.getElementById('batch-items-template-' + batchId);
-                if (!template) return;
-                $('#batchItemsModalBody').html(template.innerHTML);
-                $('#batchItemsModalLabel').text('Assigned items in batch #' + batchId);
-                $('#batchItemsModal').modal('show');
+                var $button = $(this);
+                var batchId = $button.data('batch-id');
+                var $row = $('#batch-items-row-' + batchId);
+
+                if (!$row.length) {
+                    return;
+                }
+
+                var isOpen = !$row.hasClass('d-none');
+
+                $('.batch-items-row').addClass('d-none');
+                $('.toggle-batch-items').text('View items');
+
+                if (!isOpen) {
+                    $row.removeClass('d-none');
+                    $button.text('Hide items');
+                }
             });
 
             $('#btn-remove-all').on('click', function() {
@@ -1049,7 +1107,7 @@
                     itemsHtml += '<li class="mb-2"><strong>' + escapeHtml(p.name || 'Item') + '</strong> · Qty ' + qty + ' · ' + type + '</li>';
                 });
                 $('#confirm-items').html(itemsHtml || '<li class="text-muted">No items selected.</li>');
-                $('#confirmAssignModal').modal('show');
+                showModalCompat('#confirmAssignModal');
             });
 
             $('#btn-confirm-assign').on('click', function() {
@@ -1070,7 +1128,7 @@
                     method: 'POST',
                     data: payload
                 }).done(function(res) {
-                    $('#confirmAssignModal').modal('hide');
+                    hideModalCompat('#confirmAssignModal');
                     const assigned = (typeof res.assigned === 'number') ? res.assigned : null;
                     const skippedParent = res.skipped_no_parent || 0;
                     const skippedStudentUser = res.skipped_no_student_user || 0;
@@ -1097,7 +1155,7 @@
                         window.location.href = baseUrl + '/assign-items-to-student?tab=assigned';
                     }, 450);
                 }).fail(function(xhr) {
-                    $('#confirmAssignModal').modal('hide');
+                    hideModalCompat('#confirmAssignModal');
                     const msg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Failed to assign.';
                     $('#assign-status').text(msg).css('color', 'red');
                 });

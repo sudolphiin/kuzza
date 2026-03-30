@@ -330,7 +330,10 @@ body.nav-open .nav-menu-toggle span:nth-child(3) { transform: translateY(-7px) r
 
 /* HERO */
 .hero {
-  min-height: 100vh; background: var(--purple-deep);
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(58,26,107,0.32), rgba(58,26,107,0.24)),
+    url('https://images.unsplash.com/photo-1547306843-f8fea4d65f9b?q=80&w=809&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
   display: grid; grid-template-columns: 1fr 1fr;
   align-items: center; padding: 5rem 5vw 6rem; gap: 4rem;
   position: relative; overflow: hidden;
@@ -370,6 +373,18 @@ body.nav-open .nav-menu-toggle span:nth-child(3) { transform: translateY(-7px) r
 .hero-eyebrow::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 780px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(135deg, rgba(58,26,107,0.68), rgba(26,10,46,0.48));
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 28px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px rgba(26,10,46,0.22);
+}
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 900;
@@ -412,11 +427,27 @@ body.nav-open .nav-menu-toggle span:nth-child(3) { transform: translateY(-7px) r
 }
 .card-float:hover { transform: translateY(-4px); }
 .card-float.yellow-card { background: var(--yellow); border-color: var(--yellow); }
+.card-row .card-float {
+  background: rgba(250,250,248,0.96);
+  border-color: rgba(91,45,142,0.22);
+  box-shadow: 0 18px 36px rgba(26,10,46,0.14);
+}
 .card-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
 .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; color: #fff; }
 .card-float.yellow-card .card-title { color: var(--purple-deep); }
+.card-row .card-title { color: var(--purple-deep); }
 .card-desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
 .card-float.yellow-card .card-desc { color: rgba(58,26,107,0.72); }
+.card-row .card-desc { color: rgba(58,26,107,0.82); }
+.card-float.card-float-white {
+  background: #fff;
+}
+.card-float.card-float-white .card-title {
+  color: var(--purple-deep);
+}
+.card-float.card-float-white .card-desc {
+  color: rgba(58,26,107,0.82);
+}
 .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
 /* SECTIONS */
@@ -776,7 +807,7 @@ footer strong { color: var(--yellow); }
       <div class="card-float">
         <div class="card-icon">📱</div>
         <div class="card-title">USSD Access</div>
-        <div class="card-desc">No smartphone needed — parents order via SMS or USSD.</div>
+        <div class="card-desc" stle>No smartphone needed — parents order via SMS or USSD.</div>
       </div>
       <div class="card-float">
         <div class="card-icon">🚚</div>
@@ -784,7 +815,7 @@ footer strong { color: var(--yellow); }
         <div class="card-desc">All 47 counties reached through our logistics network.</div>
       </div>
     </div>
-    <div class="card-float">
+    <div class="card-float card-float-white">
       <div class="card-icon">🏫</div>
       <div class="card-title">Free School ERP Included</div>
       <div class="card-desc">Rural &amp; special needs schools receive KUZZA's ERP at zero cost — fully integrated with the marketplace.</div>

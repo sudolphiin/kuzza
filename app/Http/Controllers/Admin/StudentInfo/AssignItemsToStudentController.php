@@ -18,6 +18,15 @@ use Illuminate\Http\Request;
 
 class AssignItemsToStudentController extends Controller
 {
+    protected function ensureAdminAccess(): void
+    {
+        $user = auth()->user();
+
+        if (! $user || (int) $user->role_id !== 1) {
+            abort(403);
+        }
+    }
+
     /**
      * Search products using the live MyBidhaa Products API.
      */
@@ -300,7 +309,7 @@ class AssignItemsToStudentController extends Controller
      */
     public function unassignBatch(ItemAssignmentBatch $batch)
     {
-        $this->authorize('admin', auth()->user());
+        $this->ensureAdminAccess();
 
         if ($batch->school_id !== auth()->user()->school_id) {
             abort(403);
@@ -318,7 +327,7 @@ class AssignItemsToStudentController extends Controller
      */
     public function repairLegacyAssignments()
     {
-        $this->authorize('admin', auth()->user());
+        $this->ensureAdminAccess();
 
         $schoolId = auth()->user()->school_id;
         $rows = ParentRecommendedItem::whereHas('recommendedItem', function ($q) use ($schoolId) {
@@ -365,7 +374,7 @@ class AssignItemsToStudentController extends Controller
      */
     public function reassignBatch(ItemAssignmentBatch $batch)
     {
-        $this->authorize('admin', auth()->user());
+        $this->ensureAdminAccess();
 
         if ($batch->school_id !== auth()->user()->school_id) {
             abort(403);
@@ -441,7 +450,7 @@ class AssignItemsToStudentController extends Controller
      */
     public function unassignItem(ParentRecommendedItem $item)
     {
-        $this->authorize('admin', auth()->user());
+        $this->ensureAdminAccess();
 
         $batch = $item->batch;
         if ($batch && $batch->school_id !== auth()->user()->school_id) {
