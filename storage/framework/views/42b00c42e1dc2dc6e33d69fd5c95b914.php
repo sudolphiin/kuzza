@@ -5,18 +5,7 @@
 <?php
     App::setLocale(getUserLanguage());
     $ttl_rtl = userRtlLtl();
-
-    $login_background = App\SmBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
-
-    if (empty($login_background)) {
-        $css = 'background: url(' . url('public/backEnd/img/edulia-login-bg.jpg') . ') no-repeat center; background-size: cover; ';
-    } else {
-        if (!empty($login_background->image)) {
-            $css = "background: url('" . url($login_background->image) . "') no-repeat center; background-size: cover;";
-        } else {
-            $css = 'background:' . $login_background->color;
-        }
-    }
+    $css = "background: url('../../../CC.png') no-repeat center; background-size: cover;";
 ?>
 <html lang="<?php echo e(app()->getLocale()); ?>" <?php if(isset($ttl_rtl) && $ttl_rtl == 1): ?> dir="rtl" class="rtl" <?php endif; ?>>
 
@@ -43,54 +32,210 @@
     <link rel="stylesheet" href="<?php echo e(asset('public/theme/edulia/css/style.css')); ?>">
     <?php endif; ?>
         <style>
-        .row_gap_24 {
-            row-gap: 24px;
-        }
-
-        .login{
-            height: auto;
+        body {
             min-height: 100vh;
-            padding: 50px 0px;
+            background: #140b24;
         }
 
-        .row_gap_24 input.input-control-input {
-            font-size: 12px;
+        .login {
+            position: relative;
+            min-height: 100vh;
+            padding: 42px 16px;
+            display: grid;
+            place-items: center;
+            isolation: isolate;
+        }
+
+        .login::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(18, 11, 35, 0.82), rgba(64, 27, 98, 0.58)),
+                radial-gradient(circle at top left, rgba(245, 197, 24, 0.18), transparent 34%);
+            z-index: -1;
         }
 
         .login_wrapper {
-            width: 550px;
+            width: min(100%, 560px);
+            padding: 34px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 28px 70px rgba(12, 7, 24, 0.34);
+        }
+
+        .login_wrapper_logo img {
+            max-width: 210px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 18px;
+        }
+
+        .login_intro {
+            margin-bottom: 26px;
+            text-align: center;
+        }
+
+        .login_kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(91, 45, 142, 0.08);
+            color: #5b2d8e;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .login_wrapper_content h4 {
+            margin-bottom: 10px;
+            color: #0e94f1;
+            font-size: clamp(1.8rem, 3vw, 2.35rem);
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(34, 17, 51, 0.28);
+        }
+
+        .login_subtitle {
+            margin: 0 auto;
+            max-width: 420px;
+            color: #5d5570;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .input-control {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-control-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6f5c8c;
+            z-index: 2;
+            font-size: 15px;
+        }
+
+        .input-control-input {
+            width: 100%;
+            min-height: 58px;
+            padding: 16px 18px 16px 52px;
+            border-radius: 16px;
+            border: 1px solid rgba(91, 45, 142, 0.14);
+            background: rgba(255, 255, 255, 0.82);
+            color: #241436;
+            font-size: 15px;
+            transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+
+        .input-control-input:focus {
+            outline: none;
+            border-color: rgba(91, 45, 142, 0.45);
+            box-shadow: 0 0 0 4px rgba(91, 45, 142, 0.1);
             background: #fff;
-            padding: 30px;
+        }
+
+        .input-control input[type="submit"] {
+            padding-left: 18px;
+            background: linear-gradient(135deg, #5b2d8e, #7c43bf);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 16px 32px rgba(91, 45, 142, 0.24);
+        }
+
+        .input-control input[type="submit"]:hover {
+            transform: translateY(-1px);
+        }
+
+        .row_gap_24 {
+            row-gap: 18px;
+            align-items: center;
+            justify-content: space-between;
+            margin: 8px 0 8px;
+        }
+
+        .checkbox-title,
+        #forget {
+            color: #4f4664;
+            font-size: 14px;
+        }
+
+        #forget:hover {
+            color: #5b2d8e;
         }
 
         .text-danger.text-left {
-            font-size: 14px;
+            display: block;
+            margin-top: -6px;
+            margin-bottom: 10px;
+            font-size: 13px;
         }
+
         .row.row-gap-10 {
-            row-gap: 10px;
-            --bs-gutter-x: 10px;
+            row-gap: 12px;
+            --bs-gutter-x: 12px;
+            margin-top: 18px;
         }
 
-        .row.row-gap-10 .input-control-input{
-            padding: 10px;
+        .row.row-gap-10 .input-control-input {
+            min-height: 44px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            background: rgba(91, 45, 142, 0.06);
         }
 
-        .row.row-gap-10 [class*=col-]{
-            --bs-gutter-x: 10px;
+        .row.row-gap-10 [class*=col-] {
+            --bs-gutter-x: 12px;
         }
 
-        .row-gap-10 input.input-control-input {
-            font-size: 11px;
+        .saas_school_top_five_link_show {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(91, 45, 142, 0.12);
         }
-        @media only screen and (max-width: 767px){
-                section.login {
-                    place-content: center;
-                    align-content: center;
-                    justify-content: center;
+
+        .saas_school_top_five_link_show .title {
+            color: #332244;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .link_to_school {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 12px;
+            text-align: center;
+            background: rgba(91, 45, 142, 0.06);
+            color: #4a2c73;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .login {
+                padding: 26px 12px;
+            }
+
+            .login_wrapper {
+                padding: 24px 18px;
+                border-radius: 22px;
+            }
+
+            .login_wrapper_content h4 {
+                font-size: 1.65rem;
             }
         }
-        @media (max-width: 480px){
-            .row.row-gap-10 [class*=col-]{
+
+        @media (max-width: 480px) {
+            .row.row-gap-10 [class*=col-] {
                 width: 50%;
                 max-width: 50%;
             }
@@ -110,6 +255,10 @@
                 <div class="login_wrapper_logo text-center"><img src="<?php echo e(asset($gs->logo)); ?>"
                         alt=""></div>
                 <div class="login_wrapper_content">
+                    <div class="login_intro">
+                        <div class="login_kicker">Secure Access</div>
+                        <p class="login_subtitle">Sign in to manage students, communication, finance, and day-to-day school operations from one place.</p>
+                    </div>
                     <h4><?php echo app('translator')->get('auth.login_details'); ?></h4>
                     <form action="<?php echo e(route('login')); ?>" method='POST'>
                         <?php echo csrf_field(); ?>
