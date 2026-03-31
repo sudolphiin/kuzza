@@ -6,7 +6,7 @@
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <title>KUZZA — Simplifying Education for Every Child</title>
 <?php
-    $kuzzaLogoPath = is_file(public_path('images/kuzza_logo.png'))
+    $kuzzaLogoPath = is_file('/public/images/kuzza_logo.png')
         ? 'images/kuzza_logo.png'
         : 'images/kuzza_logo.svg';
     $kuzzaLogoUrl = asset($kuzzaLogoPath);
@@ -330,7 +330,10 @@ body.nav-open .nav-menu-toggle span:nth-child(3) { transform: translateY(-7px) r
 
 /* HERO */
 .hero {
-  min-height: 100vh; background: var(--purple-deep);
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(58,26,107,0.32), rgba(58,26,107,0.24)),
+    url('https://images.unsplash.com/photo-1547306843-f8fea4d65f9b?q=80&w=809&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
   display: grid; grid-template-columns: 1fr 1fr;
   align-items: center; padding: 5rem 5vw 6rem; gap: 4rem;
   position: relative; overflow: hidden;
@@ -370,6 +373,18 @@ body.nav-open .nav-menu-toggle span:nth-child(3) { transform: translateY(-7px) r
 .hero-eyebrow::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 780px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(135deg, rgba(58,26,107,0.68), rgba(26,10,46,0.48));
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 28px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px rgba(26,10,46,0.22);
+}
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 900;
@@ -412,11 +427,27 @@ body.nav-open .nav-menu-toggle span:nth-child(3) { transform: translateY(-7px) r
 }
 .card-float:hover { transform: translateY(-4px); }
 .card-float.yellow-card { background: var(--yellow); border-color: var(--yellow); }
+.card-row .card-float {
+  background: rgba(250,250,248,0.96);
+  border-color: rgba(91,45,142,0.22);
+  box-shadow: 0 18px 36px rgba(26,10,46,0.14);
+}
 .card-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
 .card-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; color: #fff; }
 .card-float.yellow-card .card-title { color: var(--purple-deep); }
+.card-row .card-title { color: var(--purple-deep); }
 .card-desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
 .card-float.yellow-card .card-desc { color: rgba(58,26,107,0.72); }
+.card-row .card-desc { color: rgba(58,26,107,0.82); }
+.card-float.card-float-white {
+  background: #fff;
+}
+.card-float.card-float-white .card-title {
+  color: var(--purple-deep);
+}
+.card-float.card-float-white .card-desc {
+  color: rgba(58,26,107,0.82);
+}
 .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
 /* SECTIONS */
@@ -776,7 +807,7 @@ footer strong { color: var(--yellow); }
       <div class="card-float">
         <div class="card-icon">📱</div>
         <div class="card-title">USSD Access</div>
-        <div class="card-desc">No smartphone needed — parents order via SMS or USSD.</div>
+        <div class="card-desc" stle>No smartphone needed — parents order via SMS or USSD.</div>
       </div>
       <div class="card-float">
         <div class="card-icon">🚚</div>
@@ -784,7 +815,7 @@ footer strong { color: var(--yellow); }
         <div class="card-desc">All 47 counties reached through our logistics network.</div>
       </div>
     </div>
-    <div class="card-float">
+    <div class="card-float card-float-white">
       <div class="card-icon">🏫</div>
       <div class="card-title">Free School ERP Included</div>
       <div class="card-desc">Rural &amp; special needs schools receive KUZZA's ERP at zero cost — fully integrated with the marketplace.</div>
@@ -920,111 +951,6 @@ footer strong { color: var(--yellow); }
   </div>
 </section>
 
-<!-- MARKET -->
-<section class="section market-bg" id="market">
-  <div class="market-inner">
-    <div class="market-header reveal">
-      <div class="section-label">Market Opportunity</div>
-      <h2 class="section-title">A massive, underserved market.</h2>
-      <p class="section-body">Kenya's educational procurement market is fragmented, inefficient — and enormous.</p>
-    </div>
-    <div class="market-cards reveal">
-      <div class="mcard tam">
-        <div class="mcard-label">Total Addressable Market</div>
-        <div class="mcard-name">TAM</div>
-        <div class="mcard-value">KES 17B</div>
-        <div class="mcard-desc">30,000 rural schools + 3,000 special needs schools across Kenya spending KES 500K–800K annually.</div>
-      </div>
-      <div class="mcard sam">
-        <div class="mcard-label">Serviceable Addressable Market</div>
-        <div class="mcard-name">SAM</div>
-        <div class="mcard-value">KES 7B</div>
-        <div class="mcard-desc">12,000 rural schools and 1,200 special needs schools reachable within 3–5 years.</div>
-      </div>
-      <div class="mcard som">
-        <div class="mcard-label">Serviceable Obtainable Market</div>
-        <div class="mcard-name">SOM</div>
-        <div class="mcard-value">KES 1.4B</div>
-        <div class="mcard-desc">20% adoption of reachable schools — our near-term revenue target.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ROADMAP -->
-<section class="section" id="roadmap">
-  <div class="roadmap-inner">
-    <div class="roadmap-header reveal">
-      <div class="section-label" style="display:block;text-align:center;border:none">5-Year Growth Roadmap</div>
-      <h2 class="section-title" style="text-align:center">Scaling to KES 2B+ GMV by 2030.</h2>
-    </div>
-    <div class="timeline reveal">
-      <div class="tnode">
-        <div class="tnode-dot"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2026</div>
-          <div class="tnode-schools">100 Schools</div>
-          <div class="tnode-gmv">KES 80M GMV &middot; 10 Counties</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2027</div>
-          <div class="tnode-schools">1,000 Schools</div>
-          <div class="tnode-gmv">KES 250M GMV &middot; 20 Counties</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot" style="background:var(--yellow);outline-color:var(--yellow)"></div>
-        <div class="tnode-card" style="border-color:var(--yellow)">
-          <div class="tnode-year" style="color:var(--yellow)">2028</div>
-          <div class="tnode-schools">2,500 Schools</div>
-          <div class="tnode-gmv">KES 700M GMV &middot; All 47 Counties</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2029</div>
-          <div class="tnode-schools">4,000 Schools</div>
-          <div class="tnode-gmv">KES 1.2B GMV</div>
-        </div>
-      </div>
-      <div class="tnode">
-        <div class="tnode-dot" style="background:var(--pink-accent);outline-color:var(--pink-accent)"></div>
-        <div class="tnode-card">
-          <div class="tnode-year">2030</div>
-          <div class="tnode-schools">6,000 Schools</div>
-          <div class="tnode-gmv">KES 2B+ GMV</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS STRIP -->
-<section class="stats-strip" id="impact">
-  <div class="stats-strip-inner reveal">
-    <div>
-      <div class="strip-num">80%</div>
-      <div class="strip-label">Revenue Growth Year on Year</div>
-    </div>
-    <div>
-      <div class="strip-num">30%</div>
-      <div class="strip-label">Return on Investment</div>
-    </div>
-    <div>
-      <div class="strip-num">15%</div>
-      <div class="strip-label">EBITDA Margin at Scale</div>
-    </div>
-    <div>
-      <div class="strip-num">75%</div>
-      <div class="strip-label">Customer Satisfaction Score</div>
-    </div>
-  </div>
-</section>
-
 <!-- PARTNERSHIPS -->
 <section class="section partner-bg" id="partners">
   <div class="partner-inner">
@@ -1058,7 +984,7 @@ footer strong { color: var(--yellow); }
       <a href="#" class="js-open-get-started" role="button" style="text-decoration:none">
         <button class="btn-primary" style="font-size:1.05rem;padding:1rem 2.4rem">Onboard Your School — Free</button>
       </a>
-      <a href="mailto:kmuga@mybidhaa.com" style="text-decoration:none">
+      <a href="mailto:kuzza@mybidhaa.com" style="text-decoration:none">
         <button class="btn-ghost" style="font-size:1.05rem;padding:1rem 2.4rem">Talk to Our Team</button>
       </a>
     </div>
@@ -1068,7 +994,7 @@ footer strong { color: var(--yellow); }
 <!-- CONTACT STRIP -->
 <div class="contact-strip">
   <div class="contact-item"><span>🌐</span> www.mybidhaa.com</div>
-  <div class="contact-item"><span>✉️</span> kmuga@mybidhaa.com</div>
+  <div class="contact-item"><span>✉️</span> kuzza@mybidhaa.com</div>
   <div class="contact-item"><span>📞</span> +254 729 000 403</div>
 </div>
 
