@@ -96,7 +96,7 @@
             min-height: 90vh;
             padding-top: 200px;
             background: linear-gradient(120deg, rgba(32, 178, 170, 0.92), rgba(56, 178, 172, 0.85)),
-            url({{ $homePage && $homePage->image ? asset($homePage->image) : asset('public/landing/img/dashboard_preview.png') }}) center/cover no-repeat;
+            url('https://images.unsplash.com/photo-1547306843-f8fea4d65f9b?q=80&w=809&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
             border-radius: 0 0 120px 120px;
             overflow: hidden;
             color: #fff;
@@ -611,4 +611,3 @@
         });
     </script>
 @endsection
-
