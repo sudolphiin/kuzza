@@ -25,3 +25,5 @@ change-list.txt
 kuzza_export.sql
 auth.json
 config.json
+
+storage/framework/views/*.php
