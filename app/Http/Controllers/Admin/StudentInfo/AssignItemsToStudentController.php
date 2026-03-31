@@ -18,6 +18,76 @@ use Illuminate\Http\Request;
 
 class AssignItemsToStudentController extends Controller
 {
+    protected function isJsonAssignmentRequest(Request $request): bool
+    {
+        return $request->expectsJson() || $request->ajax();
+    }
+
+    protected function assignmentErrorResponse(Request $request, string $message, int $status = 422)
+    {
+        if ($this->isJsonAssignmentRequest($request)) {
+            return response()->json([
+                'success' => false,
+                'message' => $message,
+            ], $status);
+        }
+
+        Toastr::error($message, 'Error');
+
+        return redirect()->route('assign-items-to-student')->withInput();
+    }
+
+    protected function assignmentSuccessResponse(
+        Request $request,
+        int $assigned,
+        int $skippedNoParent,
+        int $skippedNoStudentUser
+    ) {
+        $message = $assigned === 0
+            ? 'Items already assigned to all selected recipients.'
+            : "Assigned {$assigned} item(s) to selected recipients.";
+
+        if ($this->isJsonAssignmentRequest($request)) {
+            return response()->json([
+                'success' => true,
+                'assigned' => $assigned,
+                'skipped_no_parent' => $skippedNoParent,
+                'skipped_no_student_user' => $skippedNoStudentUser,
+                'message' => $message,
+            ]);
+        }
+
+        if ($skippedNoParent || $skippedNoStudentUser) {
+            $parts = [];
+            if ($skippedNoParent) {
+                $parts[] = $skippedNoParent . ' missing parent account';
+            }
+            if ($skippedNoStudentUser) {
+                $parts[] = $skippedNoStudentUser . ' missing student user';
+            }
+            $message .= ' Skipped ' . implode(', ', $parts) . '.';
+        }
+
+        Toastr::success($message, 'Success');
+
+        return redirect()->route('assign-items-to-student', ['tab' => 'assigned']);
+    }
+
+    protected function resolveStudentForAssignment(int $schoolId, $studentIdentifier): ?SmStudent
+    {
+        if (! $studentIdentifier) {
+            return null;
+        }
+
+        return SmStudent::where('school_id', $schoolId)
+            ->with('parents')
+            ->where(function ($query) use ($studentIdentifier) {
+                $query->where('id', $studentIdentifier)
+                    ->orWhere('user_id', $studentIdentifier);
+            })
+            ->first();
+    }
+
     protected function ensureAdminAccess(): void
     {
         $user = auth()->user();
@@ -145,9 +215,9 @@ class AssignItemsToStudentController extends Controller
     {
         $request->validate([
             'scope' => 'required|in:all,class,student',
-            'class_id' => 'nullable|integer',
+            'class_id' => 'nullable|required_if:scope,class|integer',
             'section_id' => 'nullable|integer',
-            'student_id' => 'nullable|integer',
+            'student_id' => 'nullable|required_if:scope,student|integer',
             'products' => 'required|array',
             'products.*.id' => 'required|string',
             'products.*.name' => 'required|string',
@@ -187,17 +257,17 @@ class AssignItemsToStudentController extends Controller
                 ->map->student
                 ->filter();
         } else {
-            $student = SmStudent::where('school_id', $schoolId)
-                ->with('parents')
-                ->findOrFail($request->student_id);
+            $student = $this->resolveStudentForAssignment($schoolId, $request->input('student_id'));
+
+            if (! $student) {
+                return $this->assignmentErrorResponse($request, 'Selected student could not be found for this school.');
+            }
+
             $recipientStudents = collect([$student]);
         }
 
         if ($recipientStudents->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No recipients found for the selected scope.',
-            ], 422);
+            return $this->assignmentErrorResponse($request, 'No recipients found for the selected scope.');
         }
 
         $deadline = $request->input('deadline');
@@ -288,20 +358,10 @@ class AssignItemsToStudentController extends Controller
 
         if ($touched === 0) {
             $batch->delete();
-            return response()->json([
-                'success' => false,
-                'message' => 'No valid recipients with parent accounts were found for the selected scope.',
-            ], 422);
+            return $this->assignmentErrorResponse($request, 'No valid recipients with parent accounts were found for the selected scope.');
         }
 
-        Toastr::success("Assigned {$assigned} item(s) to selected recipients.", 'Success');
-
-        return response()->json([
-            'success' => true,
-            'assigned' => $assigned,
-            'skipped_no_parent' => $skippedNoParent,
-            'skipped_no_student_user' => $skippedNoStudentUser,
-        ]);
+        return $this->assignmentSuccessResponse($request, $assigned, $skippedNoParent, $skippedNoStudentUser);
     }
 
     /**

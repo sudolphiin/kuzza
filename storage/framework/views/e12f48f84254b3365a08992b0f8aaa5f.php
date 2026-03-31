@@ -490,7 +490,7 @@
                         <div class="tab-pane fade <?php echo e($activeTab === 'assigned' ? 'show active' : ''); ?>" id="tab-assign-history" role="tabpanel">
                             <div class="d-flex justify-content-between align-items-center mb-15">
                                 <h3 class="mb-0">Assigned items history</h3>
-                                <form method="POST" action="<?php echo e(route('assign-items-to-student.repair-legacy')); ?>" onsubmit="return confirm('Repair legacy assignments? This will update older rows that used student/parent profile IDs.');">
+                                <form method="POST" action="<?php echo e(route('assign-items-to-student.repair-legacy')); ?>">
                                     <?php echo csrf_field(); ?>
                                     <button type="submit" class="btn btn-sm btn-outline-primary">Repair Legacy Assignments</button>
                                 </form>
@@ -542,7 +542,7 @@
                                                 <td><?php echo e($ordered); ?> ordered</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-outline-secondary toggle-batch-items" data-batch-id="<?php echo e($batch->id); ?>">View items</button>
-                                                    <form method="POST" action="<?php echo e(route('assign-items-to-student.reassign-batch', $batch->id)); ?>" class="d-inline js-reassign-batch-form" onsubmit="return confirm('Reassign this batch to the correct parent accounts? A new batch will be created.');">
+                                                    <form method="POST" action="<?php echo e(route('assign-items-to-student.reassign-batch', $batch->id)); ?>" class="d-inline js-reassign-batch-form">
                                                         <?php echo csrf_field(); ?>
                                                         <button type="submit" class="btn btn-sm btn-outline-primary ml-1">Reassign items</button>
                                                     </form>
@@ -584,7 +584,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="mt-2 text-right">
-                                                                            <form method="POST" action="<?php echo e(route('assign-items-to-student.unassign-item', $item->id)); ?>" onsubmit="return confirm('Unassign this item from all recipients in this batch?');">
+                                                                            <form method="POST" action="<?php echo e(route('assign-items-to-student.unassign-item', $item->id)); ?>">
                                                                                 <?php echo csrf_field(); ?>
                                                                                 <?php echo method_field('DELETE'); ?>
                                                                                 <button type="submit" class="btn btn-sm btn-outline-danger">Unassign</button>
@@ -595,7 +595,7 @@
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </div>
                                                         <div class="border-top pt-3 mt-2">
-                                                            <form method="POST" action="<?php echo e(route('assign-items-to-student.unassign-batch', $batch->id)); ?>" onsubmit="return confirm('Unassign all items in this batch?');">
+                                                            <form method="POST" action="<?php echo e(route('assign-items-to-student.unassign-batch', $batch->id)); ?>">
                                                                 <?php echo csrf_field(); ?>
                                                                 <?php echo method_field('DELETE'); ?>
                                                                 <button type="submit" class="btn btn-sm btn-danger">Unassign entire batch</button>
@@ -622,6 +622,10 @@
             </div>
         </div>
     </section>
+
+    <form id="assign-items-submit-form" method="POST" action="<?php echo e(route('assign-items-to-student.assign')); ?>" style="display:none;">
+        <?php echo csrf_field(); ?>
+    </form>
 
     <div class="modal fade" id="batchItemsModal" tabindex="-1" role="dialog" aria-labelledby="batchItemsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -668,7 +672,12 @@
     <script>
         (function() {
             const csrf = '<?php echo e(csrf_token()); ?>';
-            const baseUrl = '<?php echo e(url("/")); ?>';
+            const assignItemsUrl = '<?php echo e(route('assign-items-to-student.assign')); ?>';
+            const searchProductsUrl = '<?php echo e(route('assign-items-to-student.search-products')); ?>';
+            const searchStudentsUrl = '<?php echo e(route('assign-items-to-student.search-students')); ?>';
+            const sectionsUrl = '<?php echo e(route('assign-items-to-student.sections')); ?>';
+            const categoriesUrl = '<?php echo e(route('assign-items-to-student.categories')); ?>';
+            const assignedTabUrl = '<?php echo e(route('assign-items-to-student', ['tab' => 'assigned'])); ?>';
 
             let selectedProducts = [];
             let selectedStudent = null;
@@ -725,6 +734,47 @@
                 document.body.classList.remove('modal-open');
             }
 
+            function appendHiddenInput(form, name, value) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value == null ? '' : String(value);
+                form.appendChild(input);
+            }
+
+            function submitAssignmentForm() {
+                const form = document.getElementById('assign-items-submit-form');
+                if (!form) {
+                    return;
+                }
+
+                Array.from(form.querySelectorAll('input[type="hidden"]')).forEach(function(input) {
+                    if (input.name !== '_token') {
+                        input.remove();
+                    }
+                });
+
+                appendHiddenInput(form, 'scope', currentScope);
+                appendHiddenInput(form, 'class_id', selectedClassId || '');
+                appendHiddenInput(form, 'section_id', selectedSectionId || '');
+                appendHiddenInput(form, 'student_id', currentScope === 'student' ? ($('#selected-student-id').val() || '') : '');
+                appendHiddenInput(form, 'deadline', $('#assignment-deadline').val() || '');
+
+                selectedProducts.forEach(function(product, index) {
+                    appendHiddenInput(form, 'products[' + index + '][id]', product.id || '');
+                    appendHiddenInput(form, 'products[' + index + '][name]', product.name || '');
+                    appendHiddenInput(form, 'products[' + index + '][category]', product.category || '');
+                    appendHiddenInput(form, 'products[' + index + '][price]', product.price || 0);
+                    appendHiddenInput(form, 'products[' + index + '][description]', product.description || '');
+                    appendHiddenInput(form, 'products[' + index + '][image_url]', product.image_url || '');
+                    appendHiddenInput(form, 'products[' + index + '][product_url]', product.product_url || '');
+                    appendHiddenInput(form, 'products[' + index + '][quantity]', product.quantity || 1);
+                    appendHiddenInput(form, 'products[' + index + '][assignment_type]', product.assignment_type || 'recommended');
+                });
+
+                form.submit();
+            }
+
             function formatPrice(n) {
                 return (Number(n)).toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
@@ -763,7 +813,7 @@
                     updateButtonsState();
                     return;
                 }
-                $.get(baseUrl + '/assign-items-to-student/sections', { class_id: selectedClassId }).done(function(res) {
+                $.get(sectionsUrl, { class_id: selectedClassId }).done(function(res) {
                     const sections = res.sections || [];
                     let options = '<option value=\"\">All sections</option>';
                     sections.forEach(function(s) {
@@ -853,7 +903,7 @@
 
             function performSearch(page) {
                 const categoryParam = selectedCategoryId ? '&category_id=' + encodeURIComponent(selectedCategoryId) : '';
-                const url = baseUrl + '/assign-items-to-student/search-products?q=' + encodeURIComponent(currentQuery) + '&page=' + page + categoryParam;
+                const url = searchProductsUrl + '?q=' + encodeURIComponent(currentQuery) + '&page=' + page + categoryParam;
                 $('#products-loading').show();
                 $('#products-list').empty();
                 $('#products-pagination').remove();
@@ -1066,7 +1116,7 @@
                     $('#student-results').hide().empty();
                     return;
                 }
-                $.get(baseUrl + '/assign-items-to-student/search-students', { q: q }).done(function(res) {
+                $.get(searchStudentsUrl, { q: q }).done(function(res) {
                     const students = res.students || [];
                     let html = '';
                     students.forEach(function(s) {
@@ -1086,8 +1136,13 @@
                 $('#selected-student-name').val(name);
                 $('#student-search').val(name);
                 $('#student-results').hide().empty();
-                $('#selected-student-display').text('Student: ' + name).show();
-                selectedStudent = { id: id, user_id: userId, name: name };
+                if (userId) {
+                    $('#selected-student-display').text('Student: ' + name).removeClass('text-danger').addClass('text-success').show();
+                    selectedStudent = { id: id, user_id: userId, name: name };
+                } else {
+                    $('#selected-student-display').text('This student does not have a user account and cannot be assigned items.').removeClass('text-success').addClass('text-danger').show();
+                    selectedStudent = { id: id, user_id: null, name: name };
+                }
                 updateButtonsState();
             });
 
@@ -1098,90 +1153,20 @@
                 } else if (currentScope === 'class') {
                     recipientsReady = !!selectedClassId;
                 } else if (currentScope === 'student') {
-                    recipientsReady = !!(selectedStudent && selectedStudent.id);
+                    recipientsReady = !!(selectedStudent && selectedStudent.user_id);
                 }
                 const hasProducts = selectedProducts.length > 0;
                 $('#btn-assign').prop('disabled', !(recipientsReady && hasProducts));
             }
 
-            $('#btn-assign').on('click', function() {
+            $(document).on('click', '#btn-assign', function() {
                 if (selectedProducts.length === 0) return;
-                let recipientsText = 'All students';
-                if (currentScope === 'class') {
-                    const cls = $('#class-select option:selected').text() || 'Class';
-                    const sec = $('#section-select option:selected').text();
-                    recipientsText = sec ? (cls + ' / ' + sec) : cls;
-                } else if (currentScope === 'student' && selectedStudent) {
-                    recipientsText = selectedStudent.name;
-                }
-                const deadline = $('#assignment-deadline').val() || '—';
-                $('#confirm-recipients').text(recipientsText);
-                $('#confirm-count').text(selectedProducts.length);
-                $('#confirm-total').text($('#selections-total').text() || 'KES 0.00');
-                $('#confirm-deadline').text(deadline);
-                let itemsHtml = '';
-                selectedProducts.forEach(function(p) {
-                    const qty = p.quantity || 1;
-                    const type = p.assignment_type === 'required' ? 'Required' : 'Recommended';
-                    itemsHtml += '<li class="mb-2"><strong>' + escapeHtml(p.name || 'Item') + '</strong> · Qty ' + qty + ' · ' + type + '</li>';
-                });
-                $('#confirm-items').html(itemsHtml || '<li class="text-muted">No items selected.</li>');
-                showModalCompat('#confirmAssignModal');
-            });
-
-            $('#btn-confirm-assign').on('click', function() {
-                const studentId = $('#selected-student-id').val();
-                if (selectedProducts.length === 0) return;
-                $('#assign-status').text('Assigning...').css('color', '');
-                const payload = {
-                    _token: csrf,
-                    scope: currentScope,
-                    class_id: selectedClassId,
-                    section_id: selectedSectionId,
-                    student_id: studentId,
-                    products: selectedProducts,
-                    deadline: $('#assignment-deadline').val() || null,
-                };
-                $.ajax({
-                    url: baseUrl + '/assign-items-to-student/assign',
-                    method: 'POST',
-                    data: payload
-                }).done(function(res) {
-                    hideModalCompat('#confirmAssignModal');
-                    const assigned = (typeof res.assigned === 'number') ? res.assigned : null;
-                    const skippedParent = res.skipped_no_parent || 0;
-                    const skippedStudentUser = res.skipped_no_student_user || 0;
-                    const message = assigned !== null
-                        ? (assigned === 0 ? 'Items already assigned to all selected recipients.' : (assigned + ' item(s) assigned to selected recipients.'))
-                        : 'Items assigned successfully.';
-                    let extra = '';
-                    if (skippedParent || skippedStudentUser) {
-                        const parts = [];
-                        if (skippedParent) parts.push(skippedParent + ' missing parent account');
-                        if (skippedStudentUser) parts.push(skippedStudentUser + ' missing student user');
-                        extra = ' Skipped ' + parts.join(', ') + '.';
-                    }
-                    $('#assign-status').text(message + extra).css('color', 'green');
-                    selectedProducts = [];
-                    $('.product-cb').prop('checked', false);
-                    renderSelectionsSummary();
-                    updateButtonsState();
-                    $('#selections-detail').hide();
-                    $('#selections-chevron').removeClass('ti-angle-up').addClass('ti-angle-down');
-
-                    // Reload fresh data and open "Assigned items" tab automatically.
-                    setTimeout(function () {
-                        window.location.href = baseUrl + '/assign-items-to-student?tab=assigned';
-                    }, 450);
-                }).fail(function(xhr) {
-                    hideModalCompat('#confirmAssignModal');
-                    const msg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Failed to assign.';
-                    $('#assign-status').text(msg).css('color', 'red');
-                });
+                $('#assign-status').text('Saving assignment...').css('color', '');
+                submitAssignmentForm();
             });
 
             function loadCategories() {
-                $.get(baseUrl + '/assign-items-to-student/categories').done(function(res) {
+                $.get(categoriesUrl).done(function(res) {
                     const categories = res.categories || [];
                     let options = '<option value=\"\">All categories</option>';
                     categories.forEach(function(c) {
