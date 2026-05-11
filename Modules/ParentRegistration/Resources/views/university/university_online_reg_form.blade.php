@@ -45,7 +45,7 @@
         </select>
         
             <div class="pull-right loader loader_style" id="select_dept_loader">
-                <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
             </div>
             @if($errors->has('un_department_id'))
             <div class="text-danger error-message invalid-select mb-10">{{ $errors->first('un_department_id') }}</div>
@@ -65,7 +65,7 @@
         </select>
         
             <div class="pull-right loader loader_style" id="select_academic_loader">
-                <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
             </div>
             @if($errors->has('un_academic_id'))
             <div class="text-danger error-message invalid-select mb-10">{{ $errors->first('un_academic_id') }}</div>
@@ -85,7 +85,7 @@
         </select>
         
             <div class="pull-right loader loader_style" id="select_academic_loader">
-                <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
             </div>
             @if($errors->has('un_semester_id'))
             <div class="text-danger error-message invalid-select mb-10">{{ $errors->first('un_semester_id') }}</div>
@@ -103,7 +103,7 @@
         </select>
         
             <div class="pull-right loader loader_style" id="select_semester_label_loader">
-                <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
             </div>
             @if($errors->has('un_semester_label_id'))
             <div class="text-danger error-message invalid-select mb-10">{{ $errors->first('un_semester_label_id') }}</div>
@@ -120,7 +120,7 @@
         </select>
         
             <div class="pull-right loader loader_style" id="select_section_loader">
-                <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
             </div>
             @if($errors->has('un_section_id'))
             <div class="text-danger error-message invalid-select mb-10">{{ $errors->first('un_section_id') }}</div>

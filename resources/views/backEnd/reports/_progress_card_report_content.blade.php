@@ -119,7 +119,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                        <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }})"></div>
 
                                     </div>
                                     <div class="card-body">

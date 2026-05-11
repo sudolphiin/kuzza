@@ -4,7 +4,7 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('Modules/AiContent/Resources/assets/css/ai_content.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}">
 @endpush
 @section('mainContent')
     <section class="sms-breadcrumb mb-20">
@@ -395,7 +395,7 @@
 @include('backEnd.partials.data_table_js')
 @include('backEnd.partials.date_picker_css_js')
 @push('script')
-    <script src="{{ asset('public/backEnd/') }}/vendors/editor/summernote-bs4.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/editor/summernote-bs4.js"></script>
     <script>
         $(document).ready(function() {
             var checkData = $('#newsSettings').is(":checked");

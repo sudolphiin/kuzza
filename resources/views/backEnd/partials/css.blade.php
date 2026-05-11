@@ -1,26 +1,26 @@
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/css/jquery-ui.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/vendors/css/jquery-ui.css') }}" />
 {{-- metsimenu --}}
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/metisMenu.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/metisMenu.css') }}" />
 
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/loade.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/css/app.css') }}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/assets/css/croppie.css')}}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/loade.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('css/app.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/croppie.css') }}" />
  @if(userRtlLtl() ==1)
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css')}}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/infix.css')}}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/rtl/style.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/rtl/infix.css') }}" />
 @else
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/backend_static_style.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/infix.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/backend_static_style.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/infix.css') }}" />
 @endif
 
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/vendors_static_style.css') }}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/assets/css/preloader.css')}}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/assets/css/solid_style.css')}}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/multiselect/css/jquery.multiselect.css')}}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/multiselect/css/custom_style.css')}}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/assets/css/radio_checkbox.css')}}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/vendors/vendors_static_style.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/preloader.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/solid_style.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/multiselect/css/jquery.multiselect.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/multiselect/css/custom_style.css') }}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/assets/css/radio_checkbox.css') }}" />
 
-<link rel="stylesheet" href="{{asset('public/css/backend_design_v2.css')}}">
+<link rel="stylesheet" href="{{ public_asset('css/backend_design_v2.css') }}">
 <style>
     *{
         -webkit-font-smoothing: antialiased;

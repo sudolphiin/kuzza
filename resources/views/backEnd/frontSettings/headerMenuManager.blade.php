@@ -447,7 +447,7 @@
 @endsection
 @include('backEnd.partials.multi_select_js')
 @push('script')
-<script src="{{asset('public/backEnd/')}}/js/jquery.nestable.min.js"></script>
+<script src="{{asset('backEnd/')}}/js/jquery.nestable.min.js"></script>
 <script>
     $( document ).ready(function() {
         $(document).on('click', '#add_page_btn', function(event){

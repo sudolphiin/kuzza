@@ -277,7 +277,7 @@
                 @foreach ($files as $file)
                     @php
                         $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                        $fileUrl = asset('public/uploads/homeworkcontent/' . $file);
+                        $fileUrl = asset('uploads/homeworkcontent/' . $file);
                     @endphp
             
                     <div class="mt-3">

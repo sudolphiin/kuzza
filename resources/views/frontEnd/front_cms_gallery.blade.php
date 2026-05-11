@@ -31,9 +31,9 @@
 
                             <div class="row mt-25">
                                 <div class="col-lg-12">
-                                    <img class="img-100" src="{{asset('public/backEnd/img/front-cms/img1.jpg')}}" alt="">
-                                    <img class="img-100" src="{{asset('public/backEnd/img/front-cms/img2.jpg')}}" alt="">
-                                    <img class="img-100" src="{{asset('public/backEnd/img/front-cms/img3.jpg')}}" alt="">
+                                    <img class="img-100" src="{{asset('backEnd/img/front-cms/img1.jpg')}}" alt="">
+                                    <img class="img-100" src="{{asset('backEnd/img/front-cms/img2.jpg')}}" alt="">
+                                    <img class="img-100" src="{{asset('backEnd/img/front-cms/img3.jpg')}}" alt="">
                                 </div>
                                 <div class="col-lg-12 text-right mt-20">
                                     <button type="button" class="primary-btn small fix-gr-bg">

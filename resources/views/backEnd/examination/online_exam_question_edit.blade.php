@@ -1,4 +1,4 @@
-<script src="{{ asset('public/backEnd/') }}/js/main.js"></script>
+<script src="{{ asset('backEnd/') }}/js/main.js"></script>
 
 {{ html()->form('POST', route('online_exam_question_edit'))->attributes([
         'class' => 'form-horizontal',

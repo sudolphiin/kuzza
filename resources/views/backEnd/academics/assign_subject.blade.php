@@ -44,7 +44,7 @@
     </section>
 
     <div id="ajaxSpinnerContainer">
-        {{-- <img src="{{asset('public/uploads/settings')}}/ajax-loader.gif" id="ajaxSpinnerImage" title="loading..." /> --}}
+        {{-- <img src="{{asset('uploads/settings')}}/ajax-loader.gif" id="ajaxSpinnerImage" title="loading..." /> --}}
     </div>
     <section class="admin-visitor-area">
         <div class="container-fluid p-0">

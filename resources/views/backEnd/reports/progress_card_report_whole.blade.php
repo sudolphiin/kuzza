@@ -159,7 +159,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                {{-- <img class="report-admit-img" src="{{asset('public/uploads/staff/std1.jpg')}}" alt=""> --}}
+                                                {{-- <img class="report-admit-img" src="{{asset('uploads/staff/std1.jpg')}}" alt=""> --}}
                                                 <img class="report-admit-img" src="{{asset($studentDetails->student_photo)}}" width="100" height="100" alt="">
                                             </div>
                                         </div>

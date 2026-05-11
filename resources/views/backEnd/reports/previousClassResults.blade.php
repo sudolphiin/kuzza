@@ -170,7 +170,7 @@
                                 <option data-display="@lang('common.select_record') *" value="">@lang('common.select_record')</option>
                             </select>
                             <div class="pull-right loader loader_style" id="studentRecordPre">
-                                <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                     alt="loader">
                             </div>
                             @if ($errors->has('record'))
@@ -196,7 +196,7 @@
 
     <div class="showPreviousResult">
         <div class="text-center loader" id="studentPrevDataLoader">
-            <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+            <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
         </div>
     </div>
 

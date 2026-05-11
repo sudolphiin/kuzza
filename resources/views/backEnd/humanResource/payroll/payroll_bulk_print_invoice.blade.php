@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{{ asset('/')}}/public/backEnd/css/report/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('backEnd/css/report/bootstrap.min.css">
     <title>@lang('hr.payslip')</title>
     <style>
     *{
@@ -427,7 +427,7 @@ $setting_info=generalSetting();
 </div>   
 @endforeach
 </body>
-    <script src="{{ asset('/') }}/public/backEnd/js/fees_invoice/jquery-3.2.1.slim.min.js"></script>
-    <script src="{{ asset('/') }}/public/backEnd/js/fees_invoice/popper.min.js"></script>
-    <script src="{{ asset('/') }}/public/backEnd/js/fees_invoice/bootstrap.min.js"></script>
+    <script src="{{ asset('backEnd/js/fees_invoice/jquery-3.2.1.slim.min.js"></script>
+    <script src="{{ asset('backEnd/js/fees_invoice/popper.min.js"></script>
+    <script src="{{ asset('backEnd/js/fees_invoice/bootstrap.min.js"></script>
 </html>

@@ -52,7 +52,7 @@
                 <div class="student-meta-box">
                     <div class="student-meta-top"></div>
                     <img class="student-meta-img img-100"
-                        src="{{ $invoiceInfo->studentInfo->student_photo ? $invoiceInfo->studentInfo->student_photo : asset('public/uploads/staff/demo/staff.jpg') }}"
+                        src="{{ $invoiceInfo->studentInfo->student_photo ? $invoiceInfo->studentInfo->student_photo : asset('uploads/staff/demo/staff.jpg') }}"
                         alt="">
                     <div class="white-box radius-t-y-0">
                         <div class="single-meta mt-50">

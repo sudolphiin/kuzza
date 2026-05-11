@@ -80,30 +80,30 @@
 	<!--================End Footer Area =================-->
 
 
-<script src="{{asset('public/backEnd/')}}/vendors/js/jquery-ui.js">
+<script src="{{asset('backEnd/')}}/vendors/js/jquery-ui.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/popper.js">
+<script src="{{asset('backEnd/')}}/vendors/js/popper.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/bootstrap.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/nice-select.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/nice-select.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/jquery.magnific-popup.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/jquery.magnific-popup.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/raphael-min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/raphael-min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/morris.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/morris.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/owl.carousel.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/toastr.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/moment.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/print/bootstrap-datetimepicker.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap-datepicker.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/owl.carousel.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/toastr.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/moment.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/print/bootstrap-datetimepicker.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/bootstrap-datepicker.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/js/main.js"></script>
-<script src="{{asset('public/backEnd/')}}/js/custom.js"></script>
+<script src="{{asset('backEnd/')}}/js/main.js"></script>
+<script src="{{asset('backEnd/')}}/js/custom.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/js/developer.js"></script>
+<script src="{{asset('backEnd/')}}/js/developer.js"></script>
 </body>
 
 </html>

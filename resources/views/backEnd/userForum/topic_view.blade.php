@@ -202,7 +202,7 @@
                                     <div class="d-flex align-items-center gap-10">
                                         <div class="thumb" style="width: 45px">
                                             <img class="img-fluid rounded-circle"
-                                                src="{{  asset('public/uploads/staff/demo/staff.jpg') }}"
+                                                src="{{  asset('uploads/staff/demo/staff.jpg') }}"
                                                 >
                                         </div>
                                         <div class="review_content">
@@ -327,7 +327,7 @@
                                                                         alt="">
                                                                 @else --}}
                                                                     <img class="img-fluid rounded-circle"
-                                                                        src={{@profile() && file_exists(@profile()) ? asset(profile()) : asset('public/backEnd/assets/img/avatar.png')}}
+                                                                        src={{@profile() && file_exists(@profile()) ? asset(profile()) : asset('backEnd/assets/img/avatar.png')}}
                                                                         alt="">
                                                                 {{-- @endif --}}
                                                             @endif
@@ -495,7 +495,7 @@
                                                                             <img class="img-fluid rounded-circle" src="{{ asset(@$reply->user->parent->guardians_photo) }}" alt="">
                                                                         @else --}}
                                                                         {{-- @endif --}}
-                                                                            <img class="img-fluid rounded-circle" src=" {{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('public/backEnd/assets/img/avatar.png') }}" alt="">
+                                                                            <img class="img-fluid rounded-circle" src=" {{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('backEnd/assets/img/avatar.png') }}" alt="">
                                                                     @endif
                                                                     
                                                                 </div>

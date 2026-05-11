@@ -106,7 +106,7 @@
     <link rel="stylesheet" href="{{asset('public/landing/css/animate.css')}}">
     <!-- themify CSS -->
     <link rel="stylesheet" href="{{asset('public/landing/css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/font-awesome.min.css"/>
     <!-- font awesome CSS -->
     <link rel="stylesheet" href="{{asset('public/landing/css/magnific-popup.css')}}">
     <!-- style CSS -->

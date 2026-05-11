@@ -45,7 +45,7 @@
           "downloadUrl" : "{{ url('/') }}",
           "operatingSystem" : "2019",
           "requirements" : "in a complete",
-          "screenshot" : "{{ asset('public/landing/img/dashboard_preview.png') }}",
+          "screenshot" : "{{ asset('landing/img/dashboard_preview.png') }}",
           "softwareVersion" : "2.0",
 
           "review" : {
@@ -69,13 +69,13 @@
     <meta name="twitter:url" content="{{ url('/') }}"/>
     <meta name="twitter:title" content="The Ultimate Education Management System For School, Institute & Academy - Kuzza"/>
     <meta name="twitter:description" content="Kuzza is a modern School management system and ERP-based software. Try the free demo today! Kuzza offers 100+ features for schools, universities and educational institutes."/>
-    <meta property="og:image" content="{{ asset('public/landing/img/dashboard_preview.png') }}"/>
+    <meta property="og:image" content="{{ asset('landing/img/dashboard_preview.png') }}"/>
 
 
     <!-- Open Graph data -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url('/') }}"/>
-    <meta property="og:image" content="{{ asset('public/landing/img/dashboard_preview.png') }}"/>
+    <meta property="og:image" content="{{ asset('landing/img/dashboard_preview.png') }}"/>
     <meta property="og:title" content="School Management ERP Software & School Management System - Kuzza"/>
 
     <meta property="og:description" content="Kuzza is a modern School management system and ERP-based software. Try the free demo today! Kuzza offers 100+ features for schools, universities and educational institutes."/>
@@ -83,18 +83,18 @@
 
     <link rel="canonical" href="{{ url('/') }}" hreflang="en-us" />
 
-    <link rel="icon" href="{{asset('public/landing/img/favicon.png')}}">
+    <link rel="icon" href="{{asset('landing/img/favicon.png')}}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('public/landing/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('landing/css/bootstrap.min.css')}}">
     <!-- animate CSS -->
-    <link rel="stylesheet" href="{{asset('public/landing/css/animate.css')}}">
+    <link rel="stylesheet" href="{{asset('landing/css/animate.css')}}">
     <!-- themify CSS -->
-    <link rel="stylesheet" href="{{asset('public/landing/css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="{{asset('landing/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/font-awesome.min.css"/>
     <!-- font awesome CSS -->
-    <link rel="stylesheet" href="{{asset('public/landing/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{asset('landing/css/magnific-popup.css')}}">
     <!-- style CSS -->
-    <link rel="stylesheet" href="{{asset('public/landing/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('landing/css/style.css')}}">
 
 </head>
 
@@ -129,7 +129,7 @@
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <a class="navbar-brand" href="{{url('/')}}">
-                        <img src="{{asset('public/landing/img/logo.png')}}" alt="logo"> </a>
+                        <img src="{{asset('landing/img/logo.png')}}" alt="logo"> </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">

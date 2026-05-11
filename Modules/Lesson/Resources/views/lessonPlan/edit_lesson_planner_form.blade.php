@@ -1,4 +1,4 @@
-<script src="{{ asset('public/backEnd/') }}/js/main.js"></script>
+<script src="{{ asset('backEnd/') }}/js/main.js"></script>
 <style>
     .dloader_img_style {
         width: 40px;
@@ -138,7 +138,7 @@
             @endforeach
             <div class="white-box dloader" id=select_lesson_topic_loader>
                 <div class="dloader_style mt-2 text-center">
-                    <img class="dloader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                    <img class="dloader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                         alt="loader">
                 </div>
             </div>

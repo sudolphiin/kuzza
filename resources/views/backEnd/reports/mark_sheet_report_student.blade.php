@@ -148,7 +148,7 @@
                                         ]) }}
 
                                         <div class="pull-right loader loader_style" id="select_exam_type_loader">
-                                            <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                            <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                         </div>
                                         @if ($errors->has('exam_type'))
                                             <span class="text-danger custom-error-message" role="alert">
@@ -165,7 +165,7 @@
                                         ]) }}
 
                                         <div class="pull-right loader loader_style" id="select_un_student_loader">
-                                            <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                            <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                         </div>
                                         @if ($errors->has('student_id'))
                                             <span class="text-danger custom-error-message" role="alert">
@@ -645,7 +645,7 @@
                                                             </div>
     
                                                         </div>
-                                                        <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                        <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }})"></div>
     
                                                     </div>
                                                     {{--Start  Result Table --}}

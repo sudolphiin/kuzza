@@ -52,7 +52,7 @@
                                                             @elseif($user->avatar_url)
                                                                 <img src="{{asset($user->avatar_url)}}" alt="">
                                                             @else
-                                                                <img src="{{asset('public/chat/images/spondon-icon.png')}}" alt="">
+                                                                <img src="{{asset('chat/images/spondon-icon.png')}}" alt="">
                                                             @endif
                                                         </a>
                                                     </div>

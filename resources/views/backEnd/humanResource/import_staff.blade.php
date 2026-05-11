@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                             <div class="offset-lg-3 col-lg-3 text-right">
-                                <a href="{{ url('/public/backEnd/bulksample/staffs.xlsx') }}">
+                                <a href="{{ asset('backEnd/bulksample/staffs.xlsx') }}">
                                     <button class="primary-btn tr-bg text-uppercase bord-rad">
                                         @lang('student.download_sample_file')
                                         <span class="pl ti-download"></span>

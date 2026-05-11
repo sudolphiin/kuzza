@@ -646,7 +646,7 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('public/backEnd/dropzone/dropzone.min.js') }}"></script>
+    <script src="{{ asset('backEnd/dropzone/dropzone.min.js') }}"></script>
 
     <script>
         Dropzone.autoDiscover = false;

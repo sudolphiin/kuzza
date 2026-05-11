@@ -28,9 +28,9 @@ activeStyle() = App\SmStyle::where('is_active', 1)->first();
     <link rel="icon" href="{{asset(generalSetting()->favicon)}}" type="image/png"/>
     <title>Login</title>
     <meta name="_token" content="{!! csrf_token() !!}"/>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/themify-icons.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/themify-icons.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
     <style type="text/css">
     	@media (max-width: 991px){
 			.up_login {
@@ -256,10 +256,10 @@ activeStyle() = App\SmStyle::where('is_active', 1)->first();
 
 
 
-    <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
-    <script src="{{asset('public/backEnd/')}}/vendors/js/popper.js"></script>
-	<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap.min.js"></script>
-	<script src="{{asset('public/backEnd/')}}/js/login.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/popper.js"></script>
+	<script src="{{asset('backEnd/')}}/vendors/js/bootstrap.min.js"></script>
+	<script src="{{asset('backEnd/')}}/js/login.js"></script>
 	<script>
 		$('.primary-btn').on('click', function(e) {
 		// Remove any old one

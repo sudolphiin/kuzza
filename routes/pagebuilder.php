@@ -59,7 +59,7 @@ Route::fallback(function () {
     // Don't let the pagebuilder fallback intercept API/admin or known backend routes
     // or our items assignment route. If the path matches any of these prefixes
     // we return a 404 so Laravel can handle it appropriately (or show a normal 404).
-    $skipPrefixes = ['admin', 'api', 'items', 'item', 'parents', 'students', 'teacher', 'storage', '_debugbar'];
+    $skipPrefixes = ['admin', 'api', 'ussd', 'items', 'item', 'parents', 'students', 'teacher', 'storage', '_debugbar'];
     foreach ($skipPrefixes as $prefix) {
         if ($path === $prefix || str_starts_with($path, $prefix.'/') || str_starts_with($path, $prefix)) {
             abort(404);

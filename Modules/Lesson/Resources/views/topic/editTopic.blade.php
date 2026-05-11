@@ -309,7 +309,7 @@
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ url('Modules\Lesson\Resources\assets\js\app.js') }}"></script>
-    <script src="{{ asset('public/backEnd/') }}/js/lesson_plan.js"></script>
+    <script src="{{ asset('backEnd/') }}/js/lesson_plan.js"></script>
 @endpush
 
 @include('backEnd.partials.data_table_js')

@@ -32,7 +32,7 @@
                                     <label class="mt-30">@lang('university::un.select_subject') <span class="text-danger"> *</span></label>
                                     <div class="row" id="universityExamSubejct"></div>
                                         <div class="text-center loader loader_style" id="unSubjectLoader">
-                                            <img src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader" height="60px" width="60px">
+                                            <img src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader" height="60px" width="60px">
                                         </div>
                                 @else
                                     <div class="row mt-25">
@@ -91,8 +91,8 @@
 @if(moduleStatusCheck('University'))
 <script src="{{ asset('Modules/University/Resources/assets/js/app.js') }}"></script>
 @else 
-<script src="{{ asset('public/backEnd/js/custom.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/developer.js') }}"></script>
+<script src="{{ asset('backEnd/js/custom.js') }}"></script>
+<script src="{{ asset('backEnd/js/developer.js') }}"></script>
 @endif 
 
                                

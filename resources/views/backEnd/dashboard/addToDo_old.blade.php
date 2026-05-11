@@ -1,4 +1,4 @@
-<script type="text/javascript" src="{{ asset('public/backEnd/js/main.js') }}"></script>
+<script type="text/javascript" src="{{ asset('backEnd/js/main.js') }}"></script>
 <div class="container-fluid">
     {{ html()->form('POST', route('saveToDoData'))->attributes([
             'class' => 'form-horizontal',

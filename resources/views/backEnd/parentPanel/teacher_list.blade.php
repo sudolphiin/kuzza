@@ -119,7 +119,7 @@
                                                     @foreach ($record->StudentTeacher as $value)
                                                         <tr>
                                                             <td>
-                                                                <img src="{{ file_exists(@$value->teacher->staff_photo) ? asset(@$value->teacher->staff_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                                                <img src="{{ file_exists(@$value->teacher->staff_photo) ? asset(@$value->teacher->staff_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                                                     class="img img-thumbnail"
                                                                     style="width: 60px; height: auto;">
                                                                 {{ @$value->teacher != '' ? @$value->teacher->full_name : '' }}

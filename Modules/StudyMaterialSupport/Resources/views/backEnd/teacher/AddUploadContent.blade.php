@@ -4,7 +4,7 @@
 @endsection
 
 @section('mainContent')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/summernote/') }}/summernote.css">
+    <link rel="stylesheet" href="{{ asset('backEnd/summernote/') }}/summernote.css">
     <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
@@ -143,7 +143,7 @@
                                                 </select>
                                                 <div class="pull-right loader loader_style" id="select_section_loader">
                                                     <img class="loader_img_style"
-                                                        src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                                        src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                                         alt="loader">
                                                 </div>
 
@@ -198,7 +198,7 @@
                                                 </select>
                                                 <div class="pull-right loader loader_style" id="select_lesson_loader">
                                                     <img class="loader_img_style"
-                                                        src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                                        src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                                         alt="loader">
                                                 </div>
 
@@ -427,7 +427,7 @@
 @include('backEnd.partials.date_picker_css_js')
 
 @section('script')
-    <script src="{{ asset('public/backEnd/summernote') }}/summernote.js"></script>
+    <script src="{{ asset('backEnd/summernote') }}/summernote.js"></script>
     <script>
         $(document).ready(function() {
             $('#contentType').on('change', function() {

@@ -91,7 +91,7 @@ $ttl_rtl = $setting->ttl_rtl;
 @endsection
 
 @section('script')
-<script src="{{asset('public/backEnd/')}}/vendors/js/gmap3.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/gmap3.min.js"></script>
 <script>
     $('.map')
       .gmap3({

@@ -38,7 +38,7 @@
         @endif
     </div>
 </div>
-<input type="text" value="{{asset('public/backEnd/img/demo_wait.gif')}}" hidden id="class_loader">
+<input type="text" value="{{asset('backEnd/img/demo_wait.gif')}}" hidden id="class_loader">
 {{-- @push('scripts')
     <script>
         $(document).ready(function() {

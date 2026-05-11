@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>@lang('student.student_id_card')</title>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
     <style media="print">
 		body{
 			background: #fff;
@@ -52,14 +52,14 @@ table {
                         <tr style="border-right: 1px solid #ddd; border-left: 1px solid #ddd;  height: 0px; ">
                             <td colspan="3" style=" position: relative; text-align: center; background-color: #c738d8; border:1px solid #c738d8">
                                <!--  <center>
-                                    <img src="{{asset('public/backEnd/img/student/id-card-bg.png')}}" style="width: 100%; height: auto; padding: 0px; margin: 0px" >
+                                    <img src="{{asset('backEnd/img/student/id-card-bg.png')}}" style="width: 100%; height: auto; padding: 0px; margin: 0px" >
                                 </center> -->
                                 <h3 style="padding: 5px; text-align: center; margin-bottom: 0px; font-size: 12px;  color: #fff; font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; ">@lang('common.view_student_id_card')</h3>
                             </td>
                         </tr>
                         <tr >
                             <td colspan="3" style="text-align: center;   border-right: 1px solid #ddd; border-left: 1px solid #ddd;">
-                                <img src="{{ @$student->student_photo != "" ? asset(@$student->student_photo) : asset('public/backEnd/img/student/id-card-img.jpg') }}" alt="" style="width: 30%; margin-top: 5px;">
+                                <img src="{{ @$student->student_photo != "" ? asset(@$student->student_photo) : asset('backEnd/img/student/id-card-img.jpg') }}" alt="" style="width: 30%; margin-top: 5px;">
                             </td>
                         </tr>
                         @if(@$id_card->student_name == 1)
@@ -146,7 +146,7 @@ table {
                  {{-- </tr>
              </table> --}}
 		
-    <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
     <script>
 
 

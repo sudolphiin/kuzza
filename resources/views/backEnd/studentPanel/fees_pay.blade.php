@@ -568,7 +568,7 @@
                                                    <td></td>
                                                    <td></td>
                                                    <td></td>
-                                                   <td class="text-right"><img src="{{asset('public/backEnd/img/table-arrow.png')}}"></td>
+                                                   <td class="text-right"><img src="{{asset('backEnd/img/table-arrow.png')}}"></td>
                                                    <td>
                                                        @php
                                                            @$created_by = App\User::find($payment->created_by)

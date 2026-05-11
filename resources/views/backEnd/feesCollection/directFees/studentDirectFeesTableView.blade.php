@@ -104,7 +104,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="text-right"><img src="{{ asset('public/backEnd/img/table-arrow.png') }}"></td>
+                        <td class="text-right"><img src="{{ asset('backEnd/img/table-arrow.png') }}"></td>
                         <td>
                             @if ($payment->active_status == 1)
                                 <a href="#" data-toggle="tooltip" data-placement="right"

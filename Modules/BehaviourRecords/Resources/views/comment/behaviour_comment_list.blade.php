@@ -10,7 +10,7 @@
             }
         @endphp
         <div class="profile-single-comment">
-            <img src="{{ @$profile && file_exists(@$profile) ? asset($profile) : asset('public/backEnd/assets/img/avatar.png') }}"
+            <img src="{{ @$profile && file_exists(@$profile) ? asset($profile) : asset('backEnd/assets/img/avatar.png') }}"
                 alt="profile-image">
             <div class="profile-comment">
                 <div class="comment">{{ $incidentComment->comment }}</div>
@@ -21,7 +21,7 @@
         </div>
     @else
         <div class="profile-single-comment reply">
-            <img src="{{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('public/backEnd/assets/img/avatar.png') }}"
+            <img src="{{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('backEnd/assets/img/avatar.png') }}"
                 alt="profile-image">
             <div class="profile-comment">
                 <div class="comment">{{ $incidentComment->comment }}</div>

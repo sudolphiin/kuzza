@@ -69,7 +69,7 @@
             <div class="header_iner d-flex justify-content-between align-items-center">
                 <div class="small_logo_crm d-lg-none">
                     <a href="#">
-                        <img src="{{ asset('logo.png') }}" alt="logo" style="max-width:160px; max-height:60px; object-fit:contain;" />
+                        <img src="{{ get_logo() }}" alt="logo" style="max-width:160px; max-height:60px; object-fit:contain;" />
                     </a>
                 </div>
                 <div id="sidebarCollapse" class="sidebar_icon  d-lg-none">
@@ -204,7 +204,7 @@
                                 :user_id="{{ json_encode(auth()->id()) }}"
                                 :redirect_url="{{ json_encode(route('chat.index')) }}"
                                 :check_new_notification_url="{{ json_encode(route('chat.notification.check')) }}"
-                                :asset_type="{{ json_encode(asset('/public')) }}"
+                                :asset_type="{{ json_encode(asset('/')) }}"
                                 :mark_all_as_read_url="{{ json_encode(route('chat.notification.allRead')) }}">
                             </jquery-notification-component>
                         @else
@@ -212,7 +212,7 @@
                                 :unreads="{{ json_encode($notifications_for_chat) }}"
                                 :user_id="{{ json_encode(auth()->id()) }}"
                                 :redirect_url="{{ json_encode(route('chat.index')) }}"
-                                :asset_type="{{ json_encode(asset('/public')) }}"
+                                :asset_type="{{ json_encode(asset('/')) }}"
                                 :mark_all_as_read_url="{{ json_encode(route('chat.notification.allRead')) }}">
                             </notification-component>
                         @endif
@@ -220,7 +220,7 @@
                         <li class="scroll_notification_list">
                             <a class="pulse theme_color bell_notification_clicker show_notifications" href="#">
                                 <!-- bell   -->
-                                <img src="{{asset('public/backEnd/assets/img/icons/notification.svg')}}" alt="">
+                                <img src="{{asset('backEnd/assets/img/icons/notification.svg')}}" alt="">
 
                                 <!--/ bell   -->
                                 <span
@@ -279,7 +279,7 @@
                         <div class="select_style d-flex">
                             @if (generalSetting()->website_btn == 1)
                                 <a target="_blank" class=" mr-10 tab_hide"
-                                    href="{{ url('/') }}"><img src="{{asset('public/backEnd/assets/img/icons/globe.svg')}}" alt=""></a>
+                                    href="{{ url('/') }}"><img src="{{asset('backEnd/assets/img/icons/globe.svg')}}" alt=""></a>
                             @endif
                             {{-- @if (generalSetting()->dashboard_btn == 1)
                                 @if (Auth::user()->role_id == $coltroller_role)
@@ -290,7 +290,7 @@
                             @if (generalSetting()->report_btn == 1)
                                 @if (Auth::user()->role_id == $coltroller_role)
                                     <a class="mr-10 tab_hide"
-                                        href="{{ route('student_report') }}"><img src="{{asset('public/backEnd/assets/img/icons/report.svg')}}" alt=""></a>
+                                        href="{{ route('student_report') }}"><img src="{{asset('backEnd/assets/img/icons/report.svg')}}" alt=""></a>
                                 @endif
                             @endif
                             {{-- <div class="border_1px tab_hide"></div> --}}
@@ -304,7 +304,7 @@
 
                         <div class="user_avatar_div">
                             <img id="profile_pic"
-                                src="{{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('public/backEnd/assets/img/avatar.png') }}"
+                                src="{{ @profile() && file_exists(@profile()) ? public_asset(profile()) : public_asset('backEnd/assets/img/avatar.png') }}"
                                 alt="">
                         </div>
 
@@ -331,13 +331,13 @@
                                 @endif
                                 @if (Auth::user()->role_id == '2' && Auth::user()->is_saas == 0)
                                     <a href="{{ route('student-profile') }}">
-                                        <img src="{{asset('public/backEnd/assets/img/icons/profile.svg')}}" class="mr-1" alt="">
+                                        <img src="{{ public_asset('backEnd/assets/img/icons/profile.svg') }}" class="mr-1" alt="">
                                         @lang('common.view_profile')
                                         {{-- <span class="ti-user"></span> --}}
                                     </a>
                                 @elseif(Auth::user()->role_id != '3' && Auth::user()->is_saas == 0 && Auth::user()->staff)
                                     <a href="{{ route('viewStaff', Auth::user()->staff->id) }}">
-                                        <img src="{{asset('public/backEnd/assets/img/icons/profile.svg')}}" alt="">
+                                        <img src="{{ public_asset('backEnd/assets/img/icons/profile.svg') }}" alt="">
                                         @lang('common.view_profile')
                                         {{-- <span class="ti-user"></span> --}}
                                     </a>
@@ -346,13 +346,13 @@
                                     @if (auth()->user()->staff && auth()->user()->staff->parent_id && auth()->user()->role_id == 3)
                                         <a href="{{ route('viewAsRole') }}">
 
-                                            <img src="{{asset('public/backEnd/assets/img/icons/key.svg')}}" alt="" class="mr-1">
+                                            <img src="{{ public_asset('backEnd/assets/img/icons/key.svg') }}" alt="" class="mr-1">
                                             @lang('common.VIEW_AS_' . strtoupper(auth()->user()->staff->previousRole->name))
                                         </a>
                                     @elseif(auth()->user()->staff && auth()->user()->staff->parent_id)
                                         <a href="{{ route('viewAsParent') }}">
 
-                                            <img src="{{asset('public/backEnd/assets/img/icons/key.svg')}}" alt="" class="mr-1">
+                                            <img src="{{ public_asset('backEnd/assets/img/icons/key.svg') }}" alt="" class="mr-1">
                                             @lang('common.VIEW_AS_PARENT')
                                         </a>
                                     @endif
@@ -363,7 +363,7 @@
                                         Auth::user()->is_saas == 0)
 
                                     <a href="{{ route('viewAsSuperadmin') }}">
-                                        <img src="{{asset('public/backEnd/assets/img/icons/key.svg')}}" alt="">
+                                        <img src="{{ public_asset('backEnd/assets/img/icons/key.svg') }}" alt="">
 
                                         @if (Session::get('isSchoolAdmin') == true)
                                             @lang('common.view_as_saas_admin')
@@ -373,7 +373,7 @@
                                     </a>
                                 @endif
                                 <a href="{{ route('updatePassowrd') }}">
-                                    <img src="{{asset('public/backEnd/assets/img/icons/password.svg')}}" alt="">
+                                    <img src="{{ public_asset('backEnd/assets/img/icons/password.svg') }}" alt="">
                                     @lang('common.password')
                                     {{-- <span style="margin-left: 3px;" class="ti-key"></span> --}}
                                 </a>
@@ -383,7 +383,7 @@
                                     onclick="event.preventDefault();
 
                                               document.getElementById('logout-form').submit();">
-                                    <img src="{{asset('public/backEnd/assets/img/icons/logout.svg')}}" alt="">
+                                    <img src="{{ public_asset('backEnd/assets/img/icons/logout.svg') }}" alt="">
                                     @lang('common.logout')
                                     {{-- <span class="ti-unlock"></span> --}}
                                 </a>

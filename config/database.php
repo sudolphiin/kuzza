@@ -53,6 +53,9 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
+            'options' => extension_loaded('pdo_mysql') && defined('PDO::MYSQL_ATTR_CONNECT_TIMEOUT')
+                ? [\PDO::MYSQL_ATTR_CONNECT_TIMEOUT => (int) env('DB_CONNECT_TIMEOUT', 5)]
+                : [],
         ],
 
         'mysql2' => [

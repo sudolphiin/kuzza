@@ -29,10 +29,10 @@ $ttl_rtl = $setting->ttl_rtl;
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{asset(generalSetting()->favicon)}}" type="image/png"/>
     <title>{{__('Register')}} | {{@$setting->site_title}}</title>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/themify-icons.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/infix.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/themify-icons.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/infix.css" />
 
     <style>
 
@@ -192,9 +192,9 @@ $ttl_rtl = $setting->ttl_rtl;
     <!--================ End Footer Area =================-->
 
 
-    <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
-    <script src="{{asset('public/backEnd/')}}/vendors/js/popper.js"></script>
-    <script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/popper.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/bootstrap.min.js"></script>
     <script>
         $('.primary-btn').on('click', function(e) {
         // Remove any old one

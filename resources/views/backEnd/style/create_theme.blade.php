@@ -43,7 +43,7 @@
                 'files' => true,
                 'enctype' => 'multipart/form-data',
             ])->open() }}
-            <input type="hidden" id="old_bg_image" value="{{ asset('/public/backEnd/img/body-bg.jpg') }}">
+            <input type="hidden" id="old_bg_image" value="{{ asset('backEnd/img/body-bg.jpg') }}">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="white-box">

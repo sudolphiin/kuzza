@@ -11,17 +11,17 @@ $ttl_rtl = $setting->ttl_rtl;
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{asset(generalSetting()->favicon)}}" type="image/png"/>
     <meta name="_token" content="{!! csrf_token() !!}"/>
-    <link rel="stylesheet" href="{{asset('public/backEnd/login2')}}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{asset('public/backEnd/login2')}}/themify-icons.css">
+    <link rel="stylesheet" href="{{asset('backEnd/login2')}}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('backEnd/login2')}}/themify-icons.css">
 
 
-    <link rel="stylesheet" href="{{url('/')}}/public/backEnd/vendors/css/nice-select.css" />
-    <link rel="stylesheet" href="{{url('/')}}/public/backEnd/vendors/js/select2/select2.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/nice-select.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/js/select2/select2.css" />
 
 
 
-    <link rel="stylesheet" href="{{asset('public/backEnd/login2')}}/css/style.css">
-	<link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/toastr.min.css"/>
+    <link rel="stylesheet" href="{{asset('backEnd/login2')}}/css/style.css">
+	<link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/toastr.min.css"/>
     <title>{{isset($setting)? !empty($setting->site_title) ? $setting->site_title : 'System ': 'System '}} | @lang('auth.login')</title>
     <style>
 
@@ -309,11 +309,11 @@ $ttl_rtl = $setting->ttl_rtl;
 
 
     <!--================ End Footer Area =================-->
-    <script src="{{asset('public/backEnd/login2')}}/js/jquery-3.4.1.min.js"></script>
-    <script src="{{asset('public/backEnd/login2')}}/js/popper.min.js"></script>
-	<script src="{{asset('public/backEnd/login2')}}/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/toastr.min.js"></script>
-    <script src="{{asset('public/backEnd/')}}/vendors/js/nice-select.min.js"></script>
+    <script src="{{asset('backEnd/login2')}}/js/jquery-3.4.1.min.js"></script>
+    <script src="{{asset('backEnd/login2')}}/js/popper.min.js"></script>
+	<script src="{{asset('backEnd/login2')}}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{asset('backEnd/')}}/vendors/js/toastr.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/nice-select.min.js"></script>
 
 
 

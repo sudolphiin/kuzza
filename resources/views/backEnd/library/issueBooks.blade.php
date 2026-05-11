@@ -29,15 +29,15 @@
                     
                         @if (@$memberDetails->member_type == 2)
                             <img class="student-meta-img img-100"
-                                src="{{ file_exists(@$memberDetails->studentDetails->student_photo) ? asset($memberDetails->studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                src="{{ file_exists(@$memberDetails->studentDetails->student_photo) ? asset($memberDetails->studentDetails->student_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                 alt="">
                         @elseif(@$memberDetails->member_type == 3)
                             <img class="student-meta-img img-100"
-                                src="{{ file_exists(@$staffDetails->guardians_photo) ? asset($staffDetails->guardians_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                src="{{ file_exists(@$staffDetails->guardians_photo) ? asset($staffDetails->guardians_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                 alt="">
                         @else
                             <img class="student-meta-img img-100"
-                                src="{{ file_exists(@$memberDetails->staffDetails->staff_photo) ? asset($memberDetails->staffDetails->staff_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                src="{{ file_exists(@$memberDetails->staffDetails->staff_photo) ? asset($memberDetails->staffDetails->staff_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                 alt="">
                         @endif
                         <div class="white-box">

@@ -121,7 +121,7 @@
     <!--================ End Facts Area =================-->
 @endsection
 @section('script')
-    <script type="text/javascript" src="{{ asset('public/backEnd/') }}/vendors/js/toastr.min.js"></script>
+    <script type="text/javascript" src="{{ asset('backEnd/') }}/vendors/js/toastr.min.js"></script>
     {!! Toastr::message() !!}
 
     <script>

@@ -594,7 +594,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="report-admit-img profile_100"
-                                                            style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})">
+                                                            style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }})">
                                                         </div>
                                                     </div>
                                                     {{-- Start  Result Table --}}
@@ -1161,6 +1161,6 @@
     <!--================ End Facts Area =================-->
 @endsection
 @section('script')
-    <script type="text/javascript" src="{{ asset('public/backEnd/') }}/vendors/js/toastr.min.js"></script>
+    <script type="text/javascript" src="{{ asset('backEnd/') }}/vendors/js/toastr.min.js"></script>
     {!! Toastr::message() !!}
 @endsection

@@ -126,7 +126,7 @@
                                         <option data-display="@lang('common.select_section')" value="">@lang('common.select_section')</option>
                                     </select>
                                     <div class="pull-right loader loader_style" id="select_section_loader">
-                                        <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                        <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                             alt="loader">
                                     </div>
                                     @if ($errors->has('section'))

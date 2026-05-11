@@ -421,7 +421,7 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('public/backEnd/vendors/editor/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/editor/summernote-bs4.js') }}"></script>
     <script src="{{ asset('Modules/Certificate/Resources/assets/js/jquery.draggableTouch.js') }}"></script>
     <script>
     

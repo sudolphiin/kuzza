@@ -4,9 +4,9 @@
   <title>@lang('reports.official_transcript') [{{ $studentDetails->full_name }}] </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/print/bootstrap.min.css"/>
-  <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/print/jquery.min.js"></script>
-  <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/print/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/print/bootstrap.min.css"/>
+  <script type="text/javascript" src="{{asset('backEnd/')}}/vendors/js/print/jquery.min.js"></script>
+  <script type="text/javascript" src="{{asset('backEnd/')}}/vendors/js/print/bootstrap.min.js"></script>
 </head> 
 <style>
     body{ font-size: 12px;  background: black; font-family: "Poppins", sans-serif; }

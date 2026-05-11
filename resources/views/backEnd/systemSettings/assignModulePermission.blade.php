@@ -172,7 +172,7 @@
 @endsection
 
 @section('script')
-<script src="{{asset('public/backEnd/')}}/vendors/js/print/1.9.1_jquery.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/print/1.9.1_jquery.min.js"></script>
 <script>
 
 s    

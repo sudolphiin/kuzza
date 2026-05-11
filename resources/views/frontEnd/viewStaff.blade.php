@@ -34,7 +34,7 @@
                 @if(!empty($staffDetails->staff_photo))
                 <img class="student-meta-img img-100" src="{{asset($staffDetails->staff_photo)}}"  alt="">
                 @else
-                <img class="student-meta-img img-100" src="{{asset('public/uploads/sample.jpg')}}"  alt="">
+                <img class="student-meta-img img-100" src="{{asset('uploads/sample.jpg')}}"  alt="">
                 @endif
                 <div class="white-box">
                     <div class="single-meta mt-50">

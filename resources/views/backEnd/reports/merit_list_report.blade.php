@@ -145,7 +145,7 @@
                                 ]) }}
 
                                 <div class="pull-right loader loader_style" id="select_exam_type_loader">
-                                    <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}"
+                                    <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}"
                                         alt="loader">
                                 </div>
                                 @if ($errors->has('exam_type'))

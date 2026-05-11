@@ -4,7 +4,7 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('Modules/AiContent/Resources/assets/css/ai_content.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}">
 
     <style>
         .output-column{
@@ -181,7 +181,7 @@
 @include('backEnd.partials.data_table_js')
 @push('scripts')
     <script src="{{ asset('Modules/AiContent/Resources/assets/js/ai_content.js') }}"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/editor/summernote-bs4.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/editor/summernote-bs4.js"></script>
     <script>
         $(document).ready(function() {
             $(document).on('click', '.copy_output', function(e) {

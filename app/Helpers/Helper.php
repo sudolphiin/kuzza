@@ -4397,10 +4397,10 @@ if (! function_exists('defaultLogo')) {
     function defaultLogo($path)
     {
         if ($path && file_exists($path)) {
-            return asset($path);
+            return public_asset($path);
         }
 
-        return asset('public/uploads/settings/logo.png');
+        return public_asset('uploads/settings/logo.png');
 
     }
 }
@@ -4409,10 +4409,10 @@ if (! function_exists('defaultUserLogo')) {
     function defaultUserLogo($path)
     {
         if ($path && file_exists($path)) {
-            return asset($path);
+            return public_asset($path);
         }
 
-        return asset('public/uploads/staff/demo/staff.jpg');
+        return public_asset('uploads/staff/demo/staff.jpg');
 
     }
 }
@@ -4557,6 +4557,40 @@ if (! function_exists('asset_path')) {
     }
 }
 
+if (! function_exists('normalize_public_path')) {
+    function normalize_public_path($path = null)
+    {
+        if (! $path) {
+            return $path;
+        }
+
+        $normalized = str_replace('\\', '/', $path);
+
+        if (Str::startsWith($normalized, ['http://', 'https://', '//', 'data:'])) {
+            return $normalized;
+        }
+
+        return ltrim(preg_replace('#^/?public/#', '', $normalized), '/');
+    }
+}
+
+if (! function_exists('public_asset')) {
+    function public_asset($path = null)
+    {
+        if (! $path) {
+            return asset($path);
+        }
+
+        $normalized = normalize_public_path($path);
+
+        if (Str::startsWith($normalized, ['http://', 'https://', '//', 'data:'])) {
+            return $normalized;
+        }
+
+        return asset($normalized);
+    }
+}
+
 if (! function_exists('forumSetting')) {
     function forumSetting()
     {
@@ -4568,13 +4602,13 @@ if (! function_exists('get_logo')) {
     function get_logo()
     {
         $generalSetting = generalSetting();
-        $logoPath = $generalSetting->logo;
+        $logoPath = normalize_public_path($generalSetting->logo);
 
         if (! empty($logoPath) && file_exists(public_path($logoPath))) {
-            return asset($logoPath);
+            return public_asset($logoPath);
         }
 
-        return asset('public/uploads/settings/logo.png');
+        return public_asset('uploads/settings/logo.png');
 
     }
 }
@@ -4592,7 +4626,7 @@ if (! function_exists('generateQRCode')) {
                 $writer = new Writer($qr_renderer);
                 $writer->writeFile($text, public_path('qr_codes/'.$text.'-qrcode.png'));
 
-                return asset('public/qr_codes/'.$text.'-qrcode.png');
+                return public_asset('qr_codes/'.$text.'-qrcode.png');
             }
         } catch (Exception $exception) {
             Log::error('Error on QR code Generate '.$exception->getMessage());

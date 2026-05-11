@@ -23,8 +23,8 @@
             font-size: 9px;
         }
     </style>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
 </head>
 <body>
 <table style="width: 100%; table-layout: fixed; margin:20px;">
@@ -171,7 +171,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td class="text-right"><img src="{{asset('public/backEnd/img/table-arrow.png')}}"></td>
+                            <td class="text-right"><img src="{{asset('backEnd/img/table-arrow.png')}}"></td>
                             <td>
                                 @php
                                     $created_by = App\User::find($payment->created_by);
@@ -364,7 +364,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td class="text-right"><img src="{{asset('public/backEnd/img/table-arrow.png')}}"></td>
+                            <td class="text-right"><img src="{{asset('backEnd/img/table-arrow.png')}}"></td>
                             <td>
                                 @php
                                     $created_by = App\User::find($payment->created_by);
@@ -558,7 +558,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td class="text-right"><img src="{{asset('public/backEnd/img/table-arrow.png')}}"></td>
+                            <td class="text-right"><img src="{{asset('backEnd/img/table-arrow.png')}}"></td>
                             <td>
                                 @php
                                     $created_by = App\User::find($payment->created_by);

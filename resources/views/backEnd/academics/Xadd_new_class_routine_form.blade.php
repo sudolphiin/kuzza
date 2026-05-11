@@ -69,7 +69,7 @@
 
                         <label id="teacher_label">@lang('common.teacher') <span class="text-danger"> *</span></label>
                         <div class="pull-right loader loader_style" id="select_teacher_loader">
-                            <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                            <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                 alt="loader">
                         </div>
                         <span class="text-danger" id="teacher_error">
@@ -99,7 +99,7 @@
 
                 </div>
                 <div class="dloader dloader_style mt-2 text-center" id="select_day_loader">
-                    <img class="dloader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                    <img class="dloader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                         alt="loader">
                 </div>
             @endif

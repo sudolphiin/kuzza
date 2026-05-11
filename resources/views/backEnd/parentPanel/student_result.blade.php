@@ -42,7 +42,7 @@
                 <!-- Start Student Meta Information -->
                 <div class="student-meta-box">
                     <div class="student-meta-top"></div>
-                    <img class="student-meta-img img-100" src="{{ file_exists(@$student_detail->student_photo) ? asset($student_detail->student_photo) : asset('public/uploads/staff/demo/student.jpg')}}" alt="">
+                    <img class="student-meta-img img-100" src="{{ file_exists(@$student_detail->student_photo) ? asset($student_detail->student_photo) : asset('uploads/staff/demo/student.jpg')}}" alt="">
                     <div class="white-box radius-t-y-0">
                         <div class="single-meta mt-50">
                             <div class="d-flex justify-content-between">

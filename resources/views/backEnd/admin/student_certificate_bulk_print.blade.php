@@ -3,8 +3,8 @@
 	<head>
 		<title>@lang('student.student_certificate')</title>
 
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
 		<style rel="stylesheet">
 			.tdWidth{
 				width: 33.33%;

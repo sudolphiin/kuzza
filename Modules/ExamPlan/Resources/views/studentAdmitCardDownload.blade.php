@@ -335,9 +335,9 @@
         </div>
         <!-- end_admit_card_wrapper_header  -->
     </div>
-<script src="{{ asset('public/vendor/spondonit/js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/pdf/html2pdf.bundle.min.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/pdf/html2canvas.min.js') }}"></script>
+<script src="{{ asset('backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('backEnd/js/pdf/html2pdf.bundle.min.js') }}"></script>
+<script src="{{ asset('backEnd/js/pdf/html2canvas.min.js') }}"></script>
 
 @if( auth()->user()->role_id == 2 &&  $setting->student_download)
 <script>

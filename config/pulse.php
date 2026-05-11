@@ -43,6 +43,11 @@ return [
     |
     */
 
+    /*
+    | USSD: routes apply OptimizeUssdRequest middleware to call Pulse::stopRecording()
+    | so Africa's Talking ~10s callbacks are not slowed by recorders. Optionally
+    | set PULSE_ENABLED=false in .env if you do not use the Pulse dashboard.
+    */
     'enabled' => env('PULSE_ENABLED', true),
 
     /*

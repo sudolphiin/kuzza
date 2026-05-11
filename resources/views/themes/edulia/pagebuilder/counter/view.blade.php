@@ -44,5 +44,5 @@
     </div>
 </section>
 @pushonce(config('pagebuilder.site_script_var'))
-    <script src="{{ asset('public/theme/edulia/packages/animate-number/multi-animated-counter.min.js') }}"></script>
+    <script src="{{ asset('theme/edulia/packages/animate-number/multi-animated-counter.min.js') }}"></script>
 @endpushonce

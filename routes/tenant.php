@@ -17,7 +17,11 @@ Route::group(['middleware' => []], function () {
             Route::get('login', 'Auth\LoginController@loginFormTwo')->name('login');
         }
 
-        Route::redirect('/', '/login');
+        // Must be GET-only: Route::redirect() registers any(), which catches POST / and
+        // breaks Africa's Talking USSD (302 instead of 200 + CON/END on POST /).
+        Route::get('/', function () {
+            return redirect('/login', 302);
+        });
 
     }
 

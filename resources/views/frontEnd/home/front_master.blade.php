@@ -15,8 +15,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ ! empty($setting->favicon) ? asset($setting->favicon) : asset('public/backEnd/img/favicon.png') }}" type="image/png" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/font_awesome/css/all.min.css') }}" />
+    <link rel="icon" href="{{ ! empty($setting->favicon) ? asset($setting->favicon) : asset('backEnd/img/favicon.png') }}" type="image/png" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/font_awesome/css/all.min.css') }}" />
     <title>Kuzza Education ERP</title>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <style>
@@ -45,21 +45,21 @@
     </style>
     <!-- Bootstrap CSS -->
     @if ($setting->site_title == 1)
-        <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/css/rtl/bootstrap.min.css" />
+        <link rel="stylesheet" href="{{ asset('backEnd/') }}/css/rtl/bootstrap.min.css" />
     @else
-        <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/bootstrap.css" />
+        <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/bootstrap.css" />
     @endif
 
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/jquery-ui.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/jquery-ui.css" />
 
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/bootstrap-datepicker.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/themify-icons.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/nice-select.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/magnific-popup.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/fastselect.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/themify-icons.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/nice-select.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/magnific-popup.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/fastselect.min.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/owl.carousel.min.css" />
     <!-- main css -->
 
 
@@ -67,12 +67,12 @@
 
 
     @if (isset($ttl_rtl) && $ttl_rtl == 1)
-        <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/vendors_static_style.css') }}" />
-        <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/vendors_static_style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('backEnd/assets/css/rtl/style.css') }}" />
     @endif
 
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/fullcalendar.min.css">
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/fullcalendar.print.css">
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/fullcalendar.min.css">
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/fullcalendar.print.css">
 
     <link rel="stylesheet" href="{{ asset('public/') }}/frontend/css/infix.css" />
     {{-- Edulia theme icon + main styles (needed for PageBuilder header/menu on landing page) --}}
@@ -82,7 +82,7 @@
     <x-root-css />
     {{-- Page Builder component-level styles --}}
     @stack(config('pagebuilder.site_style_var'))
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/jquery-3.2.1.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
         window._locale = '{{ app()->getLocale() }}';
@@ -99,7 +99,7 @@
                 <div class="container box-1420">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand" href="{{ url('/') }}/home">
-                        <img class="w-75" src="{{ ! empty($setting->logo) ? asset($setting->logo) : asset('public/backEnd/img/logo.png') }}" alt="Kuzza Logo" style="max-width: 150px;">
+                        <img class="w-75" src="{{ ! empty($setting->logo) ? asset($setting->logo) : asset('backEnd/img/logo.png') }}" alt="Kuzza Logo" style="max-width: 150px;">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -466,26 +466,26 @@
     </footer>
     <!--================End Footer Area =================-->
 
-    {{-- <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script> --}}
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/jquery-ui.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/popper.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/bootstrap.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/nice-select.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/jquery.magnific-popup.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/raphael-min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/morris.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/owl.carousel.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/moment.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/print/bootstrap-datetimepicker.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/bootstrap-datepicker.min.js"></script>
+    {{-- <script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script> --}}
+    <script src="{{ asset('backEnd/') }}/vendors/js/jquery-ui.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/popper.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/bootstrap.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/nice-select.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/jquery.magnific-popup.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/raphael-min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/morris.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/moment.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/print/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/bootstrap-datepicker.min.js"></script>
 
 
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDs3mrTgrYd6_hJS50x4Sha1lPtS2T-_JA">
     </script>
-    <script src="{{ asset('public/backEnd/') }}/js/main.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/js/custom.js"></script>
+    <script src="{{ asset('backEnd/') }}/js/main.js"></script>
+    <script src="{{ asset('backEnd/') }}/js/custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/js/developer.js"></script>
+    <script src="{{ asset('backEnd/') }}/js/developer.js"></script>
     {!! Toastr::message() !!}
     @yield('script')
     {{-- Page Builder / Edulia theme scripts (used by landing header, etc.) --}}

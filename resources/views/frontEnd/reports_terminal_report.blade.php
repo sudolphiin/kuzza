@@ -98,7 +98,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <img class="report-admit-img" src="{{asset('public/backEnd/img/student/report/report1.jpg')}}" alt="">
+                                            <img class="report-admit-img" src="{{asset('backEnd/img/student/report/report1.jpg')}}" alt="">
                                         </div>
                                     </div>
                                     <div class="card-body">

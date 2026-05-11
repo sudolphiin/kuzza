@@ -31,19 +31,19 @@ $ttl_rtl = $setting->ttl_rtl;
     <meta name="_token" content="{!! csrf_token() !!}"/>
 
 	@if(isset ($ttl_rtl ) && $ttl_rtl ==1)
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/rtl/bootstrap.min.css"/>
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/css/rtl/bootstrap.min.css"/>
 	@else
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css"/>
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css"/>
 	@endif
 
-	<link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/themify-icons.css" />
+	<link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/themify-icons.css" />
 
 	@if(isset ($ttl_rtl ) && $ttl_rtl ==1)
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/rtl/style.css"/>
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/css/rtl/style.css"/>
 	@else
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/{{@activeStyle()->path_main_style}}"/>	
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/css/{{@activeStyle()->path_main_style}}"/>	
 	@endif
-	<link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/toastr.min.css"/>
+	<link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/toastr.min.css"/>
 <style>
 /* .login-area .form-group i {
     color: #828bb2;
@@ -414,12 +414,12 @@ p{
 			</div>
 		</div> 
 	</section> 
-    <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
-    <script src="{{asset('public/backEnd/')}}/vendors/js/popper.js"></script>
-	<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap.min.js"></script>
-	<script src="{{asset('public/backEnd/')}}/js/login.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/popper.js"></script>
+	<script src="{{asset('backEnd/')}}/vendors/js/bootstrap.min.js"></script>
+	<script src="{{asset('backEnd/')}}/js/login.js"></script>
 
-	<script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/toastr.min.js"></script>
+	<script type="text/javascript" src="{{asset('backEnd/')}}/vendors/js/toastr.min.js"></script>
     {!! Toastr::message() !!}
 
 	 

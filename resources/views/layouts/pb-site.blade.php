@@ -8,7 +8,7 @@
         @if( ! is_null(schoolConfig() ))
             <link rel="icon" href="{{asset(schoolConfig()->favicon)}}" type="image/png"/>
         @else
-            <link rel="icon" href="{{asset('public/uploads/settings/favicon.png')}}" type="image/png"/>
+            <link rel="icon" href="{{asset('uploads/settings/favicon.png')}}" type="image/png"/>
         @endif
         @if( !empty($page->title) )
             <title>{{ $page->title }} </title>
@@ -19,17 +19,17 @@
         @endif
 
         @if( config('pagebuilder.add_bootstrap') === 'yes' )
-            <link rel="stylesheet" href="{{ asset('public/vendor/optionbuilder/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/optionbuilder/css/bootstrap.min.css') }}">
         @endif
 
         {{-- <link rel="stylesheet" href="{{ asset('public/demo/css/demo.css') }}"> --}}
         
         <!-- Main css -->
-        <link rel="stylesheet" href="{{ asset('public/theme/'.activeTheme().'/css/fontawesome.all.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/theme/'.activeTheme().'/css/dataTables.jqueryui.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/theme/'.activeTheme().'/css/responsive.jqueryui.min.css') }}">
-        <link rel="stylesheet" href="{{asset('public/theme/'.activeTheme().'/css/style.css')}}">
-        <link rel="stylesheet" href="{{ asset('public/whatsapp-support/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme/'.activeTheme().'/css/fontawesome.all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme/'.activeTheme().'/css/dataTables.jqueryui.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme/'.activeTheme().'/css/responsive.jqueryui.min.css') }}">
+        <link rel="stylesheet" href="{{asset('theme/'.activeTheme().'/css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('whatsapp-support/style.css') }}">
 
         @stack(config('pagebuilder.style_var'))
 
@@ -48,11 +48,11 @@
         <!-- background overlay -->
 
         @if( config('pagebuilder.add_jquery') === 'yes' )
-            <script src="{{ asset('public/vendor/optionbuilder/js/jquery.min.js') }}"></script>
+            <script src="{{ asset('vendor/optionbuilder/js/jquery.min.js') }}"></script>
         @endif
 
         @if( config('pagebuilder.add_bootstrap') === 'yes' )
-            <script defer src="{{ asset('public/vendor/optionbuilder/js/bootstrap.min.js') }}"></script>
+            <script defer src="{{ asset('vendor/optionbuilder/js/bootstrap.min.js') }}"></script>
         @endif
         {{-- <script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -65,8 +65,8 @@
             window._locale = '{{ app()->getLocale() }}';
             window._rtl = {{ userRtlLtl() == 1 ? 'true' : 'false' }};
         </script>
-        <script src="{{asset('public/theme/'.activeTheme().'/js/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('public/theme/'.activeTheme().'/js/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('theme/'.activeTheme().'/js/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('theme/'.activeTheme().'/js/dataTables.responsive.min.js')}}"></script>
         <script>
             $('body').append('<!--back to top btn--><a href="#" class="backtop"><i class="far fa-long-arrow-alt-up"</i>');
             $(window).on('scroll', function() {
@@ -98,7 +98,7 @@
             })
         </script>
 
-        <script src="{{ asset('public/whatsapp-support/scripts.js') }}"></script>
+        <script src="{{ asset('whatsapp-support/scripts.js') }}"></script>
         @stack(config('pagebuilder.script_var'))
 
         <style>

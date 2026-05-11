@@ -1,4 +1,4 @@
-<script src="{{ asset('public/backEnd/') }}/js/main.js"></script>
+<script src="{{ asset('backEnd/') }}/js/main.js"></script>
 
 <div class="container-fluid">
     {{ html()->form('POST', route('update-lesson-plan'))->attributes([

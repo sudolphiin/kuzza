@@ -21,15 +21,15 @@
     <!-- Fonts -->
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/css/bootstrap.min.css') }}">
 
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/fontawesome.all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/css/fontawesome.all.min.css') }}">
 
     @if(userRtlLtl() ==1)
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/style_rtl.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/css/style_rtl.css') }}">
     @else
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/css/style.css') }}">
     @endif
         <style>
         body {
@@ -383,7 +383,7 @@
 
     <!-- Main Script JS -->
     <script src="{{ asset('public/theme/edulia/js/script.js') }}"></script>
-    <script src="{{ asset('public/backEnd/') }}/js/login.js"></script>
+    <script src="{{ asset('backEnd/') }}/js/login.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

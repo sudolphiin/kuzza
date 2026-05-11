@@ -27,7 +27,7 @@
                     <div class="student-meta-box">
                         <div class="student-meta-top"></div>
                         <img class="student-meta-img img-100"
-                            src="{{ file_exists(@$student_detail->student_photo) ? asset($student_detail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                            src="{{ file_exists(@$student_detail->student_photo) ? asset($student_detail->student_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                             alt="">
 
                         <div class="white-box radius-t-y-0">
@@ -297,7 +297,7 @@
                                 <div class="d-flex">
                                     <div class="mr-20 mt-20">
                                         <img class="student-meta-img img-100"
-                                            src="{{ file_exists(@$student_detail->fathers_photo) ? asset($student_detail->fathers_photo) : asset('public/uploads/staff/demo/father.png') }}"
+                                            src="{{ file_exists(@$student_detail->fathers_photo) ? asset($student_detail->fathers_photo) : asset('uploads/staff/demo/father.png') }}"
                                             alt="">
 
                                     </div>
@@ -355,7 +355,7 @@
                                 <div class="d-flex">
                                     <div class="mr-20 mt-20">
                                         <img class="student-meta-img img-100"
-                                            src="{{ file_exists(@$student_detail->mothers_photo) ? asset($student_detail->mothers_photo) : asset('public/uploads/staff/demo/mother.jpg') }}"
+                                            src="{{ file_exists(@$student_detail->mothers_photo) ? asset($student_detail->mothers_photo) : asset('uploads/staff/demo/mother.jpg') }}"
                                             alt="">
                                     </div>
                                     <div class="w-100">
@@ -412,7 +412,7 @@
                                 <div class="d-flex">
                                     <div class="mr-20 mt-20">
                                         <img class="student-meta-img img-100"
-                                            src="{{ file_exists(@$student_detail->guardians_photo) ? asset($student_detail->guardians_photo) : asset('public/uploads/staff/demo/guardian.jpg') }}"
+                                            src="{{ file_exists(@$student_detail->guardians_photo) ? asset($student_detail->guardians_photo) : asset('uploads/staff/demo/guardian.jpg') }}"
                                             alt="">
 
                                     </div>

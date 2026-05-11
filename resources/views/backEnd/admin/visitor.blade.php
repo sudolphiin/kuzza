@@ -1,6 +1,6 @@
 @extends('backEnd.master')
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap-datetimepicker.min.css') }}" />
     <style>
         .input-right-icon {
             z-index: inherit !important;

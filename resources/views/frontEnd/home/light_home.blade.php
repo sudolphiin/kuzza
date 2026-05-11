@@ -242,7 +242,7 @@
                                                  src="{{asset($value->image)}}" alt="">
                                         @else
                                             <img class="img-fluid rounded-circle"
-                                                 src="{{asset('public/uploads/sample.jpg')}}" alt="">
+                                                 src="{{asset('uploads/sample.jpg')}}" alt="">
                                         @endif
                                     </div>
                                     <div class="meta text-left">

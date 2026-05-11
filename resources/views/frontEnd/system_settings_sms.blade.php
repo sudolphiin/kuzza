@@ -39,7 +39,7 @@
                         <div class="white-box">
                             <div class="row justify-content-center">
                                 <div class="col-lg-3 col-md-6">
-                                    <img class="img-fluid" src="{{asset('public/backEnd/img/sms-company.png')}}" alt="">
+                                    <img class="img-fluid" src="{{asset('backEnd/img/sms-company.png')}}" alt="">
                                 </div>
                                 <div class="offset-lg-1 col-lg-5 col-md-6">
                                     <div class="row">

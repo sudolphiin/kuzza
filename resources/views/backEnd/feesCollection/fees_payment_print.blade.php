@@ -20,8 +20,8 @@
             width: 10%;
         }
     </style>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
 </head>
 <body>
  

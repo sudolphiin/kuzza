@@ -29,7 +29,7 @@
                                 </div>
                                 <div>
                                     <img class="report-admit-img" 
-                                    src="{{ $studentDetails->student_photo ? asset($studentDetails->student_photo) : asset('public/backEnd/assets/img/avatar.png') }}" 
+                                    src="{{ $studentDetails->student_photo ? asset($studentDetails->student_photo) : asset('backEnd/assets/img/avatar.png') }}" 
                                     width="50" height="50" alt="Student Photo">                               
                                 </div>
                             </div>

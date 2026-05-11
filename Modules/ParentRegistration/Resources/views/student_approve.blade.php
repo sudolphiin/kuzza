@@ -3,7 +3,7 @@
 @lang('student.student_edit')
 @endsection
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{asset('public/backEnd/')}}/css/croppie.css">
+<link rel="stylesheet" type="text/css" href="{{asset('backEnd/')}}/css/croppie.css">
 @endsection
 @push('css')
     <style>
@@ -123,7 +123,7 @@
                                         @endforeach
                                     </select>
                                     <div class="pull-right loader loader_style" id="select_class_loader">
-                                        <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                        <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                     </div>
                                     
                                     @if ($errors->has('class'))
@@ -147,7 +147,7 @@
                                       
                                     </select>
                                     <div class="pull-right loader loader_style" id="select_section_loader">
-                                        <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                        <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                     </div>
                                     
                                     @if ($errors->has('section'))
@@ -980,7 +980,7 @@
                                         @endforeach
                                     </select>
                                     <div class="pull-right loader loader_style" id="select_transport_loader">
-                                        <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                        <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                     </div>
                                     
                                     @if ($errors->has('vehicle'))
@@ -1021,7 +1021,7 @@
                                         @endif
                                     </select>
                                     <div class="pull-right loader loader_style" id="select_dormitory_loader">
-                                        <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                        <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                     </div>
                                     
                                     @if ($errors->has('room_number'))
@@ -1437,8 +1437,8 @@
 @include('backEnd.partials.date_picker_css_js')
 @endsection
 @section('script')
-<script src="{{asset('public/backEnd/')}}/js/croppie.js"></script>
-<script src="{{asset('public/backEnd/')}}/js/st_addmision.js"></script>
+<script src="{{asset('backEnd/')}}/js/croppie.js"></script>
+<script src="{{asset('backEnd/')}}/js/st_addmision.js"></script>
 <script>
     $(document).ready(function(){
         

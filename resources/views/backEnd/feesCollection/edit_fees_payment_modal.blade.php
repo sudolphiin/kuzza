@@ -1,4 +1,4 @@
-<script src="{{ asset('public/backEnd/') }}/js/main.js"></script>
+<script src="{{ asset('backEnd/') }}/js/main.js"></script>
 <style type="text/css">
     #bank-area,
     #cheque-area {

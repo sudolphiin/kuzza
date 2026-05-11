@@ -10,20 +10,20 @@ if (isset($setting->copyright_text)) {
 if (isset($setting->logo)) {
     $logo = $setting->logo;
 } else {
-    $logo = 'public/uploads/settings/logo.png';
+    $logo = 'uploads/settings/logo.png';
 }
 $ttl_rtl = userRtlLtl();
 
 if (isset($setting->favicon)) {
     $favicon = $setting->favicon;
 } else {
-    $favicon = 'public/backEnd/img/favicon.png';
+    $favicon = 'backEnd/img/favicon.png';
 }
 
 $login_background = App\SmBackgroundSetting::where([['is_default', 1], ['title', 'Login Background']])->first();
 
 if (empty($login_background)) {
-    $css = 'background: url(' . url('public/backEnd/img/in_registration.png') . ')  no-repeat center; background-size: cover; ';
+    $css = 'background: url(' . url('backEnd/img/in_registration.png') . ')  no-repeat center; background-size: cover; ';
 } else {
     if (!empty($login_background->image)) {
         $css = "background: url('" . url($login_background->image) . "')  no-repeat center;  background-size: cover;";
@@ -47,19 +47,19 @@ if (empty($login_background)) {
         | @lang('student.student_registration') </title>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <x-root-css />
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/css/themify-icons.css" />
-    <link rel="stylesheet" href="{{ url('/public/') }}/landing/css/toastr.css">
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/css/nice-select.css" />
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/js/select2/select2.css" />
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/css/fastselect.min.css" />
-    <link rel="stylesheet" href="{{ url('public/backEnd/') }}/vendors/css/toastr.min.css" />
-    <link rel="stylesheet" href="{{ url('public/backEnd/') }}/vendors/css/bootstrap-datepicker.min.css" />
-    <link rel="stylesheet" href="{{ url('public/backEnd/') }}/vendors/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="{{ url('public/backEnd/') }}/assets/vendors/vendors_static_style.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/loade.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/nice-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/themify-icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('landing/css/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/nice-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/js/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/fastselect.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap-datepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/vendors_static_style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/css/rtl/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/css/loade.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/nice-select.css') }}" />
     @if (userRtlLtl() == 1)
         <style>
             html[dir="rtl"] .loader_style_parent_reg {
@@ -114,11 +114,11 @@ if (empty($login_background)) {
                 display: none;
             }
         </style>
-        <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/css/rtl/style.css" />
+        <link rel="stylesheet" href="{{ asset('backEnd/') }}/css/rtl/style.css" />
     @else
-        <link rel="stylesheet" href="{{ url('public/backEnd/') }}/css/style.css" />
+        <link rel="stylesheet" href="{{ asset('backEnd/css/style.css') }}" />
     @endif
-    <link rel="stylesheet" href="{{ url('Modules/ParentRegistration/Resources/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('Modules/ParentRegistration/Resources/assets/css/style.css') }}">
 
 </head>
 
@@ -210,7 +210,7 @@ if (empty($login_background)) {
                                             <div class="loader loader_style_parent_reg loader"
                                                 id="select_class_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                                     alt="loader">
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@ if (empty($login_background)) {
                                             </select>
                                             <div class="loader_style_parent_reg loader" id="select_class_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                                     alt="loader">
                                             </div>
                                         </div>
@@ -876,7 +876,7 @@ if (empty($login_background)) {
                                             <div class="loader_style_parent_reg loader"
                                                 id="select_transport_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                                     alt="loader">
                                             </div>
 
@@ -924,7 +924,7 @@ if (empty($login_background)) {
                                             <div class="loader_style_parent_reg loader"
                                                 id="select_dormitory_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                                     alt="loader">
                                             </div>
 
@@ -1242,17 +1242,17 @@ if (empty($login_background)) {
         </div>
     </footer>
     <!--================ End Footer Area =================-->
-    <script src="{{ url('/') }}/public/backEnd/vendors/js/jquery-3.2.1.min.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/vendors/js/popper.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/vendors/js/bootstrap.min.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/vendors/js/nice-select.min.js"></script>
-    <script type="text/javascript" src="{{ asset('public/backEnd/') }}/vendors/js/toastr.min.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/js/login.js"></script>
-    <script src="{{ url('public/backEnd/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/bootstrap-datepicker.min.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/js/main.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/js/custom.js"></script>
-    <script src="{{ url('/public/js/registration_custom.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/js/popper.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/js/nice-select.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('backEnd/vendors/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('backEnd/js/login.js') }}"></script>
+    <script src="{{ asset('backEnd/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('backEnd/js/main.js') }}"></script>
+    <script src="{{ asset('backEnd/js/custom.js') }}"></script>
+    <script src="{{ asset('js/registration_custom.js') }}"></script>
     <script>
         $('#startDate').datepicker({
             Default: {

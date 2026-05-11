@@ -8,7 +8,7 @@
     @if (!is_null(schoolConfig()))
         <link rel="icon" href="{{ asset(schoolConfig()->favicon) }}" type="image/png" />
     @else
-        <link rel="icon" href="{{ asset('public/uploads/settings/favicon.png') }}" type="image/png" />
+        <link rel="icon" href="{{ asset('uploads/settings/favicon.png') }}" type="image/png" />
     @endif
     <title>{{ @schoolConfig()->school_name ? @schoolConfig()->school_name : 'Infix Edu ERP' }} |
         @lang('downloadCenter.shared_content')

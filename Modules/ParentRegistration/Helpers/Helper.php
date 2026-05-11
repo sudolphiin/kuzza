@@ -1,12 +1,15 @@
-<?php 
+<?php
 
-function field_label($fields,$name){
-    $field=$fields->where('field_name',$name)->first();
-    if($field && $field->label_name){
-        return $field->label_name;
+if (! function_exists('field_label')) {
+    function field_label($fields, $name)
+    {
+        $field = $fields->where('field_name', $name)->first();
+        if ($field && $field->label_name) {
+            return $field->label_name;
+        }
+
+        return __('parentregistration::parentRegistration.'.$name);
     }
-
-    return __('parentregistration::parentRegistration.'.$name);
 }
 
 if(!function_exists('OnlineRegistrationFileUpload')){

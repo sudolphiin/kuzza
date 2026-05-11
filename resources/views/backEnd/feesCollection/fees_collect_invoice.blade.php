@@ -1,4 +1,4 @@
-{{-- <script src="{{asset('public/backEnd/')}}/js/main.js"></script>
+{{-- <script src="{{asset('backEnd/')}}/js/main.js"></script>
 <div class="container-fluid">
     <div class="row mb-20">
         <div class="col-lg-4">

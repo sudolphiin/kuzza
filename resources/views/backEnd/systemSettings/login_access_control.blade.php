@@ -3,7 +3,7 @@
     @lang('rolepermission::role.login_permission')
 @endsection
 @section('mainContent')
-    {{-- <link rel="stylesheet" href="{{ asset('public/backEnd/css/login_access_control.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('backEnd/css/login_access_control.css') }}" /> --}}
     {{-- <section class="sms-breadcrumb mb-20">
         <div class="container-fluid">
             <div class="row justify-content-between">
@@ -33,7 +33,7 @@
     }
 
 </style>
-<link rel="stylesheet" href="{{asset('public/backEnd/css/login_access_control.css')}}" />
+<link rel="stylesheet" href="{{asset('backEnd/css/login_access_control.css')}}" />
 <section class="sms-breadcrumb mb-20">
     <div class="container-fluid">
         <div class="row justify-content-between">

@@ -65,7 +65,7 @@
 
                                             <div class="pull-right loader loader_style" id="select_exam_type_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
                                             </div>
                                             @if ($errors->has('exam_type'))
                                                 <span class="text-danger custom-error-message" role="alert">
@@ -82,7 +82,7 @@
 
                                             <div class="pull-right loader loader_style" id="select_exam_subject_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
                                             </div>
                                             @if ($errors->has('subject_id'))
                                                 <span class="text-danger custom-error-message" role="alert">

@@ -2,7 +2,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{-- Dropzone CSS --}}
-<link rel="stylesheet" href="{{ asset('public/backEnd/dropzone/dropzone.min.css') }}">
+<link rel="stylesheet" href="{{ asset('backEnd/dropzone/dropzone.min.css') }}">
 
     <style>
         .gap-8{
@@ -211,8 +211,8 @@
         }
         
     </style>
-<script src="{{ asset('public/backEnd/dropzone/dropzone.min.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/custom.js') }}"></script>
+<script src="{{ asset('backEnd/dropzone/dropzone.min.js') }}"></script>
+<script src="{{ asset('backEnd/js/custom.js') }}"></script>
 
 <div class="modal-body">
     <div class="container-fluid">

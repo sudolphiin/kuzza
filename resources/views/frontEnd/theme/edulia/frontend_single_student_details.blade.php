@@ -42,7 +42,7 @@
             <div class="profile_details_header">
                 <div class="d-flex justify-content-between align-items-center gap-10 flex-wrap flex-sm-nowrap">
                     <div class="d-flex align-items-center">
-                        <img src="{{ file_exists($singleStudent->student_photo) ? asset($singleStudent->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                        <img src="{{ file_exists($singleStudent->student_photo) ? asset($singleStudent->student_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                             class="user_photo" alt="user photo">
                         <div class="user_information">
                             <p class="single_header_info">

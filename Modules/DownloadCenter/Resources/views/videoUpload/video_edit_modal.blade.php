@@ -41,7 +41,7 @@
                             @endif
                         </select>
                         <div class="pull-right loader loader_style" id="common_select_class_loader">
-                            <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                            <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                                 alt="loader">
                         </div>
                         <span class="text-danger">{{ $errors->first('class_id') }}</span>
@@ -67,7 +67,7 @@
                     </select>
                     <div class="pull-right loader loader_style" id="common_select_section_loader"
                         style="margin-top: -30px;padding-right: 21px;">
-                        <img src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt=""
+                        <img src="{{ asset('backEnd/img/demo_wait.gif') }}" alt=""
                             style="width: 28px;height:28px;">
                     </div>
                     @if ($errors->has('section_id'))

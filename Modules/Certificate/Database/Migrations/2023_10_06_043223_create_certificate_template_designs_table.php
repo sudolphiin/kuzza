@@ -42,9 +42,9 @@ class CreateCertificateTemplateDesignsTable extends Migration
                     'school_id' => 1,
     
                     'design' => '<div class="this-template" style="width: 1122.52px; height: 793.70px; position: relative;">
-                    <img width="100%" src="'.asset('public/uploads/certificate/certificate_template.jpg').'" style=" position: absolute;">
+                    <img width="100%" src="'.asset('uploads/certificate/certificate_template.jpg').'" style=" position: absolute;">
                     <div class="draggable principale_signature resizable" data-el="principale_signature" style="position: absolute; font-size: 40px; top: 68.401%; left: 61.725%;" data-top="68.40101211055226" data-left="61.72495812992196">
-                        <img src="'.asset('public/uploads/certificate/signature.jpg').'" style="width: 100px; height: 100px;">
+                        <img src="'.asset('uploads/certificate/signature.jpg').'" style="width: 100px; height: 100px;">
                     </div>
                                                                                 <div class="draggable user_image" data-el="user_image" style="position: absolute; width: 100px; height: 100px; font-size: 10px; top: 17.4088%; left: 11.8706%;" data-top="17.408840123575008" data-left="11.87061255033318">
                             {user_image}
@@ -82,9 +82,9 @@ class CreateCertificateTemplateDesignsTable extends Migration
                     'school_id' => 1,
     
                     'design' => '<div class="this-template" style="width: 1122.52px; height: 793.70px; position: relative;">
-                    <img width="100%" src="'.asset('public/uploads/certificate/certificate_template.jpg').'" style=" position: absolute;">
+                    <img width="100%" src="'.asset('uploads/certificate/certificate_template.jpg').'" style=" position: absolute;">
                     <div class="draggable principale_signature resizable" data-el="principale_signature" style="position: absolute; font-size: 40px; top: 68.401%; left: 61.725%;" data-top="68.40101211055226" data-left="61.72495812992196">
-                        <img src="'.asset('public/uploads/certificate/signature.jpg').'" style="width: 100px; height: 100px;">
+                        <img src="'.asset('uploads/certificate/signature.jpg').'" style="width: 100px; height: 100px;">
                     </div>
                                                                                 <div class="draggable user_image" data-el="user_image" style="position: absolute; width: 100px; height: 100px; font-size: 10px; top: 17.4088%; left: 11.8706%;" data-top="17.408840123575008" data-left="11.87061255033318">
                             {user_image}
@@ -122,9 +122,9 @@ class CreateCertificateTemplateDesignsTable extends Migration
                     'school_id' => 1,
     
                     'design' => '<div class="this-template" style="width: 1122.52px; height: 793.70px; position: relative;">
-                    <img width="100%" src="'.asset('public/uploads/certificate/certificate_template.jpg').'" style=" position: absolute;">
+                    <img width="100%" src="'.asset('uploads/certificate/certificate_template.jpg').'" style=" position: absolute;">
                     <div class="draggable principale_signature resizable" data-el="principale_signature" style="position: absolute; font-size: 40px; top: 68.779%; left: 63.6848%;" data-top="68.77899439074297" data-left="63.68483412322274">
-                        <img src="'.asset('public/uploads/certificate/signature.jpg').'" style="width: 100px; height: 100px;">
+                        <img src="'.asset('uploads/certificate/signature.jpg').'" style="width: 100px; height: 100px;">
                     </div>
                                                                                 <div class="draggable user_image" data-el="user_image" style="position: absolute; width: 100px; height: 100px; font-size: 10px; top: 18.6688%; left: 13.2069%;" data-top="18.668781057544024" data-left="13.206891636674625">
                             {user_image}

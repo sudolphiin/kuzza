@@ -15,6 +15,11 @@ class Order extends Model
         'external_order_code',
         'external_source',
         'notes',
+        'mpesa_checkout_request_id',
+        'mpesa_merchant_request_id',
+        'mpesa_result_code',
+        'mpesa_result_desc',
+        'mpesa_receipt_number',
     ];
 
     protected $casts = [

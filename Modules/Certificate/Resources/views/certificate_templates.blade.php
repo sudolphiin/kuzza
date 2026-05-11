@@ -3,7 +3,7 @@
 {{ @$page_title }}
 @endsection
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/multiselect/css/magicsuggest.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/multiselect/css/magicsuggest.css') }}">
 @endpush
 @section('mainContent')
     <section class="sms-breadcrumb mb-20">
@@ -153,7 +153,7 @@
     </section>
 @endsection
 @push('script')
-    <script src="{{ asset('public/backEnd/multiselect/js/magicsuggest.js') }}"></script>
+    <script src="{{ asset('backEnd/multiselect/js/magicsuggest.js') }}"></script>
     <script>
         $(function() {
             var ms1 = $('#short_codes').magicSuggest({

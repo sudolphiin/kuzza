@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}">
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}">
 <input type="hidden" id="id" value="{{ $id }}">
 <input type="hidden" id="key" value="{{ $key }}">
 <div class="container-fluid mt-30">
@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<script src="{{asset('public/backEnd/')}}/vendors/editor/summernote-bs4.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/editor/summernote-bs4.js"></script>
 <script>
     $('.summer_note').summernote({
         placeholder: 'Write here',

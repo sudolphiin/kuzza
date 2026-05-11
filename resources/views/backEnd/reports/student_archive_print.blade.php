@@ -222,7 +222,7 @@
         .logo_img{
             display: flex;
             align-items: center;
-            background: url({{asset('public/backEnd/img/report-admit-bg.png')}}) no-repeat center;
+            background: url({{asset('backEnd/img/report-admit-bg.png')}}) no-repeat center;
             background-size: auto;
             background-size: cover;
             border-radius: 5px 5px 0px 0px;
@@ -288,7 +288,7 @@
             text-align: right;
         }
         .tableInfo_header{
-            background: url({{asset('public/backEnd/')}}/img/report-admit-bg.png) no-repeat center;
+            background: url({{asset('backEnd/')}}/img/report-admit-bg.png) no-repeat center;
             background-size: cover;
             border-radius: 5px 5px 0px 0px;
             border: 0;
@@ -420,7 +420,7 @@
                                         </h5>
                                     </div>
                                     <div class="profile_thumb">
-                                        <img src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" alt="{{$studentDetails->full_name}}" height="100" width="100">
+                                        <img src="{{ file_exists(@$studentDetails->student_photo) ? asset($studentDetails->student_photo) : asset('uploads/staff/demo/staff.jpg') }}" alt="{{$studentDetails->full_name}}" height="100" width="100">
                                     </div>
                                 </div>
                             </td>

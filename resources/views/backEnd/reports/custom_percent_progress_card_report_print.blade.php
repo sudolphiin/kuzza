@@ -282,7 +282,7 @@
         .logo_img {
             display: flex;
             align-items: center;
-            background: url({{asset('public/backEnd/img/report-admit-bg.png')}}) no-repeat center;
+            background: url({{asset('backEnd/img/report-admit-bg.png')}}) no-repeat center;
             background-size: auto;
             background-size: cover;
             border-radius: 5px 5px 0px 0px;
@@ -347,7 +347,7 @@
         }
 
         .tableInfo_header {
-            background: url({{asset('public/backEnd/')}}/img/report-admit-bg.png) no-repeat center;
+            background: url({{asset('backEnd/')}}/img/report-admit-bg.png) no-repeat center;
             background-size: cover;
             border-radius: 5px 5px 0px 0px;
             border: 0;
@@ -714,7 +714,7 @@
                                 </div>
                                 @if(resultPrintStatus('image'))
                                     <div class="profile_thumb">
-                                        <img src="{{ file_exists(@$student_detail->studentDetail->student_photo) ? asset($student_detail->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                        <img src="{{ file_exists(@$student_detail->studentDetail->student_photo) ? asset($student_detail->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                              alt="{{$student_detail->studentDetail->full_name}}" height="100"
                                              width="100">
                                     </div>

@@ -111,7 +111,7 @@
             </div>
             <div class="white-box dloader" id=select_lesson_topic_loader>
                 <div class="dloader_style mt-2 text-center">
-                    <img class="dloader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}"
+                    <img class="dloader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}"
                          alt="loader">
                 </div>
             </div>

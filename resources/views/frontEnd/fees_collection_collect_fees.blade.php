@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="student-meta-box">
                     <div class="student-meta-top staff-meta-top"></div>
-                    <img class="student-meta-img img-100" src="{{asset('public/backEnd/img/student/student-meta-img.png')}}" alt="">
+                    <img class="student-meta-img img-100" src="{{asset('backEnd/img/student/student-meta-img.png')}}" alt="">
                     <div class="white-box">
                         <div class="row">
                             <div class="col-lg-5 col-md-6">

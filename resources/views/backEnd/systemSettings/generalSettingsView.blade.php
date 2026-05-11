@@ -42,7 +42,7 @@
                                                       
                                 <img id="upload_logo_preview" class="img-fluid Img-100" src="{{asset($editData->logo)}}" alt="" >
                             @else
-                                <img id="upload_logo_preview" class="img-fluid" src="{{asset('public/uploads/settings/logo.png')}}" alt="">
+                                <img id="upload_logo_preview" class="img-fluid" src="{{asset('uploads/settings/logo.png')}}" alt="">
                             @endif
                             </div>
 
@@ -94,7 +94,7 @@
                             @if(isset($editData->favicon) && !empty(@$editData->favicon))                            
                                 <img  id="upload_favicon_preview" class="img-fluid Img-50" src="{{@$editData->favicon}}" alt="" >
                             @else
-                                <img  id="upload_favicon_preview" class="img-fluid" src="{{asset('public/uploads/settings/favicon.png')}}" alt="">
+                                <img  id="upload_favicon_preview" class="img-fluid" src="{{asset('uploads/settings/favicon.png')}}" alt="">
                             @endif
                             </div>
 
@@ -464,9 +464,9 @@
                                             <div class="value text-left">
                                                 @if(isset($editData))
                                                     @if (@$editData->attendance_layout != "" && @$editData->attendance_layout == 1)
-                                                        <img src="{{asset('public/backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
+                                                        <img src="{{asset('backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
                                                     @else
-                                                        <img src="{{asset('public/backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">
+                                                        <img src="{{asset('backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">
                                                     @endif
                                                 {{-- {{@$editData->promotionSetting != ""? @$editData->promotionSetting == 1:""}} --}}
                                                 {{-- {{$editData->promotionSetting}} --}}

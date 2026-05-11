@@ -5,7 +5,7 @@ img{
 }
 </style>
 @push('css')
-    <link rel="stylesheet" href="{{asset('public/')}}/frontend/css/new_style.css"/>
+    <link rel="stylesheet" href="{{asset('frontend/css/new_style.css')}}"/>
 @endpush
 @section('main_content')
     @if (@$page->header_image)

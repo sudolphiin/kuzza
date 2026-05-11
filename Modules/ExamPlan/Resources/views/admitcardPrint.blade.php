@@ -279,7 +279,7 @@
                         alt="">
                 @else    
                     <img class="student-meta-img img-80" style="width: 100px"
-                        src="{{ file_exists(@$admitcard->studentRecord->studentDetail->student_photo) ? asset(@$admitcard->studentRecord->studentDetail->student_photo) : asset('public/uploads/staff/demo/father.png') }}"
+                        src="{{ file_exists(@$admitcard->studentRecord->studentDetail->student_photo) ? asset(@$admitcard->studentRecord->studentDetail->student_photo) : asset('uploads/staff/demo/father.png') }}"
                         alt="">
                 @endif
             @endif

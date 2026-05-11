@@ -83,7 +83,7 @@
                                                                 alt="{{ @$comment->user->parent->first_name }}">
                                                         @else
                                                             <img class="img-fluid rounded-circle"
-                                                                src="{{ !is_null($comment->user->staff->staff_photo) ? asset($comment->user->staff->staff_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                                                src="{{ !is_null($comment->user->staff->staff_photo) ? asset($comment->user->staff->staff_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                                                 alt="{{ @$comment->user->staff->first_name }}">
                                                         @endif
                                                     </div>
@@ -135,7 +135,7 @@
                                                                 @elseif($reply->user->role_id == 3)
                                                                     <img class="img-fluid rounded-circle" src="{{ asset($reply->user->parent->guardians_photo) }}" alt="{{ @$reply->user->parent->first_name }}">
                                                                 @else
-                                                                    <img class="img-fluid rounded-circle" src=" {{ !is_null($reply->user->staff->staff_photo) ? asset($reply->user->staff->staff_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" alt="{{ @$reply->user->staff->first_name }}">
+                                                                    <img class="img-fluid rounded-circle" src=" {{ !is_null($reply->user->staff->staff_photo) ? asset($reply->user->staff->staff_photo) : asset('uploads/staff/demo/staff.jpg') }}" alt="{{ @$reply->user->staff->first_name }}">
                                                                 @endif
                                                             </div>
 

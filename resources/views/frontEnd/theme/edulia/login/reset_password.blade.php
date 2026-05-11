@@ -11,13 +11,13 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme/edulia/css/bootstrap.min.css') }}">
 
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/fontawesome.all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme/edulia/css/fontawesome.all.min.css') }}">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme/edulia/css/style.css') }}">
     <style>
         .text-danger.text-left {
             font-size: 14px;
@@ -60,10 +60,10 @@
 
 
     <!-- jQuery JS -->
-    <script src="{{ asset('public/theme/edulia/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('theme/edulia/js/jquery.min.js') }}"></script>
 
     <!-- Main Script JS -->
-    <script src="{{ asset('public/theme/edulia/js/script.js') }}"></script>
+        <script src="{{ asset('theme/edulia/js/script.js') }}"></script>
 </body>
 
 </html>

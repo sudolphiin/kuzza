@@ -188,7 +188,7 @@
 </div>
 
 @push('scripts')
-    <script src="{{ asset('public/backEnd/vendors/editor/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/editor/summernote-bs4.js') }}"></script>
     <script src="{{ asset('Modules/AiContent/Resources/assets/js/ai_content.js') }}"></script>
     <script>
         $(document).on('click', '#show_ai_text_generator', function() {

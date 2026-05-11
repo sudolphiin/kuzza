@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="offset-lg-3 col-lg-3 text-right mb-20">
-                    <a href="{{ url('/public/backEnd/bulksample/students.xlsx') }}">
+                    <a href="{{ asset('backEnd/bulksample/students.xlsx') }}">
                         <button class="primary-btn tr-bg text-uppercase bord-rad">
                             @lang('student.download_sample_file')
                             <span class="pl ti-download"></span>
@@ -158,7 +158,7 @@
                                             </select>
                                             <div class="pull-right loader loader_style" id="select_class_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
                                             </div>
 
                                             @if ($errors->has('class'))
@@ -178,7 +178,7 @@
                                             </select>
                                             <div class="pull-right loader loader_style" id="select_section_loader">
                                                 <img class="loader_img_style"
-                                                    src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+                                                    src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
                                             </div>
 
                                             @if ($errors->has('section'))

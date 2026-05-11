@@ -26,7 +26,7 @@
                                                     @elseif($myRequest->requestTo->avatar_url)
                                                         <a><img src="{{ asset($myRequest->requestTo->avatar_url) }}" alt=""></a>
                                                     @else
-                                                        <a><img src="{{asset('public/chat/images/spondon-icon.png')}}" alt=""></a>
+                                                        <a><img src="{{asset('chat/images/spondon-icon.png')}}" alt=""></a>
                                                     @endif
                                                 </div>
                                                 <div class="list_name">
@@ -76,7 +76,7 @@
                                                     @elseif($request->requestFrom->avatar_url)
                                                         <a><img src="{{ asset($request->requestFrom->avatar_url) }}" alt=""></a>
                                                     @else
-                                                        <a><img src="{{asset('public/chat/images/spondon-icon.png')}}" alt=""></a>
+                                                        <a><img src="{{asset('chat/images/spondon-icon.png')}}" alt=""></a>
                                                     @endif
                                                 </div>
                                                 <div class="list_name w-50">
@@ -137,7 +137,7 @@
                                                     @elseif($request->avatar_url)
                                                         <a><img src="{{ asset($request->avatar_url) }}" alt=""></a>
                                                     @else
-                                                        <a><img src="{{asset('public/chat/images/spondon-icon.png')}}" alt=""></a>
+                                                        <a><img src="{{asset('chat/images/spondon-icon.png')}}" alt=""></a>
                                                     @endif
                                                 </div>
                                                 <div class="list_name w-50">

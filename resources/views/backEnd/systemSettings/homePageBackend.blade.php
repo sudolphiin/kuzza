@@ -59,7 +59,7 @@
 
  
                                             <div class="row mt-25">                                                 
-                                               <script src="{{asset('public/backEnd/')}}/vendors/js/print/2.1.1_jquery.min.js"></script>
+                                               <script src="{{asset('backEnd/')}}/vendors/js/print/2.1.1_jquery.min.js"></script>
                                                 <div class="col-lg-4 mt-40"> 
                                                     <img src="{{isset($links)?@$links->image:''}}" style="width: 100%; height: auto;" alt="{{isset($links)?@$links->title:''}}" id="blah">
                                               

@@ -5,8 +5,8 @@ $setting = generalSetting();
 <html>
 <head>
     <title>@lang('student.student_id_card')</title>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
     <style media="print">
 		body.admin {
 			background: #fff;
@@ -37,16 +37,16 @@ $setting = generalSetting();
 				<div class="student-details">
 					<div class="student-meta-box">
 						<div class="position-relative">
-							<img class="w-100 img-fluid" src="{{asset('public/backEnd/img/student/id-card-bg.png')}}">
+							<img class="w-100 img-fluid" src="{{asset('backEnd/img/student/id-card-bg.png')}}">
 							<h3 class="" style="position:absolute; left: 20px; top: 45px; color: #fff">@lang('common.view_student_id_card')</h3>
 						</div>
 						<!-- <div class="text-center p-3">
-							<img class="img-fluid" src="{{asset('public/backEnd/img/student/student-id-bg.png')}}">
+							<img class="img-fluid" src="{{asset('backEnd/img/student/student-id-bg.png')}}">
 						</div> -->
 
 						<div class="p-3 radius-t-y-0 pb-4" style="border:1px solid #ddd">
 							<div class="text-center mb-4">
-								<img class="img-180" src="{{asset('public/backEnd/img/student/id-card-img.jpg')}}" alt="">
+								<img class="img-180" src="{{asset('backEnd/img/student/id-card-img.jpg')}}" alt="">
 							</div>
 							@if(@$id_card->student_name == 1)
                             <div class="single-meta">
@@ -223,7 +223,7 @@ $setting = generalSetting();
 			@endforeach
 		</div>
 	</div>
-	<script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+	<script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
 </body>
 </html>
 

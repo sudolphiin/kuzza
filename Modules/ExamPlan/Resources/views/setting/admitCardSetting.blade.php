@@ -3,7 +3,7 @@
     @lang('examplan::exp.admit_card_setting')
 @endsection
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}">
     <style>
         .img_prevView {
             height: 78px;
@@ -793,7 +793,7 @@
 @endsection
 
 @push('script')
-    <script src="{{asset('public/backEnd/vendors/editor/summernote-bs4.js')}}"></script>
+    <script src="{{asset('backEnd/vendors/editor/summernote-bs4.js')}}"></script>
 
     <script>
 

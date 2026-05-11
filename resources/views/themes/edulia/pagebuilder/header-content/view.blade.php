@@ -1,6 +1,6 @@
 @pushonce(config('pagebuilder.site_style_var'))
-<link rel="stylesheet" href="{{asset('public/theme/'.activeTheme().'/packages/zeynep/zeynep.min.css')}}">
-<link rel="stylesheet" href="{{asset('public/theme/'.activeTheme().'/themify/themify-icons.min.css')}}">
+<link rel="stylesheet" href="{{asset('theme/'.activeTheme().'/packages/zeynep/zeynep.min.css')}}">
+<link rel="stylesheet" href="{{asset('theme/'.activeTheme().'/themify/themify-icons.min.css')}}">
 @endpushonce
 @php
     $generalSetting = generalSetting();
@@ -143,7 +143,7 @@
 
 
 @pushonce(config('pagebuilder.site_script_var'))
-    <script src="{{ asset('public/theme/'.activeTheme().'/packages/zeynep/zeynep.min.js') }}"></script>
+    <script src="{{ asset('theme/'.activeTheme().'/packages/zeynep/zeynep.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             // MOBILE MENU ACTIVE JS

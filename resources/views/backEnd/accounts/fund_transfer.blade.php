@@ -4,7 +4,7 @@
 @endsection
 @section('mainContent')
     @push('css')
-        {{-- <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/style.css') }}" /> --}}
+        {{-- <link rel="stylesheet" href="{{ asset('backEnd/assets/css/style.css') }}" /> --}}
         <style>
             div#bankList,
             div#toBankList {

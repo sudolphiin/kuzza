@@ -3,7 +3,7 @@
 	<head>
 		<title>@lang('admin.student_certificate')</title>
 
-		<link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
+		<link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
 		
 		<style rel="stylesheet">
 			body{

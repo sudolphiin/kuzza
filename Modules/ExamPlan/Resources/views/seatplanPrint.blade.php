@@ -230,7 +230,7 @@
                                     @if($seat_plan->studentRecord->studentDetail->gender->base_setup_name == 'Male')
                                          <img src="{{asset('Modules/ExamPlan/Public/images/profile.jpg')}}"   alt="{{@$seat_plan->studentRecord->studentDetail->full_name}}">
                                     @else    
-                                        <img src="{{asset('public/uploads/staff/demo/father.png')}}"   alt="{{@$seat_plan->studentRecord->studentDetail->full_name}}">
+                                        <img src="{{asset('uploads/staff/demo/father.png')}}"   alt="{{@$seat_plan->studentRecord->studentDetail->full_name}}">
                                     @endif                          
                                 @endif
                             </div>

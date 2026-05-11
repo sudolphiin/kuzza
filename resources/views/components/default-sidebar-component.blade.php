@@ -19,7 +19,7 @@
                                         @else
                                             <a href="{{ url('/') }}" id="admin-dashboard">
                                                 @endif
-                                                <img src="{{ asset('logo.png') }}" alt="logo" style="max-width:180px; max-height:60px; object-fit:contain;">
+                                                <img src="{{ get_logo() }}" alt="logo" style="max-width:180px; max-height:60px; object-fit:contain;">
                                             </a>
                                             <a id="close_sidebar" class="d-lg-none">
                                                 <i class="ti-close"></i>

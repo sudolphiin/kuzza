@@ -28,7 +28,7 @@
                                             <div class="thumb">
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#profileEditForm{{ $index }}"><img
-                                                        src="{{ file_exists(@$user->avatar) ? asset($user->avatar) : asset('public/chat/images/spondon-icon.png') }}"
+                                                        src="{{ file_exists(@$user->avatar) ? asset($user->avatar) : asset('chat/images/spondon-icon.png') }}"
                                                         alt=""></a>
                                             </div>
                                             <div class="list_name">
@@ -54,7 +54,7 @@
                                                     <h4 class="modal-title">
                                                         <div class="thumb" style="display: inline">
                                                             <a href="#"><img
-                                                                    src="{{ file_exists(@$user->avatar) ? asset($user->avatar) : asset('public/chat/images/spondon-icon.png') }}"
+                                                                    src="{{ file_exists(@$user->avatar) ? asset($user->avatar) : asset('chat/images/spondon-icon.png') }}"
                                                                     height="50" width="50" alt=""></a>
                                                         </div>
                                                         {{ $user->first_name }} {{ $user->last_name }}

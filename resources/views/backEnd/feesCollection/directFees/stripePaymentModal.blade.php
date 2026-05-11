@@ -1,4 +1,4 @@
-<script src="{{asset('public/backEnd/')}}/js/main.js"></script>
+<script src="{{asset('backEnd/')}}/js/main.js"></script>
 
 <style type="text/css">
     .hide{
@@ -83,7 +83,7 @@
         </div>
     </form>
 </div>
-<script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
 

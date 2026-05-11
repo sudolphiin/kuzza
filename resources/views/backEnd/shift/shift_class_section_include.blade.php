@@ -57,7 +57,7 @@ $subject_name = isset($subject_name) ? $subject_name : 'subject_id';
 
         </select>
         <div class="pull-right loader loader_style" id="common_select_academic_year_loader">
-            <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+            <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
         </div>
         <span class="text-danger">{{ $errors->first($academic_year_name) }}</span>
     </div>
@@ -100,7 +100,7 @@ $subject_name = isset($subject_name) ? $subject_name : 'subject_id';
             </select>
 
             <div class="pull-right loader loader_style" id="common_select_shift_loader">
-                <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+                <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
             </div>
             <span class="text-danger">{{ $errors->first('shift') }}</span>
         </div>
@@ -129,7 +129,7 @@ $subject_name = isset($subject_name) ? $subject_name : 'subject_id';
             @endif
         </select>
         <div class="pull-right loader loader_style" id="common_select_class_loader">
-            <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+            <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
         </div>
         <span class="text-danger">{{ $errors->first($class_name) }}</span>
     </div>
@@ -158,7 +158,7 @@ $subject_name = isset($subject_name) ? $subject_name : 'subject_id';
         @endisset
     </select>
     <div class="pull-right loader loader_style" id="common_select_section_loader" style="margin-top: -30px;padding-right: 21px;">
-        <img src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
+        <img src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
     </div>
 
 
@@ -189,7 +189,7 @@ $subject_name = isset($subject_name) ? $subject_name : 'subject_id';
         @endisset
     </select>
     <div class="pull-right loader loader_style" id="common_select_subject_loader" style="margin-top: -30px;padding-right: 21px;">
-        <img src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
+        <img src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
     </div>
 
     @if ($errors->has('subject_id'))
@@ -223,7 +223,7 @@ $subject_name = isset($subject_name) ? $subject_name : 'subject_id';
     </select>
 
     <div class="pull-right loader loader_style" id="common_select_student_loader">
-        <img class="loader_img_style" src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="loader">
+        <img class="loader_img_style" src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="loader">
     </div>
 
     @if ($errors->has('student'))

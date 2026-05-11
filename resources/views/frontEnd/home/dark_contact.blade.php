@@ -5,26 +5,26 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="icon" href="{{asset('public/backEnd/')}}/img/favicon.png" type="image/png" />
+    <link rel="icon" href="{{asset('backEnd/')}}/img/favicon.png" type="image/png" />
     <title>Contact Us - Kuzza</title>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/jquery-ui.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap-datepicker.min.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/themify-icons.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/nice-select.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/magnific-popup.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/fastselect.min.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/jquery-ui.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/themify-icons.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/nice-select.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/magnific-popup.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/fastselect.min.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/owl.carousel.min.css" />
     <!-- main css -->
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/software.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/toastr.min.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/fullcalendar.min.css">
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/fullcalendar.print.css">
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/software.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/toastr.min.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/fullcalendar.min.css">
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/fullcalendar.print.css">
 
 </head>
 
@@ -37,7 +37,7 @@
                 <div class="container box-1420">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand" href="#">
-                        <img class="w-75" src="{{asset('public/backEnd/img/logo.png')}}" alt="">
+                        <img class="w-75" src="{{asset('backEnd/img/logo.png')}}" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="ti-menu"></span>
@@ -238,32 +238,32 @@
 	<!--================ End Footer Area =================-->
 
 
-<script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/jquery-ui.js">
+<script src="{{asset('backEnd/')}}/vendors/js/jquery-ui.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/popper.js">
+<script src="{{asset('backEnd/')}}/vendors/js/popper.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/bootstrap.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/nice-select.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/nice-select.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/jquery.magnific-popup.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/jquery.magnific-popup.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/raphael-min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/raphael-min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/morris.min.js">
+<script src="{{asset('backEnd/')}}/vendors/js/morris.min.js">
 </script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/owl.carousel.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/toastr.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/moment.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/print/bootstrap-datetimepicker.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap-datepicker.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/owl.carousel.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/toastr.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/moment.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/print/bootstrap-datetimepicker.min.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/bootstrap-datepicker.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-<script src="{{asset('public/backEnd/')}}/vendors/js/gmaps.min.js"></script>
-<script src="{{asset('public/backEnd/')}}/js/main.js"></script>
-<script src="{{asset('public/backEnd/')}}/js/custom.js"></script>
-<script src="{{asset('public/backEnd/')}}/js/developer.js"></script>
+<script src="{{asset('backEnd/')}}/vendors/js/gmaps.min.js"></script>
+<script src="{{asset('backEnd/')}}/js/main.js"></script>
+<script src="{{asset('backEnd/')}}/js/custom.js"></script>
+<script src="{{asset('backEnd/')}}/js/developer.js"></script>
 </body>
 
 </html>

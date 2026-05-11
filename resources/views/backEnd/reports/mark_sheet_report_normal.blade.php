@@ -481,7 +481,7 @@
                                                     </div>
                                                 </div>
                                         <div>
-                                            <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->studentDetail->student_photo)}}">
+                                            <img class="report-admit-img"  src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }}" width="100" height="100" alt="{{asset($studentDetails->studentDetail->student_photo)}}">
                                         </div>
                                     </div>
                                     <div class="student_marks_table">

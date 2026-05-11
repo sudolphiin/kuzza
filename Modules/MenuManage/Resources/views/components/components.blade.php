@@ -411,7 +411,7 @@
 
 
     @push('scripts')
-        <script src="{{ asset('public/backEnd/js/jquery.nestable.min.js') }}"></script>
+        <script src="{{ asset('backEnd/js/jquery.nestable.min.js') }}"></script>
         <script src="{{ asset('Modules/MenuManage/Resources/assets/js/sidebar.js') }}"></script>
     @endpush
 

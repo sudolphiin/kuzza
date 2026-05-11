@@ -4,7 +4,7 @@
 @endsection
 @section('mainContent')
     @push('css')
-        <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}">
+        <link rel="stylesheet" href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}">
         <style>
             .custom_nav li a.active {
                 background-color: #fbfbfb;
@@ -153,5 +153,5 @@
     </section>
 @endsection
 @push('script')
-    <script src="{{ asset('public/backEnd/') }}/vendors/editor/summernote-bs4.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/editor/summernote-bs4.js"></script>
 @endpush

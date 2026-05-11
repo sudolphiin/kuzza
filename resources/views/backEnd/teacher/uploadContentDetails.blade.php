@@ -1,4 +1,4 @@
-{{-- <script src="{{asset('public/backEnd/')}}/js/main.js"></script> --}}
+{{-- <script src="{{asset('backEnd/')}}/js/main.js"></script> --}}
 <div class="container-fluid mt-30">
     <div class="student-details">
         <div class="student-meta-box">

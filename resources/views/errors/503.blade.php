@@ -8,11 +8,11 @@ if(! (config('app.app_sync') && Storage::exists('.app_resetting')) ){
   <head> 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-    <link rel="stylesheet" href="{{asset('public/backEnd/error')}}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('backEnd/error')}}/css/bootstrap.min.css">
     <title>{{@$setting->title}}</title>
     <style>
     	body{
-    		background: url({{url('/public/backEnd/img/login-bg.jpg')}});
+    		background: url({{url('/backEnd/img/login-bg.jpg')}});
     		background-repeat: no-repeat;
     		background-size: cover;
     	}
@@ -489,7 +489,7 @@ if(! (config('app.app_sync') && Storage::exists('.app_resetting')) ){
     <div class="w-full md:w-1/2   flex items-center justify-center">
         <div class="max-w-sm m-8">
             <div class="text-black text-5xl md:text-15xl font-black">
-                <img src="{{url($setting->image ?? asset('/public/backEnd/img/503.png') )}}" alt="" class="img img-fluid">
+                <img src="{{url($setting->image ?? asset('backEnd/img/503.png') )}}" alt="" class="img img-fluid">
             </div>
 
             <div class="w-16 h-1 bg-purple-light my-3 md:my-6"></div>
@@ -510,8 +510,8 @@ if(! (config('app.app_sync') && Storage::exists('.app_resetting')) ){
 
 @endif 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="{{asset('public/backEnd/error')}}/js/popper.min.js"></script>
-<script src="{{asset('public/backEnd/error')}}/js/bootstrap.min.js"></script>
+<script src="{{asset('backEnd/error')}}/js/popper.min.js"></script>
+<script src="{{asset('backEnd/error')}}/js/bootstrap.min.js"></script>
 
 
 @if(config('app.app_sync') && Storage::exists('.app_resetting') )

@@ -1,5 +1,5 @@
 @pushonce(config('pagebuilder.site_style_var'))
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/packages/carousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/packages/carousel/owl.carousel.min.css') }}">
 @endpushonce
 <section class="section_padding tesimonials about">
     <div class="container">
@@ -19,7 +19,7 @@
     </div>
 </section>
 @pushonce(config('pagebuilder.site_script_var'))
-    <script src="{{ asset('public/theme/edulia/packages/carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('theme/edulia/packages/carousel/owl.carousel.min.js') }}"></script>
     <script>
         $('.tesimonials_slider').owlCarousel({
             nav: false,

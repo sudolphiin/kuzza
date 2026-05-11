@@ -1,6 +1,6 @@
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/css/fullcalendar.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/css/customFullCalendar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/css/fullcalendar.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/css/customFullCalendar.css') }}" />
     <style>
         .color-input {
             height: 50px;
@@ -26,7 +26,7 @@
 @endpush
 @include('backEnd.partials.multi_select_js')
 @push('script')
-    <script src="{{ asset('public/backEnd/') }}/full_calendar/js/index.global.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/full_calendar/js/index.global.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('academicCalendar');

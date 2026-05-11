@@ -56,7 +56,7 @@
         @endisset
     </select>
     <div class="pull-right loader" id="select_section_loader" style="margin-top: -30px;padding-right: 21px;">
-        <img src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
+        <img src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
     </div>
     @if ($errors->has('section'))
         <span class="text-danger invalid-select" role="alert">
@@ -84,7 +84,7 @@
         @endisset
     </select>
     <div class="pull-right loader" id="select_subject_loader" style="margin-top: -30px;padding-right: 21px;">
-        <img src="{{ asset('public/backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
+        <img src="{{ asset('backEnd/img/demo_wait.gif') }}" alt="" style="width: 28px;height:28px;">
     </div>
     @if ($errors->has('subject'))
         <span class="text-danger invalid-select" role="alert">

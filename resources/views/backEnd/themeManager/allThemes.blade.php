@@ -100,7 +100,7 @@
                             <div style="border:1px solid;" class="card">
                                 <div style="padding: 0;" class="card-body screenshot">
                                     <div class="single_item_img_div">
-                                        <img style="width: 100%" src="{{asset('public/theme/edulia/img/edulia.png')}}" alt="">
+                                        <img style="width: 100%" src="{{asset('theme/edulia/img/edulia.png')}}" alt="">
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex">

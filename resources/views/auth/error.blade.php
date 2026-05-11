@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{asset('public/backEnd/')}}/img/favicon.png" type="image/png"/>
+    <link rel="icon" href="{{asset('backEnd/')}}/img/favicon.png" type="image/png"/>
     <title>404</title>
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/vendors/css/themify-icons.css" />
-    <link rel="stylesheet" href="{{asset('public/backEnd/')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/vendors/css/themify-icons.css" />
+    <link rel="stylesheet" href="{{asset('backEnd/')}}/css/style.css" />
 </head>
 <body class="error admin">
 
@@ -20,7 +20,7 @@
 					<div class="text-center">
 						<div class="logo-container">
 							<a href="#">
-								<img src="{{asset('public/backEnd/img/400.png')}}" alt="" width="100%">
+								<img src="{{asset('backEnd/img/400.png')}}" alt="" width="100%">
 							</a>
 						</div>
 						<div class="content mt-30">
@@ -41,9 +41,9 @@
 	<!--================ Start End Login Area =================-->
 
 
-    <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
-    <script src="{{asset('public/backEnd/')}}/vendors/js/popper.js"></script>
-	<script src="{{asset('public/backEnd/')}}/vendors/js/bootstrap.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('backEnd/')}}/vendors/js/popper.js"></script>
+	<script src="{{asset('backEnd/')}}/vendors/js/bootstrap.min.js"></script>
 	<script>
 		$('.primary-btn').on('click', function(e) {
 		// Remove any old one

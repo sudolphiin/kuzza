@@ -374,14 +374,14 @@
                                         {{-- <label for=""> --}}
                                             <input type="radio" name="attendance_layout" id="first_layout" value="1" class="common-radio relationButton attendance_layout"  {{@$editData->attendance_layout == "1"? 'checked': ''}}>
                                             <label for="first_layout">
-                                                <img src="{{asset('public/backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
+                                                <img src="{{asset('backEnd/img/first_layout.png')}}" width="200px" height="auto" class="layout_image" for="first_layout" alt="">
                                             </label>
                                             {{-- </label> --}}
                                     </div>
                                     <div class="mr-20">
                                         <input type="radio" name="attendance_layout" id="second_layout" value="0" class="common-radio relationButton attendance_layout" {{@$editData->attendance_layout == "0"? 'checked': ''}}>
                                         <label for="second_layout">
-                                            <img src="{{asset('public/backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">
+                                            <img src="{{asset('backEnd/img/second_layout.png')}}" width="200px" height="auto" class="layout_image" for="second_layout" alt="">
                                         </label>
                                         </div>
                                 </div>

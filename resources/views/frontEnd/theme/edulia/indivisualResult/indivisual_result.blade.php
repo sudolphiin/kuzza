@@ -72,7 +72,7 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-4 order-3 order-md-1 text-center text-md-start">
-                    <img src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                    <img src="{{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                         class="student_photo" alt="">
                 </div>
                 <div

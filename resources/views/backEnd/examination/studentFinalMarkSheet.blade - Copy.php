@@ -167,7 +167,7 @@
                                     ]) }}
                                         <span class="focus-border"></span>
                                         <div class="pull-right loader loader_style" id="select_exam_type_loader">
-                                            <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                            <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                         </div>
                                         @if ($errors->has('exam_type'))
                                             <span class="invalid-feedback custom-error-message" role="alert">
@@ -183,7 +183,7 @@
                                     ]) }}
                                         <span class="focus-border"></span>
                                         <div class="pull-right loader loader_style" id="select_un_student_loader">
-                                            <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                                            <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                                         </div>
                                         @if ($errors->has('student_id'))
                                             <span class="invalid-feedback custom-error-message" role="alert">
@@ -218,7 +218,7 @@
                                     </option>
                                 </select>
                                 <div class="pull-right loader loader_style" id="select_section_loader">
-                                    <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}"
+                                    <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}"
                                         alt="loader">
                                 </div>
                                 @if ($errors->has('section'))
@@ -235,7 +235,7 @@
                                     </option>
                                 </select>
                                 <div class="pull-right loader loader_style" id="select_student_loader">
-                                    <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}"
+                                    <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}"
                                         alt="loader">
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
                                                             <div class="offset-2">
                                                             </div>
                                                         </div>
-                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }})"></div>
+                                                <div class="report-admit-img profile_100" style="background-image: url({{ file_exists(@$studentDetails->studentDetail->student_photo) ? asset($studentDetails->studentDetail->student_photo) : asset('uploads/staff/demo/staff.jpg') }})"></div>
 
                                             </div>
                                         <div class="card-body">

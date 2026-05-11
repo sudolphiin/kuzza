@@ -103,9 +103,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -120,9 +120,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -137,9 +137,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -154,9 +154,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -171,9 +171,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -188,9 +188,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -205,9 +205,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -222,9 +222,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -239,9 +239,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -256,9 +256,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">
@@ -273,9 +273,9 @@
                 <div class="single-cms-box text-center">
                     <div class="single-cms">
                         <div class="overlay"></div>
-                        <img class="img-fluid cms-img" src="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}" alt="">
+                        <img class="img-fluid cms-img" src="{{asset('backEnd/img/front-cms/cms1.jpg')}}" alt="">
                         <div class="icons">
-                            <a class="pop-up-image" href="{{asset('public/backEnd/img/front-cms/cms1.jpg')}}">
+                            <a class="pop-up-image" href="{{asset('backEnd/img/front-cms/cms1.jpg')}}">
                                 <i class="ti-fullscreen mr-10"></i>
                             </a>
                             <button class="btn">

@@ -28,7 +28,7 @@
                     
                 </select>
                 <div class="pull-right loader loader_style" id="select_teacher_loader">
-                    <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                    <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                 </div>
                 <span class="text-danger"  id="teacher_error"></span>
             </div>

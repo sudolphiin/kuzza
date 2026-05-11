@@ -642,7 +642,7 @@
                                                                     </a>
                                                                 @else
                                                                     @foreach ($files as $file)
-                                                                        <a href="{{ asset('public/uploads/homeworkcontent/'.$file) }}" download>
+                                                                        <a href="{{ asset('uploads/homeworkcontent/'.$file) }}" download>
                                                                             @lang('common.download') <span class="pl ti-download"></span>
                                                                         </a>
                                                                     @endforeach
@@ -692,7 +692,7 @@
                                                             @foreach ($fileList as $index => $file)
                                                                 @php
                                                                     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                                                                    $fileUrl = asset('public/uploads/homeworkcontent/' . $file);
+                                                                    $fileUrl = asset('uploads/homeworkcontent/' . $file);
                                                                     
                                                                 @endphp
                                                     

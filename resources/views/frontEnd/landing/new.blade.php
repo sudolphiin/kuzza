@@ -510,7 +510,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="thumb">
                                         <img class="img-fluid rounded-circle testimonial-image"
-                                             src="{{ $value->image ? asset($value->image) : asset('public/uploads/sample.jpg') }}"
+                                             src="{{ $value->image ? asset($value->image) : asset('uploads/sample.jpg') }}"
                                              alt="{{ $brandify($value->name) }}">
                                     </div>
                                     <div class="meta text-left">

@@ -3,7 +3,7 @@
     {{ @$page_title }}
 @endsection
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/multiselect/css/magicsuggest.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/multiselect/css/magicsuggest.css') }}">
 @endpush
 @section('mainContent')
     <section class="sms-breadcrumb mb-20">

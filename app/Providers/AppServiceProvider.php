@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use Livewire\Livewire;
 use Spatie\Valuestore\Valuestore;
 use Modules\MenuManage\Entities\Sidebar;
 use Modules\RolePermission\Entities\AssignPermission;
@@ -27,9 +26,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): ?bool
     {
 
-        Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/custom/livewire/update', $handle);
-        });
+        if (class_exists(\Livewire\Livewire::class)) {
+            \Livewire\Livewire::setUpdateRoute(function ($handle) {
+                return Route::post('/custom/livewire/update', $handle);
+            });
+        }
 
         try {
             Paginator::useBootstrapFour();
@@ -140,16 +141,22 @@ class AppServiceProvider extends ServiceProvider
             return InfixModuleInfo::where('parent_id', 0)->with(['children'])->whereIn('id', $module_ids)->get();
         });
 
-        $this->app->singleton('permission', function (): void {
+        $this->app->singleton('permission', function (): array {
+            if (! Auth::check()) {
+                return [];
+            }
 
             $infixRole = InfixRole::find(Auth::user()->role_id);
+            if (! $infixRole) {
+                return [];
+            }
+
             $permissionIds = AssignPermission::where('role_id', Auth::user()->role_id)
                 ->when($infixRole->is_saas == 0, function ($q): void {
                     $q->where('school_id', Auth::user()->school_id);
                 })->pluck('permission_id')->toArray();
-                dd($permissionIds);
-            $permissions = Permission::whereIn('id', $permissionIds)->pluck('route')->toArray();
 
+            return Permission::whereIn('id', $permissionIds)->pluck('route')->toArray();
         });
 
         $this->app->singleton('saasSettings', function () {

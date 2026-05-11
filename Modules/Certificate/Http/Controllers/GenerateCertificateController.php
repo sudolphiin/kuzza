@@ -140,7 +140,7 @@ class GenerateCertificateController extends Controller
                 $message_format = $this->staffCertificateBodyContent($certificate, $staff, $request) ?? '';
                 $qr_code = $this->generateQRCode($certificate, $staff->user_id, $certificate_number);
 
-                $photo = $staff->staff_photo != null ? (file_exists(@$staff->staff_photo) ? asset($staff->staff_photo) : asset('public/uploads/staff/demo/staff.jpg')) : asset('public/uploads/staff/demo/staff.jpg');
+                $photo = $staff->staff_photo != null ? (file_exists(@$staff->staff_photo) ? asset($staff->staff_photo) : asset('uploads/staff/demo/staff.jpg')) : asset('uploads/staff/demo/staff.jpg');
                 $radius = $certificate->user_photo_style == 1 ? '50' : '0';
                 $staff_image = '<img src="' . $photo . '" style="width:' . $certificate->user_image_size . 'px; height: auto; border-radius:' . $radius . '%;">';
 
@@ -361,7 +361,7 @@ class GenerateCertificateController extends Controller
                 $message_format = $this->certificateBodyContent($certificate, $student, $request, $exam_result_array) ?? '';
                 $qr_code = $this->generateQRCode($certificate, $student->user_id, $certificate_number);
                 // return $qr_code;
-                $photo = $student->student_photo != null ? (file_exists(@$student->student_photo) ? asset($student->student_photo) : asset('public/uploads/staff/demo/staff.jpg')) : asset('public/uploads/staff/demo/staff.jpg');
+                $photo = $student->student_photo != null ? (file_exists(@$student->student_photo) ? asset($student->student_photo) : asset('uploads/staff/demo/staff.jpg')) : asset('uploads/staff/demo/staff.jpg');
                 $radius = $certificate->user_photo_style == 1 ? '50' : '0';
                 $student_image = '<img src="' . $photo . '" style="width:' . $certificate->user_image_size . 'px; height: auto; border-radius:' . $radius . '%;">';
 
@@ -955,11 +955,11 @@ class GenerateCertificateController extends Controller
         $certificate_signature = '<img src="' . asset($template->signature_image) . '" style="width: 100px; height: 100px;">';
         $qr_code = $this->generateQRCode($template, $student->user_id);
 
-        $photo = $student->student_photo != null ? (file_exists(@$student->student_photo) ? asset($student->student_photo) : asset('public/uploads/staff/demo/staff.jpg')) : asset('public/uploads/staff/demo/staff.jpg');
+        $photo = $student->student_photo != null ? (file_exists(@$student->student_photo) ? asset($student->student_photo) : asset('uploads/staff/demo/staff.jpg')) : asset('uploads/staff/demo/staff.jpg');
         $radius = $template->user_photo_style == 1 ? '50' : '0';
         $student_image = '<img src="' . $photo . '" style="width:' . $template->user_image_size . 'px; height: auto; border-radius:' . $radius . '%;">';
 
-        $logo_image = $template->logo_image != null ? (file_exists(@$template->logo_image) ? asset($template->logo_image) : asset('public/uploads/staff/demo/staff.jpg')) : asset('public/uploads/staff/demo/staff.jpg');
+        $logo_image = $template->logo_image != null ? (file_exists(@$template->logo_image) ? asset($template->logo_image) : asset('uploads/staff/demo/staff.jpg')) : asset('uploads/staff/demo/staff.jpg');
         $logo_image = '<img src="' . $logo_image . '" style="width:' . $template->user_image_size . 'px; height: auto;">';
 
 

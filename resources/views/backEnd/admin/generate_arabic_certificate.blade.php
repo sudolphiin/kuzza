@@ -22,8 +22,8 @@
         }
         /* don't need that style css */
     </style>
-        <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/print/jquery.min.js"></script>
-        <script type="text/javascript" src="{{asset('public/backEnd/')}}/vendors/js/print/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{asset('backEnd/')}}/vendors/js/print/jquery.min.js"></script>
+        <script type="text/javascript" src="{{asset('backEnd/')}}/vendors/js/print/bootstrap.min.js"></script>
 
 </head>
 
@@ -102,9 +102,9 @@
         </tr>
     </table>
 
-<script src="{{ asset('public/vendor/spondonit/js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/pdf/html2pdf.bundle.min.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/pdf/html2canvas.min.js') }}"></script>
+<script src="{{ asset('backEnd/vendors/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('backEnd/js/pdf/html2pdf.bundle.min.js') }}"></script>
+<script src="{{ asset('backEnd/js/pdf/html2canvas.min.js') }}"></script>
 
 <script>
     function generatePDF() {

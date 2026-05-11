@@ -1053,12 +1053,12 @@
             if (pageLayout == "horizontal") {
 
                 $('.hr_bg').attr('style',
-                    'line-height:1.02; background-image: url({{ asset('public/backEnd/id_card/img/horizontal_bg.png') }}); width: 86mm; height: 54mm; margin: auto; background-size: 100% 100%; background-position: center center; position: relative;'
+                    'line-height:1.02; background-image: url({{ asset('backEnd/id_card/img/horizontal_bg.png') }}); width: 86mm; height: 54mm; margin: auto; background-size: 100% 100%; background-position: center center; position: relative;'
                     );
             } else {
 
                 $('.vr_bg').attr('style',
-                    'line-height:1.02; background-image: url({{ asset('public/backEnd/id_card/img/vertical_bg.png') }}); width: 57.15mm; height: 88.9mm; margin: auto; background-size: 100% 100%; background-position: center center; position: relative; background-color: #fff; display: flex; flex-direction: column;'
+                    'line-height:1.02; background-image: url({{ asset('backEnd/id_card/img/vertical_bg.png') }}); width: 57.15mm; height: 88.9mm; margin: auto; background-size: 100% 100%; background-position: center center; position: relative; background-color: #fff; display: flex; flex-direction: column;'
                     );
             }
         });
@@ -1069,9 +1069,9 @@
             $('#document_file_6').val('');
             $("#old_profile").val(0);
             if (pageLayout == "horizontal") {
-                $('.hImg').css('background-image', 'url({{ asset('public/backEnd/id_card/img/thumb.png') }})');
+                $('.hImg').css('background-image', 'url({{ asset('backEnd/id_card/img/thumb.png') }})');
             } else {
-                $('.vImg').css('background-image', 'url({{ asset('public/backEnd/id_card/img/thumb.png') }})');
+                $('.vImg').css('background-image', 'url({{ asset('backEnd/id_card/img/thumb.png') }})');
             }
         });
 
@@ -1081,9 +1081,9 @@
             $('#document_file_3').val('');
             $("#old_logo").val(0);
             if (pageLayout == "horizontal") {
-                $('.hLogo').css('background-image', 'url({{ asset('public/backEnd/img/logo.png') }})');
+                $('.hLogo').css('background-image', 'url({{ asset('backEnd/img/logo.png') }})');
             } else {
-                $('.vLogo').css('background-image', 'url({{ asset('public/backEnd/img/logo.png') }})');
+                $('.vLogo').css('background-image', 'url({{ asset('backEnd/img/logo.png') }})');
             }
         });
 
@@ -1095,11 +1095,11 @@
             if (pageLayout == "horizontal") {
 
                 $('.hSign').css('background-image',
-                    'url({{ asset('public/backEnd/id_card/img/Signature.png') }})');
+                    'url({{ asset('backEnd/id_card/img/Signature.png') }})');
             } else {
                 console.log($('.vSign'));
                 $('.vSign').css('background-image',
-                    'url({{ asset('public/backEnd/id_card/img/Signature.png') }})');
+                    'url({{ asset('backEnd/id_card/img/Signature.png') }})');
             }
         });
     </script>

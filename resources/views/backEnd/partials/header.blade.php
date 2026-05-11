@@ -10,9 +10,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     @if( ! is_null(schoolConfig() ))
-        <link rel="icon" href="{{asset(schoolConfig()->favicon)}}" type="image/png"/>
+        <link rel="icon" href="{{ public_asset(schoolConfig()->favicon) }}" type="image/png"/>
     @else
-        <link rel="icon" href="{{asset('public/uploads/settings/favicon.png')}}" type="image/png"/>
+        <link rel="icon" href="{{ public_asset('uploads/settings/favicon.png') }}" type="image/png"/>
     @endif
     @php
         $pageTitleName = @schoolConfig()->school_name ?: config('app.name', 'Kuzza');
@@ -23,26 +23,26 @@
     </title>
 
     <meta name="_token" content="{!! csrf_token() !!}"/>
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/jquery-ui.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/bootstrap-datepicker.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/font_awesome/css/all.min.css') }}" />
-<link rel="stylesheet" href="{{asset('public/backEnd/vendors/themefy_icon/themify-icons.css')}}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/flaticon.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/fnt.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/nice-select.css') }}" />
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/toastr.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/css/jquery-ui.css') }}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap-datepicker.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/font_awesome/css/all.min.css') }}" />
+<link rel="stylesheet" href="{{asset('backEnd/vendors/themefy_icon/themify-icons.css')}}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/css/flaticon.css') }}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/css/fnt.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/css/nice-select.css') }}" />
+<link rel="stylesheet" href="{{ asset('backEnd/vendors/css/toastr.min.css') }}" />
 @if(userRtlLtl() ==1)
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/bootstrap.rtl.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/global_rtl.css') }}">
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/css/rtl/bootstrap.rtl.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/css/global_rtl.css') }}">
 @else
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap.min.css') }}" />
 @endif
-<link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/style.css')}}" />
+<link rel="stylesheet" href="{{ asset('backEnd/assets/css/style.css')}}" />
 @if(moduleStatusCheck('WhatsappSupport'))
-<link rel="stylesheet" href="{{ asset('public/whatsapp-support/style.css') }}">
+<link rel="stylesheet" href="{{ asset('whatsapp-support/style.css') }}">
 @endif 
 @if(\Request::route()->getName() == "fees.fees-invoice-settings")
-<link rel="stylesheet" href="{{ asset('public/backEnd/vendors/select2/css/select2.min.css')}}" />
+<link rel="stylesheet" href="{{ public_asset('backEnd/vendors/select2/css/select2.min.css') }}" />
 @endif 
 @include('backEnd.partials.css')
 @if(userRtlLtl() ==1)
@@ -55,7 +55,7 @@
 @endif
     <x-root-css/>
     @stack('css')
-    <script src="{{asset('public/backEnd/')}}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('backEnd/vendors/js/jquery-3.2.1.min.js')}}"></script>
     <script>
         window.Laravel = {
             "baseUrl": '{{ url('/') }}' + '/',

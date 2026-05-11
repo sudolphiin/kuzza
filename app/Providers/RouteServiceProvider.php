@@ -36,6 +36,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(): void
     {
+        // USSD first: POST / must win over any later broad "/" handlers (Laravel returns first match).
+        $this->mapUssdRoutes();
         $this->mapApiRoutes();
         $this->mapV2ApiRoutes();
         $this->mapWebRoutes();
@@ -96,12 +98,34 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "api" routes for the application.
+     * USSD webhooks (Africa's Talking) + M-Pesa STK callback.
      *
-     * These routes are typically stateless.
+     * Loaded before heavy web routes so POST / can proxy root USSD callbacks.
+     * No web session / CSRF — see routes/ussd.php and routes/ussd_public.php.
+     * Callback URL for AT is not stored here; set APP_URL (or USSD_* in .env) and run
+     * `php artisan ussd:callbacks` on the server to print the full URL for the dashboard.
      *
      * @return void
      */
+    protected function mapUssdRoutes(): void
+    {
+        $ussdMiddleware = [
+            \App\Http\Middleware\OptimizeUssdRequest::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\LogUssdWebhook::class,
+        ];
+
+        Route::prefix('api')
+            ->middleware($ussdMiddleware)
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ussd.php'));
+
+        // Shorter URL (same handler) — use if Africa's Talking dashboard truncates or omits /api by mistake.
+        Route::middleware($ussdMiddleware)
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ussd_public.php'));
+    }
+
     protected function mapApiRoutes()
     {
         Route::prefix('api')

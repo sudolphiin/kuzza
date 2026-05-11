@@ -147,9 +147,9 @@
                                 </div>
 
                                 <div class="row mt-15">                                                 
-                                    <script src="{{asset('public/backEnd/')}}/vendors/js/print/2.1.1_jquery.min.js"></script>
+                                    <script src="{{asset('backEnd/')}}/vendors/js/print/2.1.1_jquery.min.js"></script>
                                      <div class="col-lg-6 mt-40"> 
-                                         <img src="{{isset($setting) && $setting->image ? $setting->image : asset('/public/backEnd/img/503.png')}}" style="width: 100%; height: auto;" alt="{{isset($setting)? $setting->title:''}}" id="blahImg">
+                                         <img src="{{isset($setting) && $setting->image ? $setting->image : asset('backEnd/img/503.png')}}" style="width: 100%; height: auto;" alt="{{isset($setting)? $setting->title:''}}" id="blahImg">
                                    
                                          
                                          <div class="row mt-40">

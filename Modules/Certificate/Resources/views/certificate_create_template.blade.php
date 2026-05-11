@@ -3,7 +3,7 @@
     {{ @$page_title }}
 @endsection
 @push('css')
-    <link href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}" rel="stylesheet">
+    <link href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('Modules/Certificate/Resources/assets/css/editor.css')}}">
     <style>
         .offer_title {
@@ -467,7 +467,7 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('public/backEnd/vendors/editor/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/editor/summernote-bs4.js') }}"></script>
     <script>
         $(document).ready(function() {
             var edu_summernote = $('.edu_summernote').summernote({

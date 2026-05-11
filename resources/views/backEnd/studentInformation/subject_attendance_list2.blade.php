@@ -27,7 +27,7 @@
 @section('title') 
 @lang('student.subject_wise_attendance')
 @endsection
-<link rel="stylesheet" href="{{asset('public/backEnd/css/login_access_control.css')}}"/>
+<link rel="stylesheet" href="{{asset('backEnd/css/login_access_control.css')}}"/>
 <section class="sms-breadcrumb mb-20 up_breadcrumb">
     <div class="container-fluid">
         <div class="row justify-content-between">

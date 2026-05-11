@@ -61,7 +61,7 @@
                       </option>
                   </select>
                   <div class="pull-right loader loader_style" id="select_subject_loader">
-                      <img class="loader_img_style" src="{{asset('public/backEnd/img/demo_wait.gif')}}" alt="loader">
+                      <img class="loader_img_style" src="{{asset('backEnd/img/demo_wait.gif')}}" alt="loader">
                   </div>
                   
                   @if ($errors->has('subject_id'))
@@ -100,8 +100,8 @@
 @if(moduleStatusCheck('University'))
 <script src="{{ asset('Modules/University/Resources/assets/js/app.js') }}"></script>
 @else 
-<script src="{{ asset('public/backEnd/js/custom.js') }}"></script>
-<script src="{{ asset('public/backEnd/js/developer.js') }}"></script>
+<script src="{{ asset('backEnd/js/custom.js') }}"></script>
+<script src="{{ asset('backEnd/js/developer.js') }}"></script>
 @endif 
 
 

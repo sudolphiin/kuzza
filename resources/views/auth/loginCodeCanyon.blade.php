@@ -17,18 +17,18 @@ $css = "background: url('../../../CC.png') no-repeat center; background-size: co
     <link rel="icon" href="{{ asset(generalSetting()->favicon) }}" type="image/png" />
     <title>@lang('auth.login')</title>
     <meta name="_token" content="{!! csrf_token() !!}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/themify-icons.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/themify-icons.css" />
 
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/css/nice-select.css" />
-    <link rel="stylesheet" href="{{ url('/') }}/public/backEnd/vendors/js/select2/select2.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/nice-select.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/js/select2/select2.css" />
 
-    <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/vendors/css/toastr.min.css" />
+    <link rel="stylesheet" href="{{ asset('backEnd/') }}/vendors/css/toastr.min.css" />
     <link rel="stylesheet" href="{{ asset('public/frontend/') }}/css/{{ activeStyle()->path_main_style }}" />
     <x-root-css />
     @if (isset($ttl_rtl) && $ttl_rtl==1)
     <link rel="stylesheet" href="{{ url('public/backEnd/') }}/assets/vendors/vendors_static_style.css" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/css/rtl/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/css/rtl/style.css') }}" />
         @endif
 </head>
 
@@ -355,12 +355,12 @@ $css = "background: url('../../../CC.png') no-repeat center; background-size: co
     </footer>
     <!--================ End Footer Area =================-->
 
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/jquery-3.2.1.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/popper.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/vendors/js/bootstrap.min.js"></script>
-    <script src="{{ url('/') }}/public/backEnd/vendors/js/nice-select.min.js"></script>
-    <script src="{{ asset('public/backEnd/') }}/js/login.js"></script>
-    <script type="text/javascript" src="{{ asset('public/backEnd/') }}/vendors/js/toastr.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/jquery-3.2.1.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/popper.js"></script>
+    <script src="{{ asset('backEnd/') }}/vendors/js/bootstrap.min.js"></script>
+    <script src="{{ asset('backEnd/vendors/js/nice-select.min.js"></script>
+    <script src="{{ asset('backEnd/') }}/js/login.js"></script>
+    <script type="text/javascript" src="{{ asset('backEnd/') }}/vendors/js/toastr.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

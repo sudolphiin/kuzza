@@ -194,7 +194,7 @@
                                     @if(!empty($value->image))
                                         <img class="img-fluid rounded-circle testimonial-image" src="{{asset($value->image)}}" alt="">
                                     @else
-                                        <img class="img-fluid rounded-circle testimonial-image" src="{{asset('public/uploads/sample.jpg')}}" alt="">
+                                        <img class="img-fluid rounded-circle testimonial-image" src="{{asset('uploads/sample.jpg')}}" alt="">
                                     @endif
                                 </div>
                                 <div class="meta text-left">

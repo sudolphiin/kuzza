@@ -50,7 +50,7 @@
                             <div class="cal-lg-4">
                                 <div class="img-thumb text-center">
                                     <img style="width:60%" class="rounded-circle"
-                                        src="{{ file_exists(@profile()) ? asset(@profile()) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                        src="{{ file_exists(@profile()) ? asset(@profile()) : asset('uploads/staff/demo/staff.jpg') }}"
                                         alt="">
                                 </div>
                                 <div class="title text-center mt-25">

@@ -154,7 +154,7 @@
         .logo_img{
             display: flex;
             align-items: center;
-            background: url({{asset('public/backEnd/img/report-admit-bg.png')}}) no-repeat center;
+            background: url({{asset('backEnd/img/report-admit-bg.png')}}) no-repeat center;
             background-size: auto;
             background-size: cover;
             border-radius: 5px 5px 0px 0px;
@@ -332,7 +332,7 @@
             text-align: right;
         }
         .tableInfo_header{
-            background: url({{asset('public/backEnd/')}}/img/report-admit-bg.png) no-repeat center;
+            background: url({{asset('backEnd/')}}/img/report-admit-bg.png) no-repeat center;
             background-size: cover;
             border-radius: 5px 5px 0px 0px;
             border: 0;

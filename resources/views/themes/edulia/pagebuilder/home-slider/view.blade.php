@@ -1,11 +1,11 @@
 @pushonce(config('pagebuilder.site_style_var'))
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/packages/carousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/packages/carousel/owl.carousel.min.css') }}">
 @endpushonce
 
 <x-home-page-slider :count="pagesetting('home_slider_count')"> </x-home-page-slider>
 
 @pushonce(config('pagebuilder.site_script_var'))
-    <script src="{{ asset('public/theme/edulia/packages/carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('theme/edulia/packages/carousel/owl.carousel.min.js') }}"></script>
     <script>
         $('.hero_area_slider').owlCarousel({
             nav: true,

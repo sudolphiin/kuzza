@@ -1,5 +1,5 @@
 @pushonce(config('pagebuilder.site_style_var'))
-    <link rel="stylesheet" href="{{ asset('public/theme/edulia/packages/magnific/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/edulia/packages/magnific/magnific-popup.min.css') }}">
 @endpushonce
 <div class="section_padding">
     <div class="container">
@@ -22,5 +22,5 @@
             });
         });
     </script>
-    <script src="{{ asset('public/theme/edulia/packages/magnific/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('theme/edulia/packages/magnific/jquery.magnific-popup.min.js') }}"></script>
 @endpushonce

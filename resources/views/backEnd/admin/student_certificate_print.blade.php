@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="{{ asset('Modules/Certificate/Resources/assets/css/editor.css') }}">
     <link rel="stylesheet" href="{{ asset('Modules/Certificate/Resources/assets/css/paper/normalize.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Modules/Certificate/Resources/assets/css/paper/paper.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/vendors/css/bootstrap.min.css') }}" />
     <style>
         @font-face {
             font-family: 'Pinyon Script';
-            src: url('{{ asset('public/backEnd/fonts/pinyonscript-regular-webfont.woff') }}') format('woff2'),
-                url('{{ asset('public/backEnd/fonts/pinyonscript-regular-webfont.woff') }}') format('woff');
+            src: url('{{ asset('backEnd/fonts/pinyonscript-regular-webfont.woff') }}') format('woff2'),
+                url('{{ asset('backEnd/fonts/pinyonscript-regular-webfont.woff') }}') format('woff');
             font-weight: normal;
             font-style: normal;
 
@@ -274,7 +274,7 @@
                                     <div style="flex: 6;">
                                         @if($certificate->student_photo == 1)
                                         <img class="student-meta-img img-100"
-                                            src="{{ file_exists(@$student->student->student_photo) ? asset($student->student->student_photo) : asset('public/uploads/staff/demo/staff.jpg') }}"
+                                            src="{{ file_exists(@$student->student->student_photo) ? asset($student->student->student_photo) : asset('uploads/staff/demo/staff.jpg') }}"
                                             alt="">
                                         @endif
                                     </div>

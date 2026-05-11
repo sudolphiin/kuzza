@@ -141,7 +141,7 @@
                                                             class="ti-menu"></i></span>{{ $key + 1 }}</td>
                                                 <td>{{ @$value->staff->full_name }}</td>
                                                 <td>{{ @$value->staff->designations->title }}</td>
-                                                <td><img src="{{ @$value->staff->staff_photo ? asset(@$value->staff->staff_photo) : asset('public/uploads/staff/staff.jpg') }}"
+                                                <td><img src="{{ @$value->staff->staff_photo ? asset(@$value->staff->staff_photo) : asset('uploads/staff/staff.jpg') }}"
                                                         width="50px" height="50px">
                                                 </td>
                                                 <td>

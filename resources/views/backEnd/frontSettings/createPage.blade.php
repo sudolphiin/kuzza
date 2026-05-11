@@ -8,7 +8,7 @@
 @endsection
 @section('mainContent')
     @push('css')
-        <link rel="stylesheet" href="{{ asset('public/backEnd/vendors/editor/summernote-bs4.css') }}">
+        <link rel="stylesheet" href="{{ asset('backEnd/vendors/editor/summernote-bs4.css') }}">
         <style>
             .cust-class {
                 font-size: 12px;
@@ -243,7 +243,7 @@
     </section>
 @endsection
 @push('script')
-    <script src="{{ asset('public/backEnd/vendors/editor/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('backEnd/vendors/editor/summernote-bs4.js') }}"></script>
     <script>
         function processSlug(value, slug_id) {
             let data = value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');

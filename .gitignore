@@ -1,5 +1,5 @@
 /node_modules
-/public/
+/public/hot
 /vendor
 .env
 .env.backup
@@ -10,7 +10,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /uploads
-/storage/
+/storage/app/uploads
 docker-compose.override.yml
 /.idea
 /.vscode
@@ -19,11 +19,14 @@ docker-compose.override.yml
 copy.php
 change-list.txt
 .DS_Store
-.htaccess
 
-# Security
+# Local plans / DB dumps (never commit)
+plan.md
 kuzza_export.sql
-auth.json
-config.json
 
-storage/framework/views/*.php
+# IDE / tooling artifacts
+.specstory/
+
+# Laravel compiled / debugbar (local only)
+/storage/debugbar/
+/storage/framework/views/

@@ -3,11 +3,11 @@
     {{ @Auth::user()->roles->name }} @lang('common.dashboard')
 @endsection
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/css/fullcalendar.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/calender_js/core/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/calender_js/daygrid/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/calender_js/timegrid/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/backEnd/assets/vendors/calender_js/list/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/css/fullcalendar.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/calender_js/core/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/calender_js/daygrid/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/calender_js/timegrid/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backEnd/assets/vendors/calender_js/list/main.css') }}" />
     <style>
         .ti-calendar:before {
             position: absolute;
@@ -705,8 +705,8 @@
 @include('backEnd.partials.date_picker_css_js')
 @include('backEnd.communicate.academic_calendar_css_js')
 @section('script')
-    <script type="text/javascript" src="{{ asset('public/backEnd/') }}/vendors/js/fullcalendar.min.js"></script>
-    <script src="{{ asset('public/backEnd/vendors/js/fullcalendar-locale-all.js') }}"></script>
+    <script type="text/javascript" src="{{ public_asset('backEnd/vendors/js/fullcalendar.min.js') }}"></script>
+    <script src="{{ public_asset('backEnd/vendors/js/fullcalendar-locale-all.js') }}"></script>
 
     <script type="text/javascript">
         function barChart(idName) {

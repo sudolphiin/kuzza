@@ -291,7 +291,7 @@
                                 @php
                                     $file = trim($file, '"');
                                     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                                    $file_url = asset('public/uploads/homeworkcontent/' . $file);
+                                    $file_url = asset('uploads/homeworkcontent/' . $file);
                                     $set_filename = time() . '_' . basename($file);
                                 @endphp
 

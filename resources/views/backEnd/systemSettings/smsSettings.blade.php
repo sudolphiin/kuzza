@@ -243,7 +243,7 @@
                                         <div class="col-md-7">
                                             <div class="row justify-content-center">
                                                 <img class="logo" width="250" height="90"
-                                                    src="{{ URL::asset('public/backEnd/img/twilio.png') }}">
+                                                    src="{{ URL::asset('backEnd/img/twilio.png') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -371,7 +371,7 @@
                                     <div class="col-md-7">
                                         <div class="row justify-content-center">
                                             <img class="logo" width="" height=""
-                                                src="{{ URL::asset('public/backEnd/img/MSG91-logo.png') }}">
+                                                src="{{ URL::asset('backEnd/img/MSG91-logo.png') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -506,7 +506,7 @@
 
                                         <!-- <div class="col-md-7">
                                         <div class="row justify-content-center">
-                                             <img class="logo" width="250" height="90" src="{{ URL::asset('public/backEnd/img/twilio.png') }}">
+                                             <img class="logo" width="250" height="90" src="{{ URL::asset('backEnd/img/twilio.png') }}">
                                         </div>
                                     </div> -->
                                     </div>
@@ -747,7 +747,7 @@
 
                                         <!-- <div class="col-md-7">
                                         <div class="row justify-content-center">
-                                             <img class="logo" width="250" height="90" src="{{ URL::asset('public/backEnd/img/twilio.png') }}">
+                                             <img class="logo" width="250" height="90" src="{{ URL::asset('backEnd/img/twilio.png') }}">
                                         </div>
                                     </div> -->
                                     </div>
@@ -838,7 +838,7 @@
 
                                         <!-- <div class="col-md-7">
                                         <div class="row justify-content-center">
-                                             <img class="logo" width="250" height="90" src="{{ URL::asset('public/backEnd/img/twilio.png') }}">
+                                             <img class="logo" width="250" height="90" src="{{ URL::asset('backEnd/img/twilio.png') }}">
                                         </div>
                                     </div> -->
                                     </div>

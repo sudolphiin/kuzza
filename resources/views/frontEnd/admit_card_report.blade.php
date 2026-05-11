@@ -89,7 +89,7 @@
                                 <div class="admit-header">
 
                                 </div>
-                                <img class="admit-meta-img img-100" src="{{asset('public/backEnd/img/student/student-meta-img.png')}}" alt="">
+                                <img class="admit-meta-img img-100" src="{{asset('backEnd/img/student/student-meta-img.png')}}" alt="">
                                 <div class="admin-body">
                                 <table class="mt-50 w-100">
                                     <thead>

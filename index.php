@@ -1,6 +1,11 @@
 <?php
-ob_start();
 
+/*
+| Output buffering catches stray warnings/BOM from includes so the HTTP response
+| stays well-formed. Skipping this for POST / caused ngrok ERR_NGROK_3004
+| ("invalid or incomplete HTTP response") when anything printed before Laravel.
+*/
+ob_start();
 
 /**
  * Laravel - A PHP Framework For Web Artisans

@@ -29,9 +29,9 @@ $ttl_rtl = $setting->ttl_rtl;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('public/backEnd/login')}}/css/4_3_1_bootstrap.min.css">
-    <link rel="stylesheet" href="{{asset('public/backEnd/login')}}/css/themify-icons.css">
-    <link rel="stylesheet" href="{{asset('public/backEnd/login')}}/css/style.css">
+    <link rel="stylesheet" href="{{asset('backEnd/login')}}/css/4_3_1_bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('backEnd/login')}}/css/themify-icons.css">
+    <link rel="stylesheet" href="{{asset('backEnd/login')}}/css/style.css">
   </head>
   <body >
     
@@ -130,9 +130,9 @@ $ttl_rtl = $setting->ttl_rtl;
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{asset('public/backEnd/login')}}/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="{{asset('public/backEnd/login')}}/js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="{{asset('public/backEnd/login')}}/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{{asset('backEnd/login')}}/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{{asset('backEnd/login')}}/js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="{{asset('backEnd/login')}}/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
 </body>
 </html>

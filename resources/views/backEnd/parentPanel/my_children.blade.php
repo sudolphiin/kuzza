@@ -137,7 +137,7 @@
                         <div class="student-meta-top"></div>
                         @if (is_show('photo'))
                             <img class="student-meta-img img-100"
-                                 src="{{ file_exists(@$student_detail->student_photo) ? asset($student_detail->student_photo) : asset('public/uploads/staff/demo/student.jpg') }}"
+                                 src="{{ file_exists(@$student_detail->student_photo) ? asset($student_detail->student_photo) : asset('uploads/staff/demo/student.jpg') }}"
                                  alt="">
                         @endif
                         <div class="white-box radius-t-y-0">
@@ -507,7 +507,7 @@
                                     @if (is_show('fathers_photo'))
                                         <div class="mr-20 mt-20">
                                             <img class="student-meta-img img-100"
-                                                 src="{{ file_exists(@$student_detail->parents->fathers_photo) ? asset($student_detail->parents->fathers_photo) : asset('public/uploads/staff/demo/father.png') }}"
+                                                 src="{{ file_exists(@$student_detail->parents->fathers_photo) ? asset($student_detail->parents->fathers_photo) : asset('uploads/staff/demo/father.png') }}"
                                                  alt="">
                                         </div>
                                     @endif
@@ -572,7 +572,7 @@
                                     @if (is_show('mothers_photo'))
                                         <div class="mr-20 mt-20">
                                             <img class="student-meta-img img-100"
-                                                 src="{{ file_exists(@$student_detail->parents->mothers_photo) ? asset($student_detail->parents->mothers_photo) : asset('public/uploads/staff/demo/mother.jpg') }}"
+                                                 src="{{ file_exists(@$student_detail->parents->mothers_photo) ? asset($student_detail->parents->mothers_photo) : asset('uploads/staff/demo/mother.jpg') }}"
                                                  alt="">
                                         </div>
                                     @endif
@@ -637,7 +637,7 @@
                                     @if (is_show('guardians_photo'))
                                         <div class="mr-20 mt-20">
                                             <img class="student-meta-img img-100"
-                                                 src="{{ file_exists(@$student_detail->parents->guardians_photo) ? asset($student_detail->parents->guardians_photo) : asset('public/uploads/staff/demo/guardian.jpg') }}"
+                                                 src="{{ file_exists(@$student_detail->parents->guardians_photo) ? asset($student_detail->parents->guardians_photo) : asset('uploads/staff/demo/guardian.jpg') }}"
                                                  alt="">
                                         </div>
                                     @endif
@@ -1175,7 +1175,7 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td class="text-right"><img
-                                                                            src="{{ asset('public/backEnd/img/table-arrow.png') }}">
+                                                                            src="{{ asset('backEnd/img/table-arrow.png') }}">
                                                                 </td>
                                                                 <td>
                                                                     @php

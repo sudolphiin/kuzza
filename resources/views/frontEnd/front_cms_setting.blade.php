@@ -80,7 +80,7 @@
                                 <div class="col-lg-6">
                                     <label class="radio-img position-relative">
                                         <input name="theme" value="darkgray" type="radio">
-                                        <img class="img-fluid" src="{{asset('public/backEnd//img/themes/light-theme.jpg')}}" alt="">
+                                        <img class="img-fluid" src="{{asset('backEnd//img/themes/light-theme.jpg')}}" alt="">
                                         <p class="m-0 v-h-center text-white text-uppercase">Light Theme</p>
                                     </label>
                                 </div>
@@ -88,7 +88,7 @@
                                 <div class="col-lg-6">
                                     <label class="radio-img position-relative">
                                         <input name="theme" value="darkgray" type="radio">
-                                        <img class="img-fluid"  src="{{asset('public/backEnd//img/themes/dark-theme.jpg')}}" alt="">
+                                        <img class="img-fluid"  src="{{asset('backEnd//img/themes/dark-theme.jpg')}}" alt="">
                                         <p class="m-0 v-h-center text-white text-uppercase">Dark Theme</p>
                                     </label>
                                 </div>
@@ -99,7 +99,7 @@
                                     <p>Logo</p>
                                 </div>
                                 <div class="col-lg-5 col-md-7">
-                                    <img class="img-fluid" src="{{asset('public/backEnd//img/logo.png')}}" alt="">
+                                    <img class="img-fluid" src="{{asset('backEnd//img/logo.png')}}" alt="">
                                 </div>
                             </div>
 
@@ -108,7 +108,7 @@
                                     <p>Favicon</p>
                                 </div>
                                 <div class="col-lg-5 col-md-7">
-                                    <img class="img-fluid" src="{{asset('public/backEnd//img/favicon.png')}}" alt="">
+                                    <img class="img-fluid" src="{{asset('backEnd//img/favicon.png')}}" alt="">
                                 </div>
                             </div>
                         </div>

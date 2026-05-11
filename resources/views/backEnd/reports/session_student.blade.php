@@ -82,7 +82,7 @@
                                             <div class="d-flex">
                                                 <div>
                                                     <img class="logo-img" src="{{ generalSetting()->logo }}" alt="">
-                                                     {{-- <img class="report-admit-img" src="{{asset('public/uploads/staff/std1.jpg')}}" alt=""> --}}
+                                                     {{-- <img class="report-admit-img" src="{{asset('uploads/staff/std1.jpg')}}" alt=""> --}}
                                                 </div>
                                                 <div class="ml-30">
                                                     <h3 class="text-white"> {{isset(generalSetting()->school_name)?generalSetting()->school_name:'Kuzza School Management ERP'}} </h3>
@@ -91,7 +91,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                {{-- <img class="report-admit-img" src="{{asset('public/uploads/staff/std1.jpg')}}" alt=""> --}}
+                                                {{-- <img class="report-admit-img" src="{{asset('uploads/staff/std1.jpg')}}" alt=""> --}}
                                                 <img class="report-admit-img" src="{{asset($studentDetails->student_photo)}}" width="100" height="100" alt="">
                                             </div>
                                         </div> 

@@ -109,7 +109,7 @@
                                                 </select>
                                                 <div class="pull-right loader" id="select_subject_loader"
                                                     style="margin-top: -30px;padding-right: 21px;">
-                                                    <img src="{{ asset('public/backEnd/image/pre-loader.gif') }}"
+                                                    <img src="{{ asset('backEnd/image/pre-loader.gif') }}"
                                                         alt="" style="width: 28px;height:28px;">
                                                 </div>
                                                 @if ($errors->has('subject'))

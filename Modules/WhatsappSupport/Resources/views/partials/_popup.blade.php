@@ -20,8 +20,8 @@
                 <div class="whats_app_popup_body">
                     @if ($ws_setting->layout == 2)
                         <div class="whats_app_popup_thumb">
-                            @if ($ws_setting->bubble_logo == null)
-                                <img src="{{ asset('public/whatsapp-support/demo-avatar.jpg') }}"
+                                @if ($ws_setting->bubble_logo == null)
+                                <img src="{{ asset('whatsapp-support/demo-avatar.jpg') }}"
                                     alt="">
                             @else
                                 <img src="{{ asset($ws_setting->bubble_logo) }}" alt="">
@@ -34,7 +34,7 @@
                                 @if ($ws_setting->layout == 1)
                                     {{-- <div class="whats_app_popup_thumb mb_15"> --}}
                                         @if ($ws_setting->bubble_logo == null)
-                                            <img src="{{ asset('public/whatsapp-support/demo-avatar.jpg') }}"
+                                            <img src="{{ asset('whatsapp-support/demo-avatar.jpg') }}"
                                                 alt="">
                                         @else
                                             <img src="{{ asset($ws_setting->bubble_logo) }}" alt="">
@@ -45,7 +45,7 @@
                             <p class="intro_text">{{ $ws_setting->intro_text }}</p>
                         </div>
                         <div class="whats_app_popup_text">
-                            <img src="{{ asset('public/whatsapp-support/hand.svg') }}" alt="">
+                            <img src="{{ asset('whatsapp-support/hand.svg') }}" alt="">
                             <p> {{ $ws_setting->welcome_message }}</p>
                         </div>
                         @if ($ws_setting->agent_type != 'single')
@@ -185,9 +185,9 @@
                 <div class="whats_app_popup_body">
                     @if ($ws_setting->layout == 2)
                         <div class="whats_app_popup_thumb">
-                            @if ($ws_setting->bubble_logo == null)
-                                <img src="{{ asset('public/whatsapp-support/demo-avatar.jpg') }}"
-                                    alt="">
+                                @if ($ws_setting->bubble_logo == null)
+                                            <img src="{{ asset('whatsapp-support/demo-avatar.jpg') }}"
+                                                alt="">
                             @else
                                 <img src="{{ asset($ws_setting->bubble_logo) }}" alt="">
                             @endif
@@ -229,7 +229,7 @@
                                                 <div class="single_group_member_inner">
                                                     <div class="thumb">
                                                         @if (is_null($agent_list->avatar))
-                                                            <img src="{{ asset('public/whatsapp-support/demo-avatar.jpg') }}"
+                                                            <img src="{{ asset('whatsapp-support/demo-avatar.jpg') }}"
                                                                 alt="">
                                                         @else
                                                             <img src="{{ asset($agent_list->avatar) }}"

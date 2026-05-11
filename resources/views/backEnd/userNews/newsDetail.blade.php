@@ -247,7 +247,7 @@
                                                                     alt="{{ @$comment->user->parent->first_name }}">
                                                             @else --}}
                                                                 <img class="img-fluid rounded-circle"
-                                                                    src="{{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('public/backEnd/assets/img/avatar.png')  }}"
+                                                                    src="{{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('backEnd/assets/img/avatar.png')  }}"
                                                                     alt="{{ @$comment->user->staff->first_name }}">
                                                             {{-- @endif --}}
                                                         </div>
@@ -411,7 +411,7 @@
                                                                     @elseif($reply->user->role_id == 3)
                                                                         <img class="img-fluid rounded-circle" src="{{ asset($reply->user->parent->guardians_photo) }}" alt="{{ @$reply->user->parent->first_name }}">
                                                                     @else --}}
-                                                                        <img class="img-fluid rounded-circle" src=" {{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('public/backEnd/assets/img/avatar.png') }}">
+                                                                        <img class="img-fluid rounded-circle" src=" {{ @profile() && file_exists(@profile()) ? asset(profile()) : asset('backEnd/assets/img/avatar.png') }}">
                                                                     {{-- @endif --}}
                                                                 </div>
                                                                 <div class="d-flex">
